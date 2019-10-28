@@ -8,8 +8,8 @@ describe("DinnerModel", () => {
     model = new DinnerModel();
   });
 
-    // TODO Lab 1: write a test to verify that the number of guests cannot be less than 1.
-    // If setNumberOfGuests(num) is called with num <= 0, then then number of guests should be set to 1.
+  // TODO Lab 1: write a test to verify that the number of guests cannot be less than 1.
+  // If setNumberOfGuests(num) is called with num <= 0, then then number of guests should be set to 1.
 
   describe("all the functions are present", () => {
     it("contains all the default functions", () => {
@@ -44,6 +44,17 @@ describe("DinnerModel", () => {
             let getDishReturnsPromise = model.getDish(1) instanceof Promise;
             expect(getDishReturnsPromise).to.equal(true);
         });
+
+      it('dishesConst is removed', () => {
+        expect(typeof dishesConst).to.equal('undefined');
+      });
+
+      it('the apiConfig is correctly configured', () => {
+        expect(typeof ENDPOINT).to.equal('string');
+        expect(ENDPOINT).to.not.equal('');
+        expect(typeof API_KEY).to.equal('string');
+        expect(API_KEY).to.not.equal('');
+      });
 
         it("gets the correct dish", (done) => {
             model.getDish(559251)
@@ -162,10 +173,10 @@ describe("DinnerModel", () => {
         }
 
     });
-
+  
   describe("loading indicator", () => {
     it("checks if the loading indicator is still visible on the page", () => {
-      expect(document.getElementById("loader").style.display).to.equal("none");
+      expect(document.querySelector("#loader").style.display).to.equal("none");
     });
   });
 });
