@@ -1,4 +1,3 @@
-const assert = chai.assert;
 const expect = chai.expect;
 
 describe("DinnerModel", () => {
@@ -39,141 +38,104 @@ describe("DinnerModel", () => {
     });
   });
 
-    describe("getting individual dishes", () => {
-        it("returns a Promise", () => {
-            let getDishReturnsPromise = model.getDish(1) instanceof Promise;
-            expect(getDishReturnsPromise).to.equal(true);
-        });
-
-      it('dishesConst is removed', () => {
-        expect(typeof dishesConst).to.equal('undefined');
-      });
-
-      it('the apiConfig is correctly configured', () => {
-        expect(typeof ENDPOINT).to.equal('string');
-        expect(ENDPOINT).to.not.equal('');
-        expect(typeof API_KEY).to.equal('string');
-        expect(API_KEY).to.not.equal('');
-      });
-
-        it("gets the correct dish", (done) => {
-            model.getDish(559251)
-                .then((data) => {
-                    expect(data.title).to.equal("Breakfast Pizza");
-                    done();
-                });
-        }).timeout(10000);
-
-        it("returns undefined if dish is not found", (done) => {
-            model.getDish(-1)
-                .then((data) => {
-                    expect(data.code).to.equal(404);
-                    done();
-                });
-        }).timeout(10000);
+  describe("getting individual dishes", () => {
+    it("returns a Promise", () => {
+      let getDishReturnsPromise = model.getDish(1) instanceof Promise;
+      expect(getDishReturnsPromise).to.equal(true);
     });
 
-    describe("filtering for dishes", () => {
-        it("returns either a Promise", () => {
-            let getAllDishesReturnsPromise = model.getAllDishes() instanceof Promise;
-            expect(getAllDishesReturnsPromise).to.equal(true);
-        });
-
-        it("returns all dishes if no args are specified", (done) => {
-            model.getAllDishes()
-                .then((data) => {
-                    expect(data.length).to.equal(10);
-                    done();
-                });
-        }).timeout(10000);
-
-        it("returns the correct dish type of main course and pizza", (done) => {
-            model.getAllDishes("main course", "pizza")
-                .then((data) => {
-                    const onlyHasPizzas = data.every(dish => dish.title.toLowerCase().indexOf("pizza") > -1);
-                    expect(onlyHasPizzas).to.equal(true);
-                    done();
-                });
-        }).timeout(10000);
+    it('dishesConst is removed', () => {
+      expect(typeof dishesConst).to.equal('undefined');
     });
 
-    describe("menu", () => {
-        let getDishReturnsPromise = model.getDish(1) instanceof Promise;
-        let getDishReturnsObject = model.getDish(1) instanceof Object;
+    it('the apiConfig is correctly configured', () => {
+      expect(typeof ENDPOINT).to.equal('string');
+      expect(ENDPOINT).to.not.equal('');
+      expect(typeof API_KEY).to.equal('string');
+      expect(API_KEY).to.not.equal('');
+    });
 
-        if (getDishReturnsPromise) { // if it uses the spoonacular api
-            it("can add dishes", (done) => {
-                model.getDish(559251)
-                    .then((data) => {
-                        model.addDishToMenu(data);
-                        expect(model.getFullMenu().length).to.equal(1);
-                        expect(model.getFullMenu()[0].id).to.equal(559251);
-                        done();
-                    });
-            }).timeout(10000);
+    it("gets the correct dish", (done) => {
+      model.getDish(559251)
+          .then((data) => {
+            expect(data.title).to.equal("Breakfast Pizza");
+            done();
+          });
+    }).timeout(10000);
 
-            it("can remove dishes", (done) => {
-                model.getDish(559251)
-                    .then((data) => {
-                        model.addDishToMenu(data);
-                        expect(model.getFullMenu().length).to.equal(1);
-                        expect(model.getFullMenu()[0].id).to.equal(559251);
+    it("returns undefined if dish is not found", (done) => {
+      model.getDish(-1)
+          .then((data) => {
+            expect(data.code).to.equal(404);
+            done();
+          });
+    }).timeout(10000);
+  });
 
-                        model.removeDishFromMenu(559251);
-                        expect(model.getFullMenu().length).to.equal(0);
-                        expect(model.getFullMenu()).to.not.include(data);
-                        done();
-                    });
-            }).timeout(10000);
+  describe("filtering for dishes", () => {
+    it("returns a Promise", () => {
+      let getAllDishesReturnsPromise = model.getAllDishes() instanceof Promise;
+      expect(getAllDishesReturnsPromise).to.equal(true);
+    });
 
-            it("can find the dishes of a specific type on the menu", (done) => {
-                model.getDish(559251)
-                    .then((data) => {
-                        model.addDishToMenu(data);
-                        expect(model.getFullMenu().length).to.equal(1);
-                        expect(model.getFullMenu()[0].id).to.equal(559251);
+    it("returns all dishes if no args are specified", (done) => {
+      model.getAllDishes()
+          .then((data) => {
+            expect(data.length).to.equal(10);
+            done();
+          });
+    }).timeout(10000);
 
-                        model.removeDishFromMenu(559251);
-                        expect(model.getFullMenu().length).to.equal(0);
-                        expect(model.getFullMenu()).to.not.include(data);
-                        done();
-                    });
-            }).timeout(10000);
+    it("returns the correct dish type of main course and pizza", (done) => {
+      model.getAllDishes("main course", "pizza")
+          .then((data) => {
+            const onlyHasPizzas = data.every(dish => dish.title.toLowerCase().indexOf("pizza") > -1);
+            expect(onlyHasPizzas).to.equal(true);
+            done();
+          });
+    }).timeout(10000);
+  });
 
-        } else if (getDishReturnsObject) { // if it uses dishesConst
-            it("can add dishes", () => {
-                model.addDishToMenu(model.getDish(1));
-                expect(model.getFullMenu()).to.include(model.getDish(1));
-
-                model.addDishToMenu(model.getDish(100));
-                expect(model.getFullMenu()).to.include(model.getDish(1));
-                expect(model.getFullMenu()).to.include(model.getDish(100));
+  describe("menu", () => {
+      it("can add dishes", (done) => {
+        model.getDish(559251)
+            .then((data) => {
+              model.addDishToMenu(data);
+              expect(model.getFullMenu().length).to.equal(1);
+              expect(model.getFullMenu()[0].id).to.equal(559251);
+              done();
             });
+      }).timeout(10000);
 
-            it("can remove dishes", () => {
-                model.addDishToMenu(model.getDish(1));
-                // dish 1 should be in the menu
-                expect(model.getFullMenu()).to.include(model.getDish(1));
+      it("can remove dishes", (done) => {
+        model.getDish(559251)
+            .then((data) => {
+              model.addDishToMenu(data);
+              expect(model.getFullMenu().length).to.equal(1);
+              expect(model.getFullMenu()[0].id).to.equal(559251);
 
-                model.removeDishFromMenu(1);
-                // should now be removed
-                expect(model.getFullMenu()).to.not.include(model.getDish(1));
+              model.removeDishFromMenu(559251);
+              expect(model.getFullMenu().length).to.equal(0);
+              expect(model.getFullMenu()).to.not.include(data);
+              done();
             });
+      }).timeout(10000);
 
-            it("can find the dishes of a specific type on the menu", () => {
-                model.addDishToMenu(model.getDish(1)); // starter
-                model.addDishToMenu(model.getDish(2)); // starter
-                model.addDishToMenu(model.getDish(100)); // main dish
+      it("can find the dishes of a specific type on the menu", (done) => {
+        model.getDish(559251)
+            .then((data) => {
+              model.addDishToMenu(data);
+              expect(model.getFullMenu().length).to.equal(1);
+              expect(model.getFullMenu()[0].id).to.equal(559251);
 
-                let starters = model.getSelectedDishes('starter');
-                expect(starters).to.include(model.getDish(1));
-                expect(starters).to.include(model.getDish(2));
-                expect(starters).to.not.include(model.getDish(100));
-            })
-        }
+              model.removeDishFromMenu(559251);
+              expect(model.getFullMenu().length).to.equal(0);
+              expect(model.getFullMenu()).to.not.include(data);
+              done();
+            });
+      }).timeout(10000);
+  });
 
-    });
-  
   describe("loading indicator", () => {
     it("checks if the loading indicator is still visible on the page", () => {
       expect(document.querySelector("#loader").style.display).to.equal("none");
