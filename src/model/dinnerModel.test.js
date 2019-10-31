@@ -108,6 +108,8 @@ describe("DinnerModel", () => {
 
       it("returns the correct dish type", () => {
         let dishes = model.getAllDishes("starter");
+        console.log("QHOA")
+        console.log(dishes)
         const onlyHasStarters = dishes.every(dish => dish.dishTypes.includes("starter"));
         expect(onlyHasStarters).to.equal(true);
 
@@ -209,6 +211,16 @@ describe("DinnerModel", () => {
         expect(model.getFullMenu()).to.include(model.getDish(100));
       });
 
+      it("can replace dish when dishtype conflict", () => {
+        model.addDishToMenu(model.getDish(1));
+        expect(model.getFullMenu()).to.include(model.getDish(1));
+        
+        console.log("sdfkjkbsdfkdf")
+        model.addDishToMenu(model.getDish(2));
+        expect(model.getFullMenu()).to.not.include(model.getDish(1));
+        expect(model.getFullMenu()).to.include(model.getDish(2));
+      });
+
       it("can remove dishes", () => {
         model.addDishToMenu(model.getDish(1));
         // dish 1 should be in the menu
@@ -225,12 +237,24 @@ describe("DinnerModel", () => {
         model.addDishToMenu(model.getDish(100)); // main dish
 
         let starters = model.getSelectedDishes('starter');
-        expect(starters).to.include(model.getDish(1));
+        //this test tests whether 2 starters may exist at the same time in menu, but that is not allowed according
+        //To addDish specs, therefore removed from test suite. (according to spec, adding duplicate types removes the first added)
+        //expect(starters).to.include(model.getDish(1));
         expect(starters).to.include(model.getDish(2));
         expect(starters).to.not.include(model.getDish(100));
       })
     }
 
+  });
+
+  describe("Guests", () => {
+    it("can set and get number of guests", () => {
+      model.setNumberOfGuests(500);
+      expect(model.getNumberOfGuests()).to.equal(500);
+
+      model.setNumberOfGuests(1);
+      expect(model.getNumberOfGuests()).to.equal(1);
+    });
   });
 
   describe("loading indicator", () => {

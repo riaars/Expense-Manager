@@ -1,83 +1,68 @@
-//DinnerModel class
 class DinnerModel {
-
   constructor() {
     this.dishes = dishesConst;
-
-    //TODO Lab 1
-    // implement the data structure that will hold number of guests
-    // and selected dishes for the dinner menu
-
+    this.numberOfguests = 1;
+    this.fullMenu = [];
   }
 
   setNumberOfGuests(num) {
-    //TODO Lab 1
+    this.numberOfguests = Math.max(num,1);
   }
 
   getNumberOfGuests() {
-    //TODO Lab 1
+    return this.numberOfguests;
   }
 
   //Returns the dishes that are on the menu for selected type
   getSelectedDishes(type) {
-    //TODO Lab 1
+    return this.fullMenu.filter(value => value.dishTypes.includes(type));
   }
 
   //Returns all the dishes on the menu.
   getFullMenu() {
-    //TODO Lab 1
+    return this.fullMenu;
   }
 
   //Returns all ingredients for all the dishes on the menu.
   getAllIngredients() {
-    //TODO Lab 1
+     return this.fullMenu.map(dish => dish.extendedIngredients.map(ingredient => ingredient.name)).flat().filter((dish, pos, arr) => {return arr.indexOf(dish) === pos;});   
   }
 
   //Returns the total price of the menu (price per serving of each dish multiplied by number of guests).
   getTotalMenuPrice() {
-    //TODO Lab 1
+    return this.fullMenu.map(dishes => dishes.pricePerServing).reduce((totalPrice, dishPrice) =>{return totalPrice + dishPrice }, 0);
   }
 
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
   //it is removed from the menu and the new one added.
   addDishToMenu(dish) {
-    //TODO Lab 1
+    console.log(dish)
+    this.fullMenu = this.fullMenu.filter(oldDish => {return !oldDish.dishTypes.some(type => {console.log(dish.dishTypes.includes(type)); return dish.dishTypes.includes(type)})});
+    this.fullMenu.push(dish);
   }
 
   //Removes dish with specified id from menu
   removeDishFromMenu(id) {
-    //TODO Lab 1
+    this.fullMenu = this.fullMenu.filter(value => {value.id != id});
   }
 
   //Returns all dishes of specific type (i.e. "starter", "main dish" or "dessert").
   //query argument, text, if passed only returns dishes that contain the query in name or one of the ingredients.
   //if you don't pass any query, all the dishes will be returned
   getAllDishes(type, query) {
-    return this.dishes.filter(function (dish) {
-      let found = true;
-      if (query) {
-        found = false;
-        dish.extendedIngredients.forEach(function (ingredient) {
-          if (ingredient.name.indexOf(query) !== -1) {
-            found = true;
-          }
-        });
-        if (dish.name.indexOf(query) !== -1) {
-          found = true;
-        }
-      }
-      return (dish.dishTypes.includes(type) || !type) && found;
-    });
+    toggleLoader(true);
+    //Fake API call, untoggle loader immediately
+    toggleLoader(false);
+
+    //Rewritten to remove forEach
+    return this.dishes
+    .filter(dish => query ? dish.extendedIngredients.some(ingredient => name.indexOf(query) !== -1) || dish.name.indexOf(query) !== -1 : true)
+    .filter(dish => type ? dish.dishTypes.includes(type) : true)
   }
 
   //Returns a dish of specific ID
   getDish(id) {
-    for (let dish of this.dishes) {
-      if (dish.id === id) {
-        return dish;
-      }
-    }
-    return undefined;
+    return this.dishes.find(dish => dish.id === id);
   }
 }
 
@@ -324,4 +309,3 @@ function deepFreeze(o) {
 }
 
 deepFreeze(dishesConst);
-
