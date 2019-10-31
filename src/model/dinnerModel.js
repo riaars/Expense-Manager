@@ -2,8 +2,6 @@
 class DinnerModel {
 
   constructor() {
-    this.dishes = dishesConst;
-
     //TODO Lab 1
     // implement the data structure that will hold number of guests
     // and selected dishes for the dinner menu
