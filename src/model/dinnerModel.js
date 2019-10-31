@@ -30,14 +30,13 @@ class DinnerModel {
 
   //Returns the total price of the menu (price per serving of each dish multiplied by number of guests).
   getTotalMenuPrice() {
-    return this.fullMenu.map(dishes => dishes.pricePerServing).reduce((totalPrice, dishPrice) =>{return totalPrice + dishPrice }, 0);
+    return this.fullMenu.map(dishes => dishes.pricePerServing).reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0);
   }
 
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
   //it is removed from the menu and the new one added.
   addDishToMenu(dish) {
-    console.log(dish)
-    this.fullMenu = this.fullMenu.filter(oldDish => {return !oldDish.dishTypes.some(type => {console.log(dish.dishTypes.includes(type)); return dish.dishTypes.includes(type)})});
+    this.fullMenu = this.fullMenu.filter(oldDish => {return !oldDish.dishTypes.some(type => dish.dishTypes.includes(type))});
     this.fullMenu.push(dish);
   }
 

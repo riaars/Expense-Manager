@@ -108,8 +108,6 @@ describe("DinnerModel", () => {
 
       it("returns the correct dish type", () => {
         let dishes = model.getAllDishes("starter");
-        console.log("QHOA")
-        console.log(dishes)
         const onlyHasStarters = dishes.every(dish => dish.dishTypes.includes("starter"));
         expect(onlyHasStarters).to.equal(true);
 
@@ -215,7 +213,6 @@ describe("DinnerModel", () => {
         model.addDishToMenu(model.getDish(1));
         expect(model.getFullMenu()).to.include(model.getDish(1));
         
-        console.log("sdfkjkbsdfkdf")
         model.addDishToMenu(model.getDish(2));
         expect(model.getFullMenu()).to.not.include(model.getDish(1));
         expect(model.getFullMenu()).to.include(model.getDish(2));
