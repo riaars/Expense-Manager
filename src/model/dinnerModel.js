@@ -33,10 +33,8 @@ class DinnerModel {
     return this.fullMenu.map(dishes => dishes.pricePerServing).reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0);
   }
 
-  //Adds the passed dish to the menu. If the dish of that type already exists on the menu
-  //it is removed from the menu and the new one added.
+  //Adds the passed dish to the menu. 
   addDishToMenu(dish) {
-    this.fullMenu = this.fullMenu.filter(oldDish => {return !oldDish.dishTypes.some(type => dish.dishTypes.includes(type))});
     this.fullMenu.push(dish);
   }
 

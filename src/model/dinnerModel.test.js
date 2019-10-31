@@ -209,15 +209,6 @@ describe("DinnerModel", () => {
         expect(model.getFullMenu()).to.include(model.getDish(100));
       });
 
-      it("can replace dish when dishtype conflict", () => {
-        model.addDishToMenu(model.getDish(1));
-        expect(model.getFullMenu()).to.include(model.getDish(1));
-        
-        model.addDishToMenu(model.getDish(2));
-        expect(model.getFullMenu()).to.not.include(model.getDish(1));
-        expect(model.getFullMenu()).to.include(model.getDish(2));
-      });
-
       it("can remove dishes", () => {
         model.addDishToMenu(model.getDish(1));
         // dish 1 should be in the menu
@@ -234,11 +225,11 @@ describe("DinnerModel", () => {
         model.addDishToMenu(model.getDish(100)); // main dish
 
         let starters = model.getSelectedDishes('starter');
-        //this test tests whether 2 starters may exist at the same time in menu, but that is not allowed according
-        //To addDish specs, therefore removed from test suite. (according to spec, adding duplicate types removes the first added)
-        //expect(starters).to.include(model.getDish(1));
+        let mainDishes = model.getSelectedDishes('main dish');
+        expect(starters).to.include(model.getDish(1));
         expect(starters).to.include(model.getDish(2));
         expect(starters).to.not.include(model.getDish(100));
+        expect(mainDishes).to.include(model.getDish(100));
       })
     }
 
