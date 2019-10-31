@@ -30,7 +30,7 @@ class DinnerModel {
 
   //Returns the total price of the menu (price per serving of each dish multiplied by number of guests).
   getTotalMenuPrice() {
-    return this.fullMenu.map(dishes => dishes.pricePerServing).reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0);
+    return this.fullMenu.map(dishes => dishes.pricePerServing).reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0)*this.numberOfguests;
   }
 
   //Adds the passed dish to the menu. 
