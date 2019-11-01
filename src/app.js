@@ -1,45 +1,39 @@
-var show;
-// This will be a global funciton
+// helper function to find the container by short name
+const container(name){
+  return document.body.querySelector("#container-"+containerName);
+}
 
+// the View containers will not all be visible at the same time. Various screens will show different Views                                                              
+const screens = { 
+         home: ["home"], 
+         search: ["header", "sidebar", "search"],
+         overview: ["header", "overview"],
+      // TODO: add more screens here!    
+}
+  
+const show= function(screen) {
+    // hide all views first 
+    // optional FIXME: we could avoid hiding the containers that are part of the screen to be shown
+    // optional FIXME: finding the containers could be done automcatically by looking at document.body.firstChild.children
+    ["header", "home", "overview", "search", "sidebar"].forEach(containerName=> container(containerName).style.display="none");
+    
+    // now we show all the Views used by the indicated screen
+    screens[screen].forEach(containerName => container(containerName).style.display = "block");
+  }
+                                                
 window.onload = function () {
-  console.log("start");
   //We instantiate our model
   const model = new DinnerModel();
-
-  var containers = {}
-  var screens = {}
-  show = function(screen) {
-    for(var containerName in containers) { // Hide all 
-      containers[containerName].style.display = "none";
-    }
-
-    // Show only these (notice for of loop, good for arrays)
-    for(var containerName of screens[screen]) {
-      containers[containerName].style.display = "block";
-    }
-  }
-
-  containers["header"] = document.getElementById("container-header")
-  containers["home"] = document.getElementById("container-home")
-  containers["overview"] = document.getElementById("container-overview")
-  containers["search"] = document.getElementById("container-search")
-  containers["sidebar"] = document.getElementById("container-sidebar")
-  new HomeView(containers["home"], model);
-  new OverviewView(containers["overview"], model);
-  new SearchView(containers["search"], model);
-
-  // TODO Proably many are missing, but also not every one needs a view...
-
-  screens["home"] = ["home"]
-  screens["search"] = ["header", "sidebar", "search"]
-  screens["overview"] = ["header", "overview"]
-
+  
+  new HomeView(container("home"), model);
+  new OverviewView(container("overview"), model);
+  new SearchView(container("search"), model);
+  // TODO:  more views here
+  
   show("home");
 
   /**
-   * IMPORTANT: app.js is the only place where you are allowed to
-   * query for elements in the whole document.
-   * In other places you should limit the search only to the children
-   * of the specific view you're working with.
+   * IMPORTANT: app.js is the only place where you are allowed to use document.body
+   * In other Views you should limit your DOM searches to children of that View. For that, you must use querySelector()
    */
 };
