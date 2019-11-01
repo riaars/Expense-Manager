@@ -1,5 +1,5 @@
 // helper function to find the container by short name
-const container(name){
+const container=function(containerName){
   return document.body.querySelector("#container-"+containerName);
 }
 
@@ -9,17 +9,18 @@ const screens = {
          search: ["header", "sidebar", "search"],
          overview: ["header", "overview"],
       // TODO: add more screens here!    
-}
-  
-const show= function(screen) {
+};
+
+// switching between screens
+const show= function(screenName) {
     // hide all views first 
     // optional FIXME: we could avoid hiding the containers that are part of the screen to be shown
     // optional FIXME: finding the containers could be done automcatically by looking at document.body.firstChild.children
     ["header", "home", "overview", "search", "sidebar"].forEach(containerName=> container(containerName).style.display="none");
     
     // now we show all the Views used by the indicated screen
-    screens[screen].forEach(containerName => container(containerName).style.display = "block");
-  }
+    screens[screenName].forEach(containerName => container(containerName).style.display = "block");
+};
                                                 
 window.onload = function () {
   //We instantiate our model
@@ -35,5 +36,6 @@ window.onload = function () {
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body
    * In other Views you should limit your DOM searches to children of that View. For that, you must use querySelector()
+   * It is possible to implement Views using no DOM search at all, using DOM fields like element.firstChild, element.nextSibling...
    */
 };
