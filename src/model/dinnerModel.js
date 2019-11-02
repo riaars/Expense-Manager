@@ -1,5 +1,5 @@
-//Static imports not allowed, so let's not use import statement.
-const store = Redux.createStore(reducer);
+//static imports not allowed.
+const createStore = Redux.createStore;
 
 const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
 const ADD_DISH = "ADD_DISH"
@@ -15,6 +15,7 @@ const actions = {
 }
 
 const store = createStore(reducer);
+
 
 //State reducer
 function reducer(state = {}, action) {
@@ -47,6 +48,7 @@ function dishes(state=[], action) {
       return state;
   }
 }
+
 
 class DinnerModel {
   constructor() {
@@ -124,4 +126,3 @@ class DinnerModel {
            .catch(console.error);
   }
 }
-
