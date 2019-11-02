@@ -1,46 +1,102 @@
+//workaround for static imports not alowed outside module, and modules not allowed when origin = 'null'
+const createStore = Redux.createStore;
+
+const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
+const ADD_DISH = "ADD_DISH"
+const REMOVE_DISH = "REMOVE_DISH"
+const SET_DISHES = "SET_DISHES" 
+
+//Action creators.
+const actions = {
+  setNoGuestsAction(num) {return {type: SET_NUMBER_GUESTS, guestAmount: num}},
+  addDishAction(dish) {return {type: ADD_DISH, dish: dish}},
+  removeDishAction(id) {return {type: REMOVE_DISH, id: id}},
+  setDishAction(dishes) {return {type: SET_DISHES, dishes: dishes}},
+}
+
+const store = createStore(reducer);
+
+
+//State reducer
+function reducer(state = {}, action) {
+  return {
+      dishes: dishes(state.dishes, action),
+      numberOfGuests: numberOfGuests(state.numberOfGuests, action)
+   };
+}
+  
+//guests reducer
+function numberOfGuests(state = 1, action) {
+  switch(action.type) {
+    case SET_NUMBER_GUESTS:
+      return Math.max(action.guestAmount, 1) ;
+    default:
+      return state;
+  }
+}
+
+//Dishes reducer
+function dishes(state=[], action) {
+  switch(action.type) {
+    case ADD_DISH: 
+      return [...state, action.dish];
+    case REMOVE_DISH:
+      return state.filter(dish => dish.id != action.id);
+    case SET_DISHES: 
+      return action.dishes;
+    default:
+      return state;
+  }
+}
+
+
 class DinnerModel {
   constructor() {
-    this.numberOfguests = 1;
-    this.fullMenu = [];
+    store.dispatch(actions.setDishAction([]));
+    store.dispatch(actions.setNoGuestsAction(0));
   }
 
   setNumberOfGuests(num) {
-    this.numberOfguests = Math.max(num,1);
+    store.dispatch({type: 'SET_NUMBER_GUESTS', guestAmount: num});
   }
 
   getNumberOfGuests() {
-    return this.numberOfguests;
+    return store.getState().numberOfGuests;
   }
 
   //Returns the dishes that are on the menu for selected type
   getSelectedDishes(type) {
-    return this.fullMenu.filter(value => value.dishTypes.includes(type));
+    return store.getState().dishes.filter(value => value.dishTypes.includes(type));
   }
 
   //Returns all the dishes on the menu.
   getFullMenu() {
-    return this.fullMenu;
+    return store.getState().dishes;
   }
 
   //Returns all ingredients for all the dishes on the menu.
   getAllIngredients() {
-     return this.fullMenu.map(dish => dish.extendedIngredients.map(ingredient => ingredient.name)).flat().filter((dish, pos, arr) => {return arr.indexOf(dish) === pos;});   
+    return store.getState().dishes
+      .map(dish => dish.extendedIngredients
+      .map(ingredient => ingredient.name))
+      .flat().filter((dish, pos, arr) => {return arr.indexOf(dish) == pos;});
   }
 
   //Returns the total price of the menu (price per serving of each dish multiplied by number of guests).
   getTotalMenuPrice() {
-    return this.fullMenu.map(dishes => dishes.pricePerServing).reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0)*this.numberOfguests;
+    return store.getState().dishes
+    .map(dishes => dishes.pricePerServing)
+    .reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0)*this.numberOfguests;
   }
 
   //Adds the passed dish to the menu. 
   addDishToMenu(dish) {
-    this.fullMenu.push(dish);
-    
+    store.dispatch(actions.addDishAction(dish));
   }
 
   //Removes dish with specified id from menu
   removeDishFromMenu(id) {
-    this.fullMenu = this.fullMenu.filter(value => {value.id != id});
+    store.dispatch(actions.removeDishAction(id));
   }
 
   //Returns all dishes of specific type (i.e. "starter", "main dish" or "dessert").
@@ -54,7 +110,7 @@ class DinnerModel {
     if(!query)
        query = '';
 
-    toggleLoader(true)
+    toggleLoader(true);
     return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'search?type=' + type + '&query=' + query , HEADERS)
            .then(response => response.json())
            .then(responseJson => {toggleLoader(false); return responseJson.results})
@@ -63,7 +119,7 @@ class DinnerModel {
 
   //Returns a dish of specific ID
   getDish(id) {
-    toggleLoader(true)
+    toggleLoader(true);
     return fetch(ENDPOINT +'/' + 'recipes' + '/' + id + '/information', HEADERS)
            .then(response => response.json())
            .then(responseJson => {toggleLoader(false); return responseJson})
