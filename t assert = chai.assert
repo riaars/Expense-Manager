@@ -1,0 +1,367 @@
+[1mdiff --git a/src/model/apiConfig.js.template b/src/model/apiConfig.js.template[m
+[1mdeleted file mode 100644[m
+[1mindex e6dd660..0000000[m
+[1m--- a/src/model/apiConfig.js.template[m
+[1m+++ /dev/null[m
+[36m@@ -1,3 +0,0 @@[m
+[31m-// You can directly use these constants in the dinnerModel[m
+[31m-const ENDPOINT = '';[m
+[31m-const API_KEY = '';[m
+[1mdiff --git a/src/model/dinnerModel.js b/src/model/dinnerModel.js[m
+[1mindex abf1671..648491b 100644[m
+[1m--- a/src/model/dinnerModel.js[m
+[1m+++ b/src/model/dinnerModel.js[m
+[36m@@ -1,6 +1,5 @@[m
+ class DinnerModel {[m
+   constructor() {[m
+[31m-    this.dishes = dishesConst;[m
+     this.numberOfguests = 1;[m
+     this.fullMenu = [];[m
+   }[m
+[36m@@ -36,6 +35,7 @@[m [mclass DinnerModel {[m
+   //Adds the passed dish to the menu. [m
+   addDishToMenu(dish) {[m
+     this.fullMenu.push(dish);[m
+[32m+[m[41m    [m
+   }[m
+ [m
+   //Removes dish with specified id from menu[m
+[36m@@ -47,262 +47,26 @@[m [mclass DinnerModel {[m
+   //query argument, text, if passed only returns dishes that contain the query in name or one of the ingredients.[m
+   //if you don't pass any query, all the dishes will be returned[m
+   getAllDishes(type, query) {[m
+[31m-    toggleLoader(true);[m
+[31m-    //Fake API call, untoggle loader immediately[m
+[31m-    toggleLoader(false);[m
+[32m+[m[41m [m
+[32m+[m[32m    if(!type)[m
+[32m+[m[32m       type = '';[m
+ [m
+[31m-    //Rewritten to remove forEach[m
+[31m-    return this.dishes[m
+[31m-    .filter(dish => query ? dish.extendedIngredients.some(ingredient => name.indexOf(query) !== -1) || dish.name.indexOf(query) !== -1 : true)[m
+[31m-    .filter(dish => type ? dish.dishTypes.includes(type) : true)[m
+[32m+[m[32m    if(!query)[m
+[32m+[m[32m       query = '';[m
+[32m+[m
+[32m+[m[32m    return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'search?type=' + type + '&query=' + query , HEADERS)[m
+[32m+[m[32m           .then(response => response.json())[m
+[32m+[m[32m           .then(responseJson => responseJson.results)[m
+[32m+[m[32m           .catch(console.error);[m
+   }[m
+ [m
+   //Returns a dish of specific ID[m
+   getDish(id) {[m
+[31m-    return this.dishes.find(dish => dish.id === id);[m
+[32m+[m[41m    [m
+[32m+[m[32m    return fetch(ENDPOINT +'/' + 'recipes' + '/' + id + '/information', HEADERS)[m
+[32m+[m[32m           .then(response => response.json())[m
+[32m+[m[32m           .then(responseJson => responseJson)[m
+[32m+[m[32m           .catch(console.error);[m
+   }[m
+ }[m
+ [m
+[31m-// the dishes constant contains an array of all the[m
+[31m-// dishes in the database. Each dish has id, name, array of dishTypes,[m
+[31m-// image (name of the image file), instructions and[m
+[31m-// array of ingredients. Each ingredient has name,[m
+[31m-// amount (a number) and unit (string[m
+[31m-// defining the unit i.e. "g", "slices", "ml". Unit[m
+[31m-// can sometimes be empty like in the example of eggs where[m
+[31m-// you just say "5 eggs" and not "5 pieces of eggs" or anything else.[m
+[31m-const dishesConst = [{[m
+[31m-  'id': 1,[m
+[31m-  'name': 'French toast',[m
+[31m-  'dishTypes': ['starter', 'breakfast'],[m
+[31m-  'image': 'toast.jpg',[m
+[31m-  'instructions': "In a large mixing bowl, beat the eggs. Add the milk, brown sugar and nutmeg; stir well to combine. Soak bread slices in the egg mixture until saturated. Heat a lightly oiled griddle or frying pan over medium high heat. Brown slices on both sides, sprinkle with cinnamon and serve hot.",[m
+[31m-  'pricePerServing': 32.5,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'eggs',[m
+[31m-    'amount': 0.5,[m
+[31m-    'unit': '',[m
+[31m-  }, {[m
+[31m-    'name': 'milk',[m
+[31m-    'amount': 30,[m
+[31m-    'unit': 'ml',[m
+[31m-  }, {[m
+[31m-    'name': 'brown sugar',[m
+[31m-    'amount': 7,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'ground nutmeg',[m
+[31m-    'amount': 0.5,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'white bread',[m
+[31m-    'amount': 2,[m
+[31m-    'unit': 'slices',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 2,[m
+[31m-  'name': 'Sourdough Starter',[m
+[31m-  'dishTypes': ['starter'],[m
+[31m-  'image': 'sourdough.jpg',[m
+[31m-  'instructions': "Here is how you make it... Lore ipsum...",[m
+[31m-  'pricePerServing': 43.2,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'active dry yeast',[m
+[31m-    'amount': 0.5,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'warm water',[m
+[31m-    'amount': 30,[m
+[31m-    'unit': 'ml',[m
+[31m-  }, {[m
+[31m-    'name': 'all-purpose flour',[m
+[31m-    'amount': 15,[m
+[31m-    'unit': 'g',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 3,[m
+[31m-  'name': 'Baked Brie with Peaches',[m
+[31m-  'dishTypes': ['starter', 'lunch'],[m
+[31m-  'image': 'bakedbrie.jpg',[m
+[31m-  'instructions': "Here is how you make it... Lore ipsum...",[m
+[31m-  'pricePerServing': 52.8,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'round Brie cheese',[m
+[31m-    'amount': 10,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'raspberry preserves',[m
+[31m-    'amount': 15,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'peaches',[m
+[31m-    'amount': 1,[m
+[31m-    'unit': '',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 100,[m
+[31m-  'name': 'Meat balls',[m
+[31m-  'dishTypes': ['main dish'],[m
+[31m-  'image': 'meatballs.jpg',[m
+[31m-  'instructions': "Preheat an oven to 400 degrees F (200 degrees C). Place the beef into a mixing bowl, and season with salt, onion, garlic salt, Italian seasoning, oregano, red pepper flakes, hot pepper sauce, and Worcestershire sauce; mix well. Add the milk, Parmesan cheese, and bread crumbs. Mix until evenly blended, then form into 1 1/2-inch meatballs, and place onto a baking sheet. Bake in the preheated oven until no longer pink in the center, 20 to 25 minutes.",[m
+[31m-  'pricePerServing': 33.5,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'extra lean ground beef',[m
+[31m-    'amount': 115,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'sea salt',[m
+[31m-    'amount': 0.7,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'small onion, diced',[m
+[31m-    'amount': 0.25,[m
+[31m-    'unit': '',[m
+[31m-  }, {[m
+[31m-    'name': 'garlic salt',[m
+[31m-    'amount': 0.7,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'Italian seasoning',[m
+[31m-    'amount': 0.6,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'dried oregano',[m
+[31m-    'amount': 0.3,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'crushed red pepper flakes',[m
+[31m-    'amount': 0.6,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'Worcestershire sauce',[m
+[31m-    'amount': 6,[m
+[31m-    'unit': 'ml',[m
+[31m-  }, {[m
+[31m-    'name': 'milk',[m
+[31m-    'amount': 20,[m
+[31m-    'unit': 'ml',[m
+[31m-  }, {[m
+[31m-    'name': 'grated Parmesan cheese',[m
+[31m-    'amount': 5,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'seasoned bread crumbs',[m
+[31m-    'amount': 15,[m
+[31m-    'unit': 'g',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 101,[m
+[31m-  'name': 'MD 2',[m
+[31m-  'dishTypes': ['main dish'],[m
+[31m-  'image': 'bakedbrie.jpg',[m
+[31m-  'instructions': "Here is how you make it... Lore ipsum...",[m
+[31m-  'pricePerServing': 43.2,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'ingredient 1',[m
+[31m-    'amount': 1,[m
+[31m-    'unit': 'pieces',[m
+[31m-  }, {[m
+[31m-    'name': 'ingredient 2',[m
+[31m-    'amount': 15,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'ingredient 3',[m
+[31m-    'amount': 10,[m
+[31m-    'unit': 'ml',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 102,[m
+[31m-  'name': 'MD 3',[m
+[31m-  'dishTypes': ['main dish'],[m
+[31m-  'image': 'meatballs.jpg',[m
+[31m-  'instructions': "Here is how you make it... Lore ipsum...",[m
+[31m-  'pricePerServing': 25.2,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'ingredient 1',[m
+[31m-    'amount': 2,[m
+[31m-    'unit': 'pieces',[m
+[31m-  }, {[m
+[31m-    'name': 'ingredient 2',[m
+[31m-    'amount': 10,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'ingredient 3',[m
+[31m-    'amount': 5,[m
+[31m-    'unit': 'ml',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 103,[m
+[31m-  'name': 'MD 4',[m
+[31m-  'dishTypes': ['main dish'],[m
+[31m-  'image': 'meatballs.jpg',[m
+[31m-  'instructions': "Here is how you make it... Lore ipsum...",[m
+[31m-  'pricePerServing': 52.0,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'ingredient 1',[m
+[31m-    'amount': 1,[m
+[31m-    'unit': 'pieces',[m
+[31m-  }, {[m
+[31m-    'name': 'ingredient 2',[m
+[31m-    'amount': 12,[m
+[31m-    'unit': 'g',[m
+[31m-  }, {[m
+[31m-    'name': 'ingredient 3',[m
+[31m-    'amount': 6,[m
+[31m-    'unit': 'ml',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 200,[m
+[31m-  'name': 'Chocolat Ice cream',[m
+[31m-  'dishTypes': ['dessert'],[m
+[31m-  'image': 'icecream.jpg',[m
+[31m-  'instructions': "Here is how you make it... Lore ipsum...",[m
+[31m-  'pricePerServing': 12.2,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'ice cream',[m
+[31m-    'amount': 100,[m
+[31m-    'unit': 'ml',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 201,[m
+[31m-  'name': 'Vanilla Ice cream',[m
+[31m-  'dishTypes': ['dessert'],[m
+[31m-  'image': 'icecream.jpg',[m
+[31m-  'instructions': "Here is how you make it... Lore ipsum...",[m
+[31m-  'pricePerServing': 21.2,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'ice cream',[m
+[31m-    'amount': 100,[m
+[31m-    'unit': 'ml',[m
+[31m-  }][m
+[31m-}, {[m
+[31m-  'id': 202,[m
+[31m-  'name': 'Strawberry',[m
+[31m-  'dishTypes': ['dessert'],[m
+[31m-  'image': 'icecream.jpg',[m
+[31m-  'instructions': "Here is how you make it... Lore ipsum...",[m
+[31m-  'pricePerServing': 15.0,[m
+[31m-  'extendedIngredients': [{[m
+[31m-    'name': 'ice cream',[m
+[31m-    'amount': 100,[m
+[31m-    'unit': 'ml',[m
+[31m-  }][m
+[31m-}[m
+[31m-];[m
+[31m-[m
+[31m-// Deepfreeze, you can ignore this function[m
+[31m-// https://github.com/substack/deep-freeze/blob/master/index.js[m
+[31m-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze[m
+[31m-function deepFreeze(o) {[m
+[31m-  Object.freeze(o);[m
+[31m-  Object.getOwnPropertyNames(o).forEach(function (prop) {[m
+[31m-    if (o.hasOwnProperty(prop)[m
+[31m-        && o[prop] !== null[m
+[31m-        && (typeof o[prop] === "object" || typeof o[prop] === "function")[m
+[31m-        && !Object.isFrozen(o[prop])) {[m
+[31m-      deepFreeze(o[prop]);[m
+[31m-    }[m
+[31m-  });[m
+[31m-}[m
+[31m-[m
+[31m-deepFreeze(dishesConst);[m
+\ No newline at end of file[m
+[1mdiff --git a/src/model/dinnerModel.test.js b/src/model/dinnerModel.test.js[m
+[1mindex 09ed268..7a13a51 100644[m
+[1m--- a/src/model/dinnerModel.test.js[m
+[1m+++ b/src/model/dinnerModel.test.js[m
+[36m@@ -8,6 +8,9 @@[m [mdescribe("DinnerModel", () => {[m
+     model = new DinnerModel();[m
+   });[m
+ [m
+[32m+[m[32m  // TODO Lab 1: write a test to verify that the number of guests cannot be less than 1.[m
+[32m+[m[32m  // If setNumberOfGuests(num) is called with num <= 0, then then number of guests should be set to 1.[m
+[32m+[m
+   describe("all the functions are present", () => {[m
+     it("contains all the default functions", () => {[m
+       let functions = [[m
+[36m@@ -26,12 +29,12 @@[m [mdescribe("DinnerModel", () => {[m
+     })[m
+   });[m
+ [m
+[31m-  describe("guests", () => {[m
+[32m+[m[32m  describe("number of guests", () => {[m
+     it("can set and get number of guests", () => {[m
+       model.setNumberOfGuests(500);[m
+       expect(model.getNumberOfGuests()).to.equal(500);[m
+ [m
+[31m-      model.setNumberOfGuests(-1);[m
+[32m+[m[32m      model.setNumberOfGuests(1);[m
+       expect(model.getNumberOfGuests()).to.equal(1);[m
+     });[m
+   });[m
+[36m@@ -222,23 +225,12 @@[m [mdescribe("DinnerModel", () => {[m
+         model.addDishToMenu(model.getDish(100)); // main dish[m
+ [m
+         let starters = model.getSelectedDishes('starter');[m
+[31m-        let mainDishes = model.getSelectedDishes('main dish');[m
+         expect(starters).to.include(model.getDish(1));[m
+         expect(starters).to.include(model.getDish(2));[m
+         expect(starters).to.not.include(model.getDish(100));[m
+[31m-        expect(mainDishes).to.include(model.getDish(100));[m
+       })[m
+     }[m
+ [m
+[31m-    it("can calculate total menu price",() => {[m
+[31m-      model.setNumberOfGuests(1)[m
+[31m-      model.addDishToMenu(model.getDish(1));[m
+[31m-      expect(model.getTotalMenuPrice()).to.equal(32.5);[m
+[31m-      model.addDishToMenu(model.getDish(100)); [m
+[31m-      model.setNumberOfGuests(3)[m
+[31m-      expect(model.getTotalMenuPrice()).to.equal(198);[m
+[31m-    })[m
+[31m-[m
+   });[m
+ [m
+   describe("loading indicator", () => {[m
+[36m@@ -246,4 +238,4 @@[m [mdescribe("DinnerModel", () => {[m
+       expect(document.querySelector("#loader").style.display).to.equal("none");[m
+     });[m
+   });[m
+[31m-});[m
+[32m+[m[32m});[m
+\ No newline at end of file[m
