@@ -8,6 +8,9 @@ describe("DinnerModel", () => {
     model = new DinnerModel();
   });
 
+  // TODO Lab 1: write a test to verify that the number of guests cannot be less than 1.
+  // If setNumberOfGuests(num) is called with num <= 0, then then number of guests should be set to 1.
+
   describe("all the functions are present", () => {
     it("contains all the default functions", () => {
       let functions = [
@@ -26,12 +29,12 @@ describe("DinnerModel", () => {
     })
   });
 
-  describe("guests", () => {
+  describe("number of guests", () => {
     it("can set and get number of guests", () => {
       model.setNumberOfGuests(500);
       expect(model.getNumberOfGuests()).to.equal(500);
 
-      model.setNumberOfGuests(-1);
+      model.setNumberOfGuests(1);
       expect(model.getNumberOfGuests()).to.equal(1);
     });
   });
@@ -222,22 +225,11 @@ describe("DinnerModel", () => {
         model.addDishToMenu(model.getDish(100)); // main dish
 
         let starters = model.getSelectedDishes('starter');
-        let mainDishes = model.getSelectedDishes('main dish');
         expect(starters).to.include(model.getDish(1));
         expect(starters).to.include(model.getDish(2));
         expect(starters).to.not.include(model.getDish(100));
-        expect(mainDishes).to.include(model.getDish(100));
       })
     }
-
-    it("can calculate total menu price",() => {
-      model.setNumberOfGuests(1)
-      model.addDishToMenu(model.getDish(1));
-      expect(model.getTotalMenuPrice()).to.equal(32.5);
-      model.addDishToMenu(model.getDish(100)); 
-      model.setNumberOfGuests(3)
-      expect(model.getTotalMenuPrice()).to.equal(198);
-    })
 
   });
 
