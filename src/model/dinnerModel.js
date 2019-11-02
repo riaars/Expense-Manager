@@ -1,5 +1,5 @@
-//workaround for static imports not alowed outside module, and modules not allowed when origin = 'null'
-const createStore = Redux.createStore;
+//Static imports not allowed, so let's not use import statement.
+const store = Redux.createStore(reducer);
 
 const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
 const ADD_DISH = "ADD_DISH"
@@ -15,7 +15,6 @@ const actions = {
 }
 
 const store = createStore(reducer);
-
 
 //State reducer
 function reducer(state = {}, action) {
@@ -49,7 +48,6 @@ function dishes(state=[], action) {
   }
 }
 
-
 class DinnerModel {
   constructor() {
     store.dispatch(actions.setDishAction([]));
@@ -57,7 +55,7 @@ class DinnerModel {
   }
 
   setNumberOfGuests(num) {
-    store.dispatch({type: 'SET_NUMBER_GUESTS', guestAmount: num});
+    store.dispatch(actions.setNoGuestsAction(num));
   }
 
   getNumberOfGuests() {
