@@ -54,18 +54,19 @@ class DinnerModel {
     if(!query)
        query = '';
 
+    toggleLoader(true)
     return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'search?type=' + type + '&query=' + query , HEADERS)
            .then(response => response.json())
-           .then(responseJson => responseJson.results)
+           .then(responseJson => {toggleLoader(false); return responseJson.results})
            .catch(console.error);
   }
 
   //Returns a dish of specific ID
   getDish(id) {
-    
+    toggleLoader(true)
     return fetch(ENDPOINT +'/' + 'recipes' + '/' + id + '/information', HEADERS)
            .then(response => response.json())
-           .then(responseJson => responseJson)
+           .then(responseJson => {toggleLoader(false); return responseJson})
            .catch(console.error);
   }
 }
