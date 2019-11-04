@@ -1,21 +1,14 @@
-<<<<<<< HEAD
 # About 
-This is the solution for LAB 1, group 34
+This is the solution for LAB 2, group 34
 Members
 Magnus Fredrikson MAGFRED@KTH.SE
 Fredrik Öberg FOBE@KTH.SE  
 
-# Interaction Programing - Lab 1
-This project contains the startup code for Lab 1, which focuses on the model. For more details on how to complete the 
-=======
 # Interaction Programing - Lab 2
 This project contains the startup code for Lab 2, which focuses on the model. For more details on how to complete the 
->>>>>>> 40b1babf97add7a05e2e5bdc007f3d7149b96229
 assignment follow the instructions on the 
 [course website](https://kth.instructure.com/courses/19629/assignments/100300).
 
-<<<<<<< HEAD
-=======
 ## Git Setup instructions
 * You will need a KTH Gits account. You can access it by logging in with your KTH.se account credentials. The login button is placed to the right in the navigation bar. Click [here](https://intra.kth.se/en/it/programvara-o-system/system/kth-github/kth-github-1.500062) for more information about your KTH Gits account.
 Follow these steps in detail to be able to work with GitHub from your computer
@@ -58,7 +51,6 @@ these tests cover the most important areas, or would you have written them diffe
 app (when the page loads for the first time). You will find it more relevant when you start working with views in 
 future labs.
 * [images/](/images) - folder contains some pictures you can use for your dishes.
->>>>>>> 40b1babf97add7a05e2e5bdc007f3d7149b96229
 
 
 
