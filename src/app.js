@@ -1,7 +1,7 @@
 // helper function to find the container by short name
 const container=function(containerName){
   return document.body.querySelector("#container-"+containerName);
-}
+};
 
 // the View containers will not all be visible at the same time. 
 // Various screens will show different Views                                                              
@@ -16,7 +16,7 @@ const screens = {
 const show= function(screenName) {
     // hide all views first 
     // optional FIXME: we could avoid hiding the containers that are part of the screen to be shown
-    // optional FIXME: finding the containers could be done automcatically 
+    // optional FIXME: finding the containers could be done automatically
     // by looking at document.body.firstChild.children
     ["header", "home", "overview", "search", "sidebar"]
       .forEach(containerName => container(containerName).style.display="none");
