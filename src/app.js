@@ -34,7 +34,7 @@ window.onload = function () {
   new OverviewView(container("overview"), model);
   new SearchView(container("search"), model);
   // TODO:  more views here
-  // TODO: Notice that the views are not being rendered yet. Figure out how to do so.
+  // TODO: The views are not being rendered yet. Figure out how to do so.
   
   show("home");
 
