@@ -8,8 +8,10 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
-  const container = document.getElementsByClassName("page-content")[0]
+  const container = document.getElementsByClassName("page-content")[0];
+  const homeView = new HomeView(container);
   const view = new OverviewView(container, model);
+  homeView.render();
   view.render()
 
   /**

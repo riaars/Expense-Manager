@@ -1,0 +1,49 @@
+.header{
+    background-color:lightgray;
+    text-align: center;
+    font-family: Comic Sans MS;
+    position: relative;
+    height: 100px;
+    border: none;
+
+}
+
+.headertext {
+    /* height: 100%;
+     padding-top: 50%;
+    
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%); */
+    }
+
+
+.centertext{
+    text-align: center;
+    padding: 15%;
+}
+
+.homeviewbutton{
+    background-color: orange;
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border:0.1em solid #000000;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+.homeviewbutton:hover{
+    color:#000000;
+    background-color:#FFFFFF;
+    }
+
+    @media all and (max-width:30em){
+         .homeviewbutton{
+            display:block;
+            margin:0.4em auto;
+         }
