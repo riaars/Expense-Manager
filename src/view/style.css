@@ -17,15 +17,6 @@
     margin-top: 20px;
 }
 
-.header2{
-    grid-area: header;
-    background-color:lightgray;
-    text-align: center;
-    font-family: Comic Sans MS;
-    position: relative;
-    border: none;
-}
-
 .header{
     grid-area: header;
     background-color:lightgray;
@@ -39,9 +30,10 @@
     height: 100%;
     max-width: 10000px;
 }
+
 .search { grid-area: search; }
-.main { grid-area: main; 
-    height: 100%;}
+
+.main { grid-area: main; height: 100%;}
 
 .grid-container {
   background-color: #000000;
@@ -65,13 +57,13 @@
 }
 
 .headertext {
-    /* height: 100%;
-     padding-top: 50%;
-    
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%); */
-    }
-
+    background-color:lightgray;
+    text-align: center;
+    font-family: Comic Sans MS;
+    position: relative;
+    height: 100px;
+    border: none;
+}
 
 .centertext{
     text-align: center;
@@ -96,4 +88,10 @@
 .homeviewbutton:hover{
     color:#000000;
     background-color:#FFFFFF;
+}
+
+.homeviewbutton:active {
+    background-color: #fdfdfd;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }

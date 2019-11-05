@@ -5,8 +5,6 @@ class SidebarView {
       this.model.subscribeToProperty(["dishes", "numberOfGuests"], this.updateMenu.bind(this));
     }
     updateMenu(dishes, numGuests) {
-        console.log(dishes);
-        console.log(numGuests);
         this.container.querySelector("#dishlistcontainer").innerHTML = "";
         dishes.forEach(function(dish){
             let elem = document.createElement("div");

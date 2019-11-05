@@ -108,7 +108,7 @@ class DinnerModel {
   //Returns the total price of the menu (price per serving of each dish multiplied by number of guests).
   getTotalMenuPrice() {
     return store.getState().dishes
-    .map(dishes => {console.log(dishes.pricePerServing); return dishes.pricePerServing})
+    .map(dishes => dishes.pricePerServing)
     .reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0)*this.getNumberOfGuests();
   }
 
