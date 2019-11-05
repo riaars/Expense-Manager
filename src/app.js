@@ -2,9 +2,12 @@ window.onload = function () {
   console.log("start");
   //We instantiate our model
   const model = new DinnerModel();
+  model.getDish(512).then(dish => model.addDishToMenu(dish))
+  .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
+  .then(model.getDish(23456).then(dish => model.addDishToMenu(dish)))
 
   const container = document.getElementsByClassName("page-content")[0];
-  const view = new HomeView(container, model);
+  const view = new SearchView(container, model);
 
   view.render()
 

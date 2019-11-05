@@ -23,7 +23,9 @@ class SidebarView {
             this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
         }.bind(this))
         
-        this.container.getElementsByClassName("value-total-price")[0].innerHTML = this.model.getTotalMenuPrice();
+        this.container.getElementsByClassName("value-total-price")[0].innerHTML = "SEK: " + this.model.getTotalMenuPrice().toFixed(2);
+        this.container.getElementsByClassName("value-num-guests")[0].innerHTML = this.model.getNumberOfGuests();
+        this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
     }
   
     render() {
@@ -33,23 +35,28 @@ class SidebarView {
       `
       <div class="sidebarcontainer">
         <div><h1>My Dinner</h1></div>
-        <div style="display: flex; flex-direction: row; width: 50%;">People<input type="number" style="width: 3em;" class="numpeople"></input>
+        <div style="display: flex; flex-direction: row; width: 50%;">People&nbsp;<input type="number" style="width: 2em;" class="numpeople"></input>
         <div class="value-num-guests"></div>
         </div>
-        <div style="display: flex; justify-content: space-between; background-color: gray">
-            <div style="padding-left:-25px">dish</div>
-            <div style="padding-right:-25px">cost</div>
+        <div style="
+          display: flex; justify-content: 
+          space-between; border-top:5px solid black; 
+          border-bottom:5px solid black;  
+          background-color: gray; 
+          margin-left:-25px; 
+          margin-right:-25px;">
+            <div style="padding-left:25px">Dish Name</div>
+            <div style="padding-right:25px">Cost</div>
         </div>
         <div id="dishlistcontainer">
         </div>
-        <div class="value-total-price"></div>
+        <div class="value-total-price" style="color:darkred; text-align:right;"></div>
+        <div class="homeviewbutton" id="confirmorderbutton">Confirm Order</div>
       </div>
       `
     this.container.innerHTML = innerHTML;
+    this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{alert("Confirm Order")});
     let numGuestsFunc = this.model.setNumberOfGuests;
-    console.log(this.model.getTotalMenuPrice());
-    this.container.getElementsByClassName("value-total-price")[0].innerHTML = this.model.getTotalMenuPrice();
-    this.container.getElementsByClassName("value-num-guests")[0].innerHTML = this.model.getNumberOfGuests();
     this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
     this.container.getElementsByClassName("numpeople")[0].addEventListener("change", function(obj){numGuestsFunc(this.value)});
     this.updateMenu(this.model.getFullMenu(), this.model.getNumberOfGuests());

@@ -44,7 +44,7 @@
     'header header'
     'sidebar search'
     'sidebar main';
-  grid-gap: 7px;
+  grid-gap: 6px;
   width: 100vw;
   height: 100vh;
   border-style: none;

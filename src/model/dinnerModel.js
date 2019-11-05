@@ -63,6 +63,7 @@ class DinnerModel {
     store.dispatch(actions.setNoGuestsAction(0));
   }
 
+  //Notifies the subscribers with the state of their subscribed properties
   handleStoreChange() {
     let state = store.getState();
     this.subscribers.forEach(function(sub) {
