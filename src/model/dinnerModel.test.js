@@ -364,7 +364,6 @@ describe("DinnerModel", () => {
           'unit': 'g',
         }];
         expect(model.getAllIngredients().length).to.equal(expectedIngredients.length);
-        console.log(model.getAllIngredients());
         model.getAllIngredients().forEach(ingredient => {
           expect(expectedIngredients).to.have.deep.include(ingredient);
         });
@@ -385,9 +384,7 @@ describe("DinnerModel", () => {
             })
             .then(dish => {
               model.addDishToMenu(dish);
-              console.log('menu', model.getFullMenu());
               expect(Math.abs(model.getTotalMenuPrice() - 1285.14)).to.be.below(0.01);
-              console.log('full price', model.getTotalMenuPrice());
               done();
             })
       }).timeout(10000);
@@ -396,8 +393,6 @@ describe("DinnerModel", () => {
         model.setNumberOfGuests(2);
         model.addDishToMenu(model.getDish(1));
         model.addDishToMenu(model.getDish(2));
-
-        console.log(model.getFullMenu());
         expect(Math.abs(model.getTotalMenuPrice() - 151.4)).to.be.below(0.01);
       });
     }
