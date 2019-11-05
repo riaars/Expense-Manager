@@ -1,6 +1,11 @@
 //static imports not allowed.
 const createStore = Redux.createStore;
 
+//toggles the loader indicator to indicate whether an api call is currently loading
+function toggleLoader(state){
+  document.querySelector("#loader").style.display = state ? '' : 'none';
+};
+
 const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
 const ADD_DISH = "ADD_DISH"
 const REMOVE_DISH = "REMOVE_DISH"
@@ -52,8 +57,26 @@ function dishes(state=[], action) {
 
 class DinnerModel {
   constructor() {
+    this.subscribers = [];
+    store.subscribe(this.handleStoreChange.bind(this));
     store.dispatch(actions.setDishAction([]));
     store.dispatch(actions.setNoGuestsAction(0));
+  }
+
+  handleStoreChange() {
+    let state = store.getState();
+    this.subscribers.forEach(function(sub) {
+      let args = [];
+      sub.subscribedProp.forEach(function(prop) {args.push(state[prop])});
+      sub.func(...args);
+    })
+  }
+
+  //A particular view wants to subscribe to a store property,
+  //Instead of subscribing directly to the store, its added as a subscriber
+  //And on store update, is notified of the properties new state.
+  subscribeToProperty(properties, callback) {
+    this.subscribers.push({subscribedProp: properties, func: callback})
   }
 
   setNumberOfGuests(num) {
@@ -85,8 +108,8 @@ class DinnerModel {
   //Returns the total price of the menu (price per serving of each dish multiplied by number of guests).
   getTotalMenuPrice() {
     return store.getState().dishes
-    .map(dishes => dishes.pricePerServing)
-    .reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0)*this.numberOfguests;
+    .map(dishes => {console.log(dishes.pricePerServing); return dishes.pricePerServing})
+    .reduce((totalPrice, dishPrice) =>  totalPrice + dishPrice, 0)*this.getNumberOfGuests();
   }
 
   //Adds the passed dish to the menu. 

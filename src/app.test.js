@@ -23,8 +23,11 @@ describe("DinnerPlanner App", () => {
   });
 
   describe("Search view", () => {
-    beforeEach(() => {
-      model.addDishToMenu(559251);
+    beforeEach(async () => {
+      //This was incorrect in original tests
+
+      let mydish = await model.getDish(559251);
+      model.addDishToMenu(mydish);
       searchView.render();
     });
 

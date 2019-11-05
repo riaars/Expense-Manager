@@ -1,11 +1,67 @@
-.header{
+* { 
+    margin:0px;
+    padding:0px;
+    font-family: Comic Sans MS;
+    font-size: 105%;
+  }
+
+.sidebarcontainer {
+    margin-left: 25px;
+    margin-right: 25px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarcontainer > div {
+    margin-top: 20px;
+}
+
+.header2{
+    grid-area: header;
     background-color:lightgray;
     text-align: center;
     font-family: Comic Sans MS;
     position: relative;
-    height: 100px;
     border: none;
+}
 
+.header{
+    grid-area: header;
+    background-color:lightgray;
+    text-align: center;
+    font-size: 50px;
+    position: relative;
+}
+
+.sidebar { 
+    grid-area: sidebar; 
+    height: 100%;
+    max-width: 10000px;
+}
+.search { grid-area: search; }
+.main { grid-area: main; 
+    height: 100%;}
+
+.grid-container {
+  background-color: #000000;
+  display: grid;
+  grid-template-rows: 10% 15% 68%;
+  grid-template-columns: 400px auto;
+  grid-template-areas:
+    'header header'
+    'sidebar search'
+    'sidebar main';
+  grid-gap: 7px;
+  width: 100vw;
+  height: 100vh;
+  border-style: none;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0; 
 }
 
 .headertext {
@@ -40,4 +96,4 @@
 .homeviewbutton:hover{
     color:#000000;
     background-color:#FFFFFF;
-    }
+}

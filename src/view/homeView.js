@@ -1,7 +1,6 @@
 class HomeView {
   constructor(container) {
     this.container = container;
-    window.gCont = container;
     this.startBtn = null;
   }
   
@@ -13,6 +12,8 @@ class HomeView {
       <div class = "headertext"> 
         <h1>Dinner Planner</h1>
         </div>
+        
+      <div id="loader" style="display:none">Loading...</div>
     </div>
     <div class="centertext">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel laoreet orci. Nullam ut iaculis diam. Aliquam
@@ -29,7 +30,7 @@ class HomeView {
   }
 
   afterRender() {
-    this.startBtn = this.container.getElementByClassName("homviewbutton");
+    this.startBtn = this.container.getElementByClassName("homeviewbutton");
     console.log(this.container);
     console.log(this.startBtn);
     this.startBtn.addEventListener("click", this.myFunction);
