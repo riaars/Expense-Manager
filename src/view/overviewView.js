@@ -1,15 +1,30 @@
 class OverviewView {
     constructor(container, model) {
-        this.container = container;
-        this.model = model;
-    }
+      this.container = container;
+      this.model = model;
+      }
 
     // An example of creating HTML procedurally. Think about the pros and cons of this approach.
     render() {
+      let htmlText = 
+      `<p>This dinner will be Awesome!</p>
+      <div id="loader" style="display:none">Loading...</div>
+      <p><span id="numPeopleSpan"></span> people are coming!</p>
+      <p>We will be eating the following:</p>
+      <ul>
+        <ul>Bread!</ul>
+        <ul>Ham!</ul>
+        <ul>Pizza!</ul>
+      </ul>
+      `;
+      
+      //this.container.innerHTML = htmlText;
+      //this.container.querySelector("#numPeopleSpan").innerHTML = this.model.getNumberOfGuests();
+      /*
       const paragraph = this.container.appendChild(document.createElement('P'))
       paragraph.innerHTML = "This dinner will be Awesome!";
 
-      const num_people_val = 3;
+      const num_people_val = this.model.getNumberOfGuests();
       const paragraph2 = this.container.appendChild(document.createElement('P'))
       const num_people = paragraph2.appendChild(document.createElement('SPAN'))
       num_people.innerHTML = num_people_val;
@@ -23,7 +38,7 @@ class OverviewView {
       for(const food of ["Bread!", "Ham!", "Pizza!"]) {
         list.appendChild(document.createElement('UL')).innerHTML = food;
       }
-
+      */
       this.afterRender();
     }
 

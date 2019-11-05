@@ -1,17 +1,10 @@
-//toggles the loader indicator to indicate whether an api call is currently loading
-function toggleLoader(state){
-  document.querySelector("#loader").style.display = state ? '' : 'none';
-};
-
 window.onload = function () {
   console.log("start");
   //We instantiate our model
   const model = new DinnerModel();
 
   const container = document.getElementsByClassName("page-content")[0];
-  const homeView = new HomeView(container);
   const view = new OverviewView(container, model);
-  homeView.render();
   view.render()
 
   /**
