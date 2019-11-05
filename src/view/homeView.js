@@ -9,19 +9,17 @@ class HomeView {
   render() {
     var content = /* template */ `
 
-    <div class="header">
-      <div class = "headertext"> 
-        <h1>Dinner Planner</h1>
-        </div>
+    <div class="headertext"> 
+      <h1>Dinner Planner</h1>
     </div>
     <div class="centertext">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel laoreet orci. Nullam ut iaculis diam. Aliquam
           magna nulla, congue ut elementum hendrerit, dignissim at mauris. Quisque ac felis sed nibh elementum euismod a sit amet
           arcu. Maecenas a efficitur leo.
         <div class="spacing-medium"></div>
-        <div class="homeviewbutton">
+        <button class="homeviewbutton" >
           Create new dinner
-          </div>
+          </button>
       </div>
     `;
     this.container.innerHTML = content;
@@ -29,13 +27,11 @@ class HomeView {
   }
 
   afterRender() {
-    this.startBtn = this.container.getElementByClassName("homviewbutton");
-    console.log(this.container);
-    console.log(this.startBtn);
-    this.startBtn.addEventListener("click", this.myFunction);
+     this.startBtn = this.container.getElementsByClassName("homeviewbutton");
+     this.startBtn[0].addEventListener("click", this.createNewDinner);
   }
 
-  myFunction(){
+  createNewDinner() {
     console.log("myfunction");
   }
 }

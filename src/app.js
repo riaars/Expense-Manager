@@ -4,7 +4,8 @@ window.onload = function () {
   const model = new DinnerModel();
 
   const container = document.getElementsByClassName("page-content")[0];
-  const view = new OverviewView(container, model);
+  const view = new HomeView(container, model);
+
   view.render()
 
   /**
