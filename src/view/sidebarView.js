@@ -23,7 +23,7 @@ class SidebarView {
             this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
         }.bind(this))
         
-        this.container.getElementsByClassName("value-total-price")[0].innerHTML = "SEK: " + this.model.getTotalMenuPrice().toFixed(2);
+        this.container.getElementsByClassName("value-total-price")[0].innerHTML =this.model.getTotalMenuPrice().toFixed(2);
         this.container.getElementsByClassName("value-num-guests")[0].innerHTML = this.model.getNumberOfGuests();
         this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
     }
@@ -39,8 +39,9 @@ class SidebarView {
         <div class="value-num-guests"></div>
         </div>
         <div style="
-          display: flex; justify-content: 
-          space-between; border-top:5px solid black; 
+          display: flex; 
+          justify-content: space-between; 
+          border-top:5px solid black; 
           border-bottom:5px solid black;  
           background-color: gray; 
           margin-left:-25px; 
@@ -50,7 +51,9 @@ class SidebarView {
         </div>
         <div id="dishlistcontainer">
         </div>
-        <div class="value-total-price" style="color:darkred; text-align:right;"></div>
+        <div style="display: flex; justify-content: flex-end; color:darkred;">
+          <div>SEK:&nbsp;</div><div class="value-total-price"></div>
+        </div>
         <div class="homeviewbutton" id="confirmorderbutton">Confirm Order</div>
       </div>
       `

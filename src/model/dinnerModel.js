@@ -67,9 +67,7 @@ class DinnerModel {
   handleStoreChange() {
     let state = store.getState();
     this.subscribers.forEach(function(sub) {
-      let args = [];
-      sub.subscribedProp.forEach(function(prop) {args.push(state[prop])});
-      sub.func(...args);
+      sub.func(...sub.subscribedProp.map((prop) => state[prop]));
     })
   }
 

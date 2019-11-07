@@ -1,7 +1,6 @@
 class HomeView {
   constructor(container) {
     this.container = container;
-    window.gCont = container;
     this.startBtn = null;
   }
   
