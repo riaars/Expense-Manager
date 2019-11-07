@@ -72,6 +72,43 @@ describe("DinnerModel", () => {
               done();
             });
       }).timeout(10000);
+
+      it("catches errors", (done) => {
+        let ENDPOINT_BACKUP = ENDPOINT;
+        ENDPOINT = 'http://this-is-not-a-real-url.com';
+        model.getDish(5)
+            .then((data) => {
+              expect(true).to.equal(true);
+              done()
+            })
+            .catch(error => {
+              expect(true).to.equal(false);
+              done();
+            });
+        ENDPOINT = ENDPOINT_BACKUP;
+      }).timeout(10000);
+
+      it("displays a loading indicator when starting fetch and does not display it when the fetch has completed", (done) => {
+        model.getDish(5)
+            .finally(() => {
+              expect(document.querySelector("#loader").style.display).to.equal("none");
+              done();
+            });
+        expect(document.querySelector("#loader").style.display).to.equal("block");
+      }).timeout(10000);
+
+      it("displays and removes the loading indicator, even on network failure", (done) => {
+        let ENDPOINT_BACKUP = ENDPOINT;
+        ENDPOINT = 'http://this-is-not-a-real-url.com';
+        model.getDish(5)
+            .finally(() => {
+              expect(document.querySelector("#loader").style.display).to.equal("none");
+              done();
+            });
+        expect(document.querySelector("#loader").style.display).to.equal("block");
+        ENDPOINT = ENDPOINT_BACKUP;
+      }).timeout(10000);
+
     } else if (getDishReturnsObject) { // if it uses the dishesConst
       it("gets the correct dish", () => {
         const dish1 = model.getDish(1);
@@ -136,6 +173,7 @@ describe("DinnerModel", () => {
         expect(dishes.length).to.be.above(0);
         expect(allDishesMatch).to.equal(true);
       });
+
     } else if (getAllDishesReturnsPromise) { // if it uses the spoonacular api
       it("returns all dishes if no args are specified", (done) => {
         model.getAllDishes()
@@ -152,6 +190,42 @@ describe("DinnerModel", () => {
               expect(onlyHasPizzas).to.equal(true);
               done();
             });
+      }).timeout(10000);
+
+      it("catches errors", (done) => {
+        let ENDPOINT_BACKUP = ENDPOINT;
+        ENDPOINT = 'http://this-is-not-a-real-url.com';
+        model.getAllDishes('starter', 'Meat')
+            .then((data) => {
+              expect(true).to.equal(true);
+              done()
+            })
+            .catch(error => {
+              expect(true).to.equal(false);
+              done();
+            });
+        ENDPOINT = ENDPOINT_BACKUP;
+      }).timeout(10000);
+
+      it("displays a loading indicator when starting fetch and does not display it when the fetch has completed", (done) => {
+        model.getAllDishes('starter', 'Meat')
+            .finally(() => {
+              expect(document.querySelector("#loader").style.display).to.equal("none");
+              done();
+            });
+        expect(document.querySelector("#loader").style.display).to.equal("block");
+      }).timeout(10000);
+
+      it("displays and removes the loading indicator, even on network failure", (done) => {
+        let ENDPOINT_BACKUP = ENDPOINT;
+        ENDPOINT = 'http://this-is-not-a-real-url.com';
+        model.getAllDishes('starter', 'Meat')
+            .finally(() => {
+              expect(document.querySelector("#loader").style.display).to.equal("none");
+              done();
+            });
+        expect(document.querySelector("#loader").style.display).to.equal("block");
+        ENDPOINT = ENDPOINT_BACKUP;
       }).timeout(10000);
     }
   });
@@ -230,12 +304,97 @@ describe("DinnerModel", () => {
         expect(starters).to.not.include(model.getDish(100));
       })
     }
-
   });
 
-  describe("loading indicator", () => {
-    it("checks if the loading indicator is still visible on the page", () => {
-      expect(document.querySelector("#loader").style.display).to.equal("none");
-    });
+  describe("getting all ingredients", () => {
+    let getDishReturnsPromise = model.getDish(1) instanceof Promise;
+    let getDishReturnsObject = model.getDish(1) instanceof Object;
+    if (getDishReturnsPromise) {  // if it uses the spoonacular api
+      it("returns an array of all the ingredients of all the dishes on the menu", (done) => {
+        model.getDish(1)
+            .then((dish) => {
+              model.addDishToMenu(dish);
+              return model.getDish(2);
+            })
+            .then(dish => {
+              model.addDishToMenu(dish);
+              expect(model.getFullMenu().length).to.equal(2);
+              expect(model.getAllIngredients().length).to.equal(13);
+              let expectedIngredientsNames = ['anchovies', 'baking powder', 'egg', 'flour', 'sage leaves', 'salt', 'seltzer water', 'vegetable oil', 'anchovies', 'bread', 'garlic clove', 'olive oil', 'scallions'];
+              let actualIngredientsNames = model.getAllIngredients().map(ingredient => ingredient.name);
+              expect(expectedIngredientsNames).to.deep.equal(actualIngredientsNames);
+              done();
+            })
+      }).timeout(10000);
+    } else if (getDishReturnsObject) { // if it uses the dishesConst
+      it("returns an array of all the ingredients of all the dishes on the menu", () => {
+        model.addDishToMenu(model.getDish(1));
+        model.addDishToMenu(model.getDish(2));
+        let expectedIngredients = [{
+          'name': 'eggs',
+          'amount': 0.5,
+          'unit': '',
+        }, {
+          'name': 'milk',
+          'amount': 30,
+          'unit': 'ml',
+        }, {
+          'name': 'brown sugar',
+          'amount': 7,
+          'unit': 'g',
+        }, {
+          'name': 'ground nutmeg',
+          'amount': 0.5,
+          'unit': 'g',
+        }, {
+          'name': 'white bread',
+          'amount': 2,
+          'unit': 'slices',
+        }, {
+          'name': 'active dry yeast',
+          'amount': 0.5,
+          'unit': 'g',
+        }, {
+          'name': 'warm water',
+          'amount': 30,
+          'unit': 'ml',
+        }, {
+          'name': 'all-purpose flour',
+          'amount': 15,
+          'unit': 'g',
+        }];
+        expect(model.getAllIngredients().length).to.equal(expectedIngredients.length);
+        model.getAllIngredients().forEach(ingredient => {
+          expect(expectedIngredients).to.have.deep.include(ingredient);
+        });
+      });
+    }
+  });
+
+  describe("calculating total menu price", () => {
+    let getDishReturnsPromise = model.getDish(1) instanceof Promise;
+    let getDishReturnsObject = model.getDish(1) instanceof Object;
+    if (getDishReturnsPromise) {  // if it uses the spoonacular api
+      it("calculates the correct menu price", (done) => {
+        model.setNumberOfGuests(2);
+        model.getDish(1)
+            .then((dish) => {
+              model.addDishToMenu(dish);
+              return model.getDish(2);
+            })
+            .then(dish => {
+              model.addDishToMenu(dish);
+              expect(Math.abs(model.getTotalMenuPrice() - 1285.14)).to.be.below(0.01);
+              done();
+            })
+      }).timeout(10000);
+    } else if (getDishReturnsObject) { // if it uses the dishesConst
+      it("calculates the correct menu price", () => {
+        model.setNumberOfGuests(2);
+        model.addDishToMenu(model.getDish(1));
+        model.addDishToMenu(model.getDish(2));
+        expect(Math.abs(model.getTotalMenuPrice() - 151.4)).to.be.below(0.01);
+      });
+    }
   });
 });

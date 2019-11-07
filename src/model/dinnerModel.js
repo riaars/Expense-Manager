@@ -38,7 +38,7 @@ class DinnerModel {
     //TODO Lab 1
   }
 
-  //Adds the passed dish to the menu. 
+  //Adds the passed dish to the menu.
   addDishToMenu(dish) {
     //TODO Lab 1
   }
@@ -323,4 +323,3 @@ function deepFreeze(o) {
 }
 
 deepFreeze(dishesConst);
-
