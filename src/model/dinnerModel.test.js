@@ -70,6 +70,42 @@ describe("DinnerModel", () => {
             done();
           });
     }).timeout(10000);
+
+    it("catches errors", (done) => {
+      let ENDPOINT_BACKUP = ENDPOINT;
+      ENDPOINT = 'http://this-is-not-a-real-url.com';
+      model.getDish(5)
+          .then((data) => {
+            expect(true).to.equal(true);
+            done()
+          })
+          .catch(error => {
+            expect(true).to.equal(false);
+            done();
+          });
+      ENDPOINT = ENDPOINT_BACKUP;
+    }).timeout(10000);
+
+    it("displays a loading indicator when starting fetch and does not display it when the fetch has completed", (done) => {
+      model.getDish(5)
+          .finally(() => {
+            expect(document.querySelector("#loader").style.display).to.equal("none");
+            done();
+          });
+      expect(document.querySelector("#loader").style.display).to.equal("block");
+    }).timeout(10000);
+
+    it("displays and removes the loading indicator, even on network failure", (done) => {
+      let ENDPOINT_BACKUP = ENDPOINT;
+      ENDPOINT = 'http://this-is-not-a-real-url.com';
+      model.getDish(5)
+          .finally(() => {
+            expect(document.querySelector("#loader").style.display).to.equal("none");
+            done();
+          });
+      expect(document.querySelector("#loader").style.display).to.equal("block");
+      ENDPOINT = ENDPOINT_BACKUP;
+    }).timeout(10000);
   });
 
   describe("filtering for dishes", () => {
@@ -94,51 +130,117 @@ describe("DinnerModel", () => {
             done();
           });
     }).timeout(10000);
+
+    it("catches errors", (done) => {
+      let ENDPOINT_BACKUP = ENDPOINT;
+      ENDPOINT = 'http://this-is-not-a-real-url.com';
+      model.getAllDishes('starter', 'Meat')
+          .then((data) => {
+            expect(true).to.equal(true);
+            done()
+          })
+          .catch(error => {
+            expect(true).to.equal(false);
+            done();
+          });
+      ENDPOINT = ENDPOINT_BACKUP;
+    }).timeout(10000);
+
+    it("displays a loading indicator when starting fetch and does not display it when the fetch has completed", (done) => {
+      model.getAllDishes('starter', 'Meat')
+          .finally(() => {
+            expect(document.querySelector("#loader").style.display).to.equal("none");
+            done();
+          });
+      expect(document.querySelector("#loader").style.display).to.equal("block");
+    }).timeout(10000);
+
+    it("displays and removes the loading indicator, even on network failure", (done) => {
+      let ENDPOINT_BACKUP = ENDPOINT;
+      ENDPOINT = 'http://this-is-not-a-real-url.com';
+      model.getAllDishes('starter', 'Meat')
+          .finally(() => {
+            expect(document.querySelector("#loader").style.display).to.equal("none");
+            done();
+          });
+      expect(document.querySelector("#loader").style.display).to.equal("block");
+      ENDPOINT = ENDPOINT_BACKUP;
+    }).timeout(10000);
   });
 
   describe("menu", () => {
-      it("can add dishes", (done) => {
-        model.getDish(559251)
-            .then((data) => {
-              model.addDishToMenu(data);
-              expect(model.getFullMenu().length).to.equal(1);
-              expect(model.getFullMenu()[0].id).to.equal(559251);
-              done();
-            });
-      }).timeout(10000);
+    it("can add dishes", (done) => {
+      model.getDish(559251)
+          .then((data) => {
+            model.addDishToMenu(data);
+            expect(model.getFullMenu().length).to.equal(1);
+            expect(model.getFullMenu()[0].id).to.equal(559251);
+            done();
+          });
+    }).timeout(10000);
 
-      it("can remove dishes", (done) => {
-        model.getDish(559251)
-            .then((data) => {
-              model.addDishToMenu(data);
-              expect(model.getFullMenu().length).to.equal(1);
-              expect(model.getFullMenu()[0].id).to.equal(559251);
+    it("can remove dishes", (done) => {
+      model.getDish(559251)
+          .then((data) => {
+            model.addDishToMenu(data);
+            expect(model.getFullMenu().length).to.equal(1);
+            expect(model.getFullMenu()[0].id).to.equal(559251);
 
-              model.removeDishFromMenu(559251);
-              expect(model.getFullMenu().length).to.equal(0);
-              expect(model.getFullMenu()).to.not.include(data);
-              done();
-            });
-      }).timeout(10000);
+            model.removeDishFromMenu(559251);
+            expect(model.getFullMenu().length).to.equal(0);
+            expect(model.getFullMenu()).to.not.include(data);
+            done();
+          });
+    }).timeout(10000);
 
-      it("can find the dishes of a specific type on the menu", (done) => {
-        model.getDish(559251)
-            .then((data) => {
-              model.addDishToMenu(data);
-              expect(model.getFullMenu().length).to.equal(1);
-              expect(model.getFullMenu()[0].id).to.equal(559251);
+    it("can find the dishes of a specific type on the menu", (done) => {
+      model.getDish(559251)
+          .then((data) => {
+            model.addDishToMenu(data);
+            expect(model.getFullMenu().length).to.equal(1);
+            expect(model.getFullMenu()[0].id).to.equal(559251);
 
-              model.removeDishFromMenu(559251);
-              expect(model.getFullMenu().length).to.equal(0);
-              expect(model.getFullMenu()).to.not.include(data);
-              done();
-            });
-      }).timeout(10000);
+            model.removeDishFromMenu(559251);
+            expect(model.getFullMenu().length).to.equal(0);
+            expect(model.getFullMenu()).to.not.include(data);
+            done();
+          });
+    }).timeout(10000);
   });
 
-  describe("loading indicator", () => {
-    it("checks if the loading indicator is still visible on the page", () => {
-      expect(document.querySelector("#loader").style.display).to.equal("none");
-    });
+  describe("getting all ingredients", () => {
+    it("returns an array of all the ingredients of all the dishes on the menu", (done) => {
+      model.getDish(1)
+          .then((dish) => {
+            model.addDishToMenu(dish);
+            return model.getDish(2);
+          })
+          .then(dish => {
+            model.addDishToMenu(dish);
+            expect(model.getFullMenu().length).to.equal(2);
+            expect(model.getAllIngredients().length).to.equal(13);
+            let expectedIngredientsNames = ['anchovies', 'baking powder', 'egg', 'flour', 'sage leaves', 'salt', 'seltzer water', 'vegetable oil', 'anchovies', 'bread', 'garlic clove', 'olive oil', 'scallions'];
+            let actualIngredientsNames = model.getAllIngredients().map(ingredient => ingredient.name);
+            expect(expectedIngredientsNames).to.deep.equal(actualIngredientsNames);
+            done();
+          });
+    }).timeout(10000);
+  });
+
+  describe("calculating total menu price", () => {
+    it("calculates the correct menu price", (done) => {
+      model.setNumberOfGuests(2);
+      model.getDish(1)
+          .then((dish) => {
+            model.addDishToMenu(dish);
+            return model.getDish(2);
+          })
+          .then(dish => {
+            model.addDishToMenu(dish);
+            expect(Math.abs(model.getTotalMenuPrice() - 1285.14)).to.be.below(0.01);
+            done();
+          })
+    }).timeout(10000);
   });
 });
+
