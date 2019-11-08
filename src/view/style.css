@@ -70,7 +70,7 @@
     padding: 15%;
 }
 
-.homeviewbutton{
+.startBtn{
     background-color: orange;
     display: inline-block;
     padding: 0.35em 1.2em;
@@ -85,12 +85,12 @@
     transition: all 0.2s;
 }
 
-.homeviewbutton:hover{
+.startBtn:hover{
     color:#000000;
     background-color:#FFFFFF;
 }
 
-.homeviewbutton:active {
+.startBtn:active {
     background-color: #fdfdfd;
     box-shadow: 0 5px #666;
     transform: translateY(4px);

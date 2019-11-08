@@ -7,9 +7,9 @@ window.onload = function () {
   .then(model.getDish(23456).then(dish => model.addDishToMenu(dish)))
 
   const container = document.getElementsByClassName("page-content")[0];
-  const view = new SearchView(container, model);
+  const view = new OverviewView(container, model);
 
-  view.render()
+  view.render();
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to

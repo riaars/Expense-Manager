@@ -16,7 +16,7 @@ class HomeView {
           magna nulla, congue ut elementum hendrerit, dignissim at mauris. Quisque ac felis sed nibh elementum euismod a sit amet
           arcu. Maecenas a efficitur leo.
         <div class="spacing-medium"></div>
-        <button class="homeviewbutton" >
+        <button id="startBtn" class="startBtn" type="button">
           Create new dinner
           </button>
       </div>
@@ -26,11 +26,11 @@ class HomeView {
   }
 
   afterRender() {
-     this.startBtn = this.container.getElementsByClassName("homeviewbutton");
-     this.startBtn[0].addEventListener("click", this.createNewDinner);
+     this.startBtn = this.container.querySelector("#startBtn");
+     this.startBtn.addEventListener("click", this.createNewDinner);
   }
 
   createNewDinner() {
-    console.log("myfunction");
+    console.log("Creates new dinner");
   }
 }
