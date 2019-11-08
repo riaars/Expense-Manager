@@ -27,23 +27,16 @@ const show= function(screenName) {
 };
                                                 
 window.onload = function () {
+
   //We instantiate our model
-  const model = new DinnerModel();
-
-<<<<<<< HEAD
-  const container = document.getElementsByClassName("page-content")[0];
-  const view = new OverviewView(container, model);
-
-  view.render();
-=======
-  new HomeView(container("home"), model);
-  new OverviewView(container("overview"), model);
-  new SearchView(container("search"), model);
+  const model = new DinnerModel(); 
+  new HomeView(container("home"), model).render();
+  new OverviewView(container("overview"), model).render();
+  new SearchView(container("search"), model).render();
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
   show("home");
->>>>>>> 8c679161ac3ad5b854224ab55bc1dfbe5c1918f3
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body

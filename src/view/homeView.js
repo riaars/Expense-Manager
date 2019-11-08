@@ -31,6 +31,6 @@ class HomeView {
   }
 
   createNewDinner() {
-    console.log("Creates new dinner");
+    show("search");
   }
 }
