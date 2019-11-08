@@ -10,6 +10,8 @@ const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
 const ADD_DISH = "ADD_DISH"
 const REMOVE_DISH = "REMOVE_DISH"
 const SET_DISHES = "SET_DISHES" 
+const DELETE_LAST_SEARCH = "DELETE_LAST_SEARCH" 
+const REPLACE_LAST_SEARCH = "REPLACE_LAST_SEARCH" 
 
 //Action creators.
 const actions = {
@@ -17,6 +19,8 @@ const actions = {
   addDishAction(dish) {return {type: ADD_DISH, dish: dish}},
   removeDishAction(id) {return {type: REMOVE_DISH, id: id}},
   setDishAction(dishes) {return {type: SET_DISHES, dishes: dishes}},
+  replaceLastSearchAction(searchResult) {return {type: REPLACE_LAST_SEARCH, result: searchResult}},
+  deletelastSearch() {return {type: DELETE_LAST_SEARCH}},
 }
 
 const store = createStore(reducer);
@@ -26,8 +30,9 @@ const store = createStore(reducer);
 function reducer(state = {}, action) {
   return {
       dishes: dishes(state.dishes, action),
-      numberOfGuests: numberOfGuests(state.numberOfGuests, action)
-   };
+      numberOfGuests: numberOfGuests(state.numberOfGuests, action),
+      dishSearchResults: lastSearchResult(state.dishSearchResults, action)
+    };
 }
   
 //guests reducer
@@ -36,6 +41,17 @@ function numberOfGuests(state = 1, action) {
     case SET_NUMBER_GUESTS:
       return Math.max(action.guestAmount, 1) ;
     default:
+      return state;
+  }
+}
+//Searches reducer
+function lastSearchResult(state = [], action) {
+  switch(action.type) {
+    case REPLACE_LAST_SEARCH: 
+      return action.result;
+    case DELETE_LAST_SEARCH:
+      return [];
+    default: 
       return state;
   }
 }
@@ -67,6 +83,8 @@ class DinnerModel {
   handleStoreChange() {
     let state = store.getState();
     this.subscribers.forEach(function(sub) {
+      console.log(sub.subscribedProp[0]);
+      console.log(...sub.subscribedProp.map((prop) => state[prop]));
       sub.func(...sub.subscribedProp.map((prop) => state[prop]));
     })
   }
@@ -135,7 +153,10 @@ class DinnerModel {
     toggleLoader(true);
     return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'search?type=' + type + '&query=' + query , HEADERS)
            .then(response => response.json())
-           .then(responseJson => {toggleLoader(false); return responseJson.results})
+           .then(responseJson => {
+             store.dispatch(actions.replaceLastSearchAction(responseJson.results));
+             toggleLoader(false);
+             return responseJson.results})
            .catch(console.error);
   }
 
