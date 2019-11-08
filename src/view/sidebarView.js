@@ -54,11 +54,11 @@ class SidebarView {
         <div style="display: flex; justify-content: flex-end; color:darkred;">
           <div>SEK:&nbsp;</div><div class="value-total-price"></div>
         </div>
-        <div class="homeviewbutton" id="confirmorderbutton">Confirm Order</div>
+        <div class="startBtn" id="confirmorderbutton">Confirm Order</div>
       </div>
       `
     this.container.innerHTML = innerHTML;
-    this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{alert("Confirm Order")});
+    this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{show("overview")});
     let numGuestsFunc = this.model.setNumberOfGuests;
     this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
     this.container.getElementsByClassName("numpeople")[0].addEventListener("change", function(obj){numGuestsFunc(this.value)});
