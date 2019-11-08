@@ -6,28 +6,63 @@ class OverviewView {
 
     // An example of creating HTML procedurally. Think about the pros and cons of this approach.
     render() {
-	const paragraph = this.container.appendChild(document.createElement('P'));
-	paragraph.innerHTML = "This dinner will be Awesome!";
 
-	// TODO: read this from the model!!
-	const num_people_val = 3;
-	const paragraph2 = this.container.appendChild(document.createElement('P'));
-	const num_people = paragraph2.appendChild(document.createElement('SPAN'));
-	num_people.innerHTML = num_people_val;
-	paragraph2.innerHTML += " people are coming!";
+      let innerHTML = `
+      <div class="grid-container" id="overview-grid-container">
+      <div id="loader" style="display:none">Loading...</div>
+        <div class="header"><h1>Dinner Planner</h1></div>
+        <div class="search" id="overviewdinner">
+          <div style="display:flex; flex-direction:row;">
+            <div>My dinner: &nbsp;</div>
+            <div id="numGuest" class="value-num-guests"></div>&nbsp;
+            <div id="people"></div>
+          </div>
+            <button id="toPrintBtn" onclick="show('search')">Go back and edit dinner</button>
+        </div>
+        <div class="main" id="overviewmain">
+          <div>
+            <div id="disharea">
+            </div>
+            <div id="value-total-price" class="value-total-price">
+            </div>
+          </div>  
+            <button id="fullrecipebtn">
+              Print Full Recipe
+            </button>
+        </div>
+      </div> 
+      `;
 
-	const paragraph3 = this.container.appendChild(document.createElement('P'));
-	paragraph3.innerHTML = "We will be eating the following:";
-	
-	const list = this.container.appendChild(document.createElement('UL'));
-
-	for(const food of ["Bread!", "Ham!", "Pizza!"]) {
-            list.appendChild(document.createElement('UL')).innerHTML = food;
+      this.container.innerHTML = innerHTML;
+      this.afterRender();
 	}
-	
-	this.afterRender();
-    }
-    
+
     afterRender() {
+      this.myDinner();
+      this.dishPresenter();
+    }
+
+    myDinner(){
+      this.container.querySelector("#numGuest").innerHTML = this.model.getNumberOfGuests();
+
+      if("1" === this.container.querySelector("#numGuest").innerHTML)
+          this.container.querySelector("#people").innerHTML = "person";
+      else
+          this.container.querySelector("#people").innerHTML = "people";
+    }
+
+    dishPresenter(){
+
+      let dishes = this.model.getFullMenu();
+
+      dishes.map(dish => {let elem = document.createElement("div");
+        elem.classList.add("value-main-course-name");
+        elem.innerHTML = dish.title;
+        return elem;
+      }).forEach(element => {
+        this.container.querySelector("#disharea").appendChild(element);
+      });
+        console.log(this.model.getTotalMenuPrice());
+      this.container.querySelector("#value-total-price").innerHTML = this.model.getTotalMenuPrice();
     }
 }

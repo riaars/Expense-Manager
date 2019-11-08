@@ -95,3 +95,29 @@
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+
+#overview-grid-container{
+    grid-template-areas:  
+    'header header'
+    'search search'
+    'main main';
+}
+#overviewdinner{
+    text-align: center; 
+    display:flex;
+    flex-direction: row; 
+    justify-content: space-between;
+}
+
+#overviewmain{
+
+    background-color: purple;
+    align-self: auto;
+}
+
+#disharea{
+    display: flex;
+    flex-direction: row;
+}
+
+
