@@ -28,13 +28,6 @@ const show= function(screenName) {
                                                 
 window.onload = function () {
   //We instantiate our model
-<<<<<<< HEAD
-  const model = new DinnerModel(); 
-  //new HomeView(container("home"), model).render();
-  new OverviewView(container("overview"), model).render();
- // new SearchView(container("search"), model).render();
-  // TODO:  more views here
-=======
   const model = new DinnerModel();
 
   model.getDish(522).then(dish => model.addDishToMenu(dish))
@@ -44,8 +37,7 @@ window.onload = function () {
   new HomeView(container("home"), model).render();
   new OverviewView(container("overview"), model).render();
   new SearchView(container("search"), model).render();
-    // TODO:  more views here
->>>>>>> 15d54e257a2e45f10a727f8285079fcc405ff165
+  // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
   show("overview");
