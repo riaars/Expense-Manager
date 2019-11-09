@@ -8,9 +8,14 @@ class DishSearchView {
     render() {
         let innerHTML = `
         <div id="dishsearchcontainer" style="padding-left:25px; padding-bottom:20px;">
-        <div style="text-align:left;"><h1>Find a Dish</h1></div>
-            <div style="display:flex; flex-direction:row;">Search&nbsp;<input type="text" id="dish-free-text-search" size=10em></input>
-            <select name="cars" id="dish-type-selector" style="margin-left:25px;">
+        <div style="text-align:left;">
+            <h1>Find a Dish</h1>
+        </div>
+        <div class="search-area">
+        Search&nbsp;
+        <input type="text" id="dish-free-text-search" style="width:100px; margin-right:25px"></input>
+        <div style="display:flex; flex-direction:row;">
+            <select name="cars" id="dish-type-selector" style="margin-right:25px;">
                 <option value="">Select A Type</option>
                 <option value="main course">Main course</option>
                 <option value="side dish">Side Dish</option>
@@ -20,7 +25,7 @@ class DishSearchView {
             <button id="search-for-dish-btn" class="startBtn" type="button" style="margin:0 0em 0em 0; margin-left:25px">
               Search
             </button>
-
+            </div>
         </div>
         `;
         this.container.innerHTML = innerHTML;
