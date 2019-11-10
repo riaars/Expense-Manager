@@ -8,29 +8,30 @@ class OverviewView {
     render() {
 
       let innerHTML = `
-      <div class="grid-container" id="overview-grid-container">
-      <div id="loader" style="display:none">Loading...</div>
-        <div class="header"><h1>Dinner Planner</h1></div>
-        <div class="search" id="overviewdinner">
-          <div style="display:flex; flex-direction:row;">
-            <div>My dinner: &nbsp;</div>
-            <div id="numGuest" class="value-num-guests"></div>&nbsp;
-            <div id="people"></div>
-          </div>
-            <button id="toPrintBtn" onclick="show('search')">Go back and edit dinner</button>
-        </div>
-        <div class="main" id="overviewmain">
-          <div>
-            <div id="disharea">
-            </div>
-            <div id="value-total-price" class="value-total-price">
-            </div>
-          </div>  
-            <button id="fullrecipebtn">
-              Print Full Recipe
-            </button>
-        </div>
-      </div> 
+      <div id="overview-grid-container">
+             <div id="overviewheader"> <h1>Dinner Planner</h1>
+             </div>
+             <div id="overviewdinner">
+                    <div id="myDinner" style="display: inline">My dinner: 
+                    </div>
+                    <div id="numGuest" class="value-num-guests" style="display: inline">
+                         </div>&nbsp;<div id="people" style="display: inline">
+                         </div>
+                         <button class="startBtn"  id="toPrintBtn" onclick="show('search')">Go back and edit dinner
+                         </button>        
+                         </div>  
+                         <div id="overviewmain">
+                         <div id="value-total-price" style="display: inline ">
+                         </div>
+                     </div> 
+                     <div id="fullrecipebtn">
+                        <button class="startBtn">
+                             Print Full Recipe
+                        </button>
+                     </div>
+              </div>         
+       </div>
+      
       `;
 
       this.container.innerHTML = innerHTML;

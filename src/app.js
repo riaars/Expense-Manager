@@ -48,7 +48,10 @@ const hashHasChanged = function(){
 };
 
 window.onload = function () {
-window.addEventListener("hashchange", hashHasChanged, false);
+
+  //Processes hashchange events. Event fires when a window's hash changes.
+  window.addEventListener("hashchange", hashHasChanged, false);
+
   //We instantiate our model
   const model = new DinnerModel();
 
@@ -66,7 +69,7 @@ window.addEventListener("hashchange", hashHasChanged, false);
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
-  //show("search");
+  show("overview");
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body
