@@ -28,7 +28,6 @@ const routes = [{
 }];
 
 
-
 // switching between screens
 const show= function(screenName) {
     // hide all views first 
