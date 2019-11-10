@@ -12,6 +12,23 @@ const screens = {
       // TODO: add more screens here!    
 };
 
+
+//A container of routes with paths and names.
+const routes = [{
+  path:'overview',
+  name:'OverView'
+},
+{
+  path:'search',
+  name:'SearchView'
+},
+{
+  path:'home',
+  name:'HomeView'
+}];
+
+
+
 // switching between screens
 const show= function(screenName) {
     // hide all views first 
@@ -25,22 +42,32 @@ const show= function(screenName) {
     screens[screenName]
       .forEach(containerName => container(containerName).style.display = "block");
 };
-                                                
+ 
+//called for when the hash has changed
+const hashHasChanged = function(){
+    this.router.hashHasChanged(container);
+};
+
 window.onload = function () {
+window.addEventListener("hashchange", hashHasChanged, false);
   //We instantiate our model
   const model = new DinnerModel();
 
-  model.getDish(522).then(dish => model.addDishToMenu(dish))
-  .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
-  .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)}))
+  // model.getDish(522).then(dish => model.addDishToMenu(dish))
+  // .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
+  // .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)}))
 
   new HomeView(container("home"), model).render();
   new OverviewView(container("overview"), model).render();
   new SearchView(container("search"), model).render();
+ 
+  //Router object which lets the user switch between views using hash in the browser.
+  this.router = new Router(routes);
+  
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
-  show("overview");
+  //show("search");
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body

@@ -62,7 +62,6 @@ class OverviewView {
       }).forEach(element => {
         this.container.querySelector("#disharea").appendChild(element);
       });
-        console.log(this.model.getTotalMenuPrice());
       this.container.querySelector("#value-total-price").innerHTML = this.model.getTotalMenuPrice();
     }
 }

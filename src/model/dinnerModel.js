@@ -151,7 +151,7 @@ class DinnerModel {
        query = '';
 
     toggleLoader(true);
-    return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'search?type=' + type + '&query=' + query , HEADERS)
+    return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'search?type=' + type + '&query=' + query , {headers:{'X-Mashape-Key': API_KEY}})
            .then(response => response.json())
            .then(responseJson => {
              store.dispatch(actions.replaceLastSearchAction(responseJson.results));
@@ -163,7 +163,7 @@ class DinnerModel {
   //Returns a dish of specific ID
   getDish(id) {
     toggleLoader(true);
-    return fetch(ENDPOINT +'/' + 'recipes' + '/' + id + '/information', HEADERS)
+    return fetch(ENDPOINT +'/' + 'recipes' + '/' + id + '/information', {headers:{'X-Mashape-Key': API_KEY}})
            .then(response => response.json())
            .then(responseJson => {toggleLoader(false); return responseJson})
            .catch(console.error);
