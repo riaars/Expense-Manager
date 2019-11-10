@@ -55,13 +55,15 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
-  // model.getDish(522).then(dish => model.addDishToMenu(dish))
-  // .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
-  // .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)}))
+   model.getDish(522).then(dish => model.addDishToMenu(dish))
+   .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
+   .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)})).then(() => {
+    new HomeView(container("home"), model).render();
+    new OverviewView(container("overview"), model).render();
+    new SearchView(container("search"), model).render();
+   })
 
-  new HomeView(container("home"), model).render();
-  new OverviewView(container("overview"), model).render();
-  new SearchView(container("search"), model).render();
+
  
   //Router object which lets the user switch between views using hash in the browser.
   this.router = new Router(routes);

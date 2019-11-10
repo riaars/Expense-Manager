@@ -240,7 +240,7 @@
   
 }
 #fullrecipebtn{
-   grid-area: printFullRecipe;
+   grid-area: printFullRecipe;  
    align-content: center;
    text-align: center;
 }
@@ -249,5 +249,3 @@
     min-width: 250px;
     font-size: 18px;
 }
-
-

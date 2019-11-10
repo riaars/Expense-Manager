@@ -17,12 +17,18 @@ class OverviewView {
                     <div id="numGuest" class="value-num-guests" style="display: inline">
                          </div>&nbsp;<div id="people" style="display: inline">
                          </div>
-                         <button class="startBtn"  id="toPrintBtn" onclick="show('search')">Go back and edit dinner
-                         </button>        
-                         </div>  
-                         <div id="overviewmain">
+                         <div id="disharea">
+                         </div>
                          <div id="value-total-price" style="display: inline ">
                          </div>
+                         <div>
+                         <button class="startBtn"  id="toPrintBtn" onclick="show('search')">Go back and edit dinner
+                         </div>
+                         </button>        
+                         </div>  
+
+                         <div id="overviewmain">
+
                      </div> 
                      <div id="fullrecipebtn">
                         <button class="startBtn">
