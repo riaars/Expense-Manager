@@ -12,10 +12,9 @@ class DishSearchView {
             <h1>Find a Dish</h1>
         </div>
         <div class="search-area">
-        Search&nbsp;
-        <input type="text" id="dish-free-text-search" style="width:100px; margin-right:25px"></input>
+        <input type="text" placeholder="Enter key words" id="dish-free-text-search" style="width:8.5em; margin-right:25px"></input>
         <div style="display:flex; flex-direction:row;">
-            <select name="cars" id="dish-type-selector" style="margin-right:25px;">
+            <select name="cars" id="dish-type-selector" style="width:8.5em; margin-right:25px;">
                 <option value="">Select A Type</option>
                 <option value="main course">Main course</option>
                 <option value="side dish">Side Dish</option>
