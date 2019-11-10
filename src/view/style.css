@@ -183,6 +183,16 @@
     background-color:#FFFFFF;
 }
 
+.spinner-border {
+    background-color: rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 50%;
+    padding-left:calc(60% - 6em);
+    z-index: 100;
+}
+
 .startBtn:active {
     background-color: #fdfdfd;
     box-shadow: 0 5px #666;

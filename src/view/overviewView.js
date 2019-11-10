@@ -19,7 +19,7 @@ class OverviewView {
                          </div>
                          <div id="disharea">
                          </div>
-                         <div id="value-total-price" style="display: inline ">
+                         <div id="checkout-total-price"class="value-total-price" style="display: inline ">
                          </div>
                          <div>
                          <button class="startBtn"  id="toPrintBtn" onclick="show('search')">Go back and edit dinner
@@ -69,6 +69,6 @@ class OverviewView {
       }).forEach(element => {
         this.container.querySelector("#disharea").appendChild(element);
       });
-      this.container.querySelector("#value-total-price").innerHTML = this.model.getTotalMenuPrice();
+      this.container.querySelector("#checkout-total-price").innerHTML = this.model.getTotalMenuPrice().toFixed(2);
     }
 }

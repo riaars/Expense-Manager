@@ -11,7 +11,6 @@ class HomeView {
     <div class="header" id="homeviewheader"> 
       <h1>Dinner Planner</h1>
     </div>
-    <div id="loader" style="display:none">Loading...</div>
     <div class="centertext">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel laoreet orci. Nullam ut iaculis diam. Aliquam
           magna nulla, congue ut elementum hendrerit, dignissim at mauris. Quisque ac felis sed nibh elementum euismod a sit amet
