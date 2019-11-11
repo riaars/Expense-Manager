@@ -30,6 +30,10 @@ const routes = [{
   name:'HomeView'
 },
 {
+  path:'details',
+  name:'DetailView'
+},
+{
   path: 'header',
   name: 'HeaderView'
 },
