@@ -98,6 +98,41 @@
     background-color: #e3e3e3 !important;
 }
 
+@media (min-width: 1024px){
+.grid-container-dishdetails {
+    grid-template-rows: 
+    minmax(120px, 10%) 
+    minmax(110px, 12%)
+    auto;
+    grid-template-columns: 
+    400px 
+    auto;
+    grid-template-areas:
+      'header header'
+      'sidebar search'
+      'sidebar main';
+}
+}
+
+.grid-container-dishdetails {
+    background-color: #000000;
+    display: grid;
+    grid-template-rows: 
+    minmax(100px, 10%) 
+    minmax(110px, 12%) 
+    40% 
+    auto;
+    grid-template-areas:
+      'header'
+      'search'
+      'main'
+      'sidebar';
+    grid-gap: 0px;
+    width: 100vw;
+    height: 100vh;
+    border-style: none;
+}
+
 .grid-container {
   background-color: #000000;
   display: grid;
@@ -186,10 +221,10 @@
 .spinner-border {
     background-color: rgba(0,0,0,0.5);
     height: 100%;
-    width: 100%;
     position: absolute;
     padding: 50%;
     padding-left:calc(60% - 6em);
+    overflow: hidden;
     z-index: 100;
 }
 

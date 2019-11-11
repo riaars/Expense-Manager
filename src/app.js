@@ -9,6 +9,7 @@ const screens = {
          home: ["home"], 
          search: ["header", "sidebar", "search"],
          overview: ["header", "overview"],
+         details: ["details", "details"]
       // TODO: add more screens here!    
 };
 
@@ -34,7 +35,7 @@ const show= function(screenName) {
     // optional FIXME: we could avoid hiding the containers that are part of the screen to be shown
     // optional FIXME: finding the containers could be done automatically
     // by looking at document.body.firstChild.children
-    ["header", "home", "overview", "search", "sidebar"]
+    ["header", "home", "overview", "search", "sidebar", 'details']
       .forEach(containerName => container(containerName).style.display="none");
     
     // now we show all the Views used by the indicated screen
@@ -61,6 +62,7 @@ window.onload = function () {
     new HomeView(container("home"), model).render();
     new OverviewView(container("overview"), model).render();
     new SearchView(container("search"), model).render();
+    new DishDetailsView(container("details"), model).render();
    })
 
 
