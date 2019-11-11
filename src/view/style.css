@@ -155,10 +155,6 @@ h1 {
 
 }
 
-#homeviewheader{
-   
-}
-
 .centertext{
     text-align: center;
     padding: 15%;
@@ -244,10 +240,28 @@ h1 {
 
 }
 
+
+
+
+#fullrecipebtn{
+   grid-area: printFullRecipe;  
+   align-content: center;
+   text-align: center;
+}
+
+
+
+.mydinner{
+    display: grid;
+    flex:1;
+    flex-direction: row;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    background-color: blue !important;
+
+}
+
 #value-total-price{
-    align-content: right;
-    text-align: right;
-    font-size: 30px;
    
 }
 
@@ -256,10 +270,15 @@ h1 {
   
 }
 
+<<<<<<< HEAD
 #fullrecipebtn{
    grid-area: printFullRecipe;  
    align-content: center;
    text-align: center;
+=======
+#people{
+
+>>>>>>> 09981ad7ba8db2cb064de16e79959d2ef79d76b1
 }
 
 #toPrintBtn{
