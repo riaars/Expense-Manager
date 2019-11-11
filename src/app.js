@@ -26,6 +26,10 @@ const routes = [{
 {
   path:'home',
   name:'HomeView'
+},
+{
+  path:'details',
+  name:'DetailView'
 }];
 
 
@@ -56,14 +60,15 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
-   model.getDish(522).then(dish => model.addDishToMenu(dish))
-   .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
-   .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)})).then(() => {
-    new HomeView(container("home"), model).render();
-    new OverviewView(container("overview"), model).render();
-    new SearchView(container("search"), model).render();
-    new DishDetailsView(container("details"), model).render();
-   })
+  //Populate the model with some test data before rendering.
+   Promise.all([model.getDish(120), model.getDish(522), model.getDish(512)])
+   .then((dishes) =>{ 
+     dishes.forEach(model.addDishToMenu);
+     new HomeView(container("home"), model).render();
+     new OverviewView(container("overview"), model).render();
+     new SearchView(container("search"), model).render();
+     new DishDetailsView(container("details"), model).render(); 
+  })
 
 
  
