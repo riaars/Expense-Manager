@@ -247,32 +247,63 @@
    text-align: center;
 }
 
-
-
 .mydinner{
     display: grid;
-    flex:1;
-    flex-direction: row;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr ;
+    flex-direction: column;
+    margin: 0;
     align-content: center;
-    background-color: blue !important;
-
+    height: 60px;
+    border-bottom: solid;
+    flex: 1;
+    border-width: 2px;
+    border-top: 2px  grey;
 }
 
-#value-total-price{
-   
+.leftmydinner{
+    display:flex;
+    align-items: center; 
+    font-size: 20px;
+    flex-direction: row;
+    flex: 1;
+    margin-left: 25px;
 }
 
-#numGuest{
-    display: inline-block;
-  
+@media (max-width: 500px){  
+.leftmydinner{
+    display:flex;
+    align-items: center; 
+    font-size: 13px;
+    flex-direction: row;
+    flex: 1;
+    margin-left: 25px;
+    }
 }
 
-#people{
 
+ .rightmydinner{
+    display: flex;
+    text-align: right;
+    align-content: right;
+    display: inline;
+    align-items: center;
+    flex: 1;
+    align-items: center;
+    margin-top: 4px;
 }
 
-#toPrintBtn{
-    min-width: 250px;
-    font-size: 18px;
+#goBackBtn{
+    display: flex;
+    display: inline;
+    align-items: center;
+    font-size: 15px;
+}
+
+@media (max-width: 500px){
+#goBackBtn{
+    display: flex;
+    display: inline;
+    align-items: center;
+    font-size: 10px;
+    }
 }

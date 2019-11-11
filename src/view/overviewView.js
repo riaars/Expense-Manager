@@ -22,7 +22,7 @@ class OverviewView {
                          <div id="checkout-total-price"class="value-total-price" style="display: inline ">
                          </div>
                          <div>
-                         <button class="startBtn"  id="toPrintBtn" onclick="show('search')">Go back and edit dinner
+                         <button class="startBtn" onclick="show('search')">Go back and edit dinner
                          </div>
                          </button>        
                          </div>  
