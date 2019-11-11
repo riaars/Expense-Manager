@@ -9,7 +9,9 @@ const screens = {
          home: ["home"], 
          search: ["header", "sidebar", "search"],
          overview: ["header", "overview"],
-         details: ["details", "details"]
+         details: ["details", "details"],
+         header: ["header"],
+         mydinner: ["mydinner"]
       // TODO: add more screens here!    
 };
 
@@ -26,6 +28,18 @@ const routes = [{
 {
   path:'home',
   name:'HomeView'
+},
+{
+  path: 'header',
+  name: 'HeaderView'
+},
+{
+  path:'printout',
+  name:'PrintoutView'
+},
+{
+  path: 'mydinner',
+  name: 'MyDinnerView'
 }];
 
 
@@ -35,7 +49,7 @@ const show= function(screenName) {
     // optional FIXME: we could avoid hiding the containers that are part of the screen to be shown
     // optional FIXME: finding the containers could be done automatically
     // by looking at document.body.firstChild.children
-    ["header", "home", "overview", "search", "sidebar", 'details']
+    ["header", "home", "overview", "search", "sidebar", 'details', 'printout', 'mydinner']
       .forEach(containerName => container(containerName).style.display="none");
     
     // now we show all the Views used by the indicated screen
@@ -59,10 +73,13 @@ window.onload = function () {
    model.getDish(522).then(dish => model.addDishToMenu(dish))
    .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
    .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)})).then(() => {
+    new HeaderView(container("header")).render();
     new HomeView(container("home"), model).render();
     new OverviewView(container("overview"), model).render();
     new SearchView(container("search"), model).render();
     new DishDetailsView(container("details"), model).render();
+    new PrintoutView(container("printout"),model).render();
+    new MyDinnerView(container("mydinner"),model).render();
    })
 
 
@@ -73,7 +90,7 @@ window.onload = function () {
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
-  show("overview");
+  show("mydinner");
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body
