@@ -12,7 +12,7 @@ class SearchView {
     <div class="grid-container">
       <div class="header"><h1>Dinner Planner</h1></div>
       <div class="sidebar" id="sideBarView">
-      >sidebar</div>
+      sidebar</div>
       <div class="main" id="dishItems">Main</div>
       <div class="search" id="dishSearchView">SEARCH</div>
     </div>
