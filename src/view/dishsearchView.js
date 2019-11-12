@@ -9,7 +9,7 @@ class DishSearchView {
         let innerHTML = `
         <div id="dishsearchcontainer" style="padding-left:25px; padding-bottom:20px;">
         <div style="text-align:left;">
-            <h3>Find a Dish</h3>
+            Find a Dish
         </div>
         <div class="search-area">
         <input type="text" placeholder="Enter key words" id="dish-free-text-search" style="width:8.5em; margin-right:25px"></input>

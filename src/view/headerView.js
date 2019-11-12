@@ -6,7 +6,7 @@ class HeaderView{
     render(){
 
         const innerHTML = `
-            <div class="header">Dinner Planner</div>
+            <div class="header"><h1>Dinner Planner</h1></div>
         `;
 
         this.container.innerHTML = innerHTML;

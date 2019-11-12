@@ -9,7 +9,7 @@ const screens = {
          home: ["home"], 
          search: ["header", "sidebar", "search"],
          overview: ["header", "overview"],
-         details: ["details", "details"],
+         details: ["header", "details"],
          header: ["header"],
          mydinner: ["mydinner"]
       // TODO: add more screens here!    
@@ -95,7 +95,7 @@ window.onload = function () {
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
-  show("details");
+  show("search");
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body

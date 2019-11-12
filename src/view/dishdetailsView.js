@@ -11,8 +11,7 @@ class DishDetailsView {
       console.log(dishId);
       let innerHTML = 
       `
-      <div class="grid-container" style="grid-template-rows:minmax(100px, 10%) 0px auto">
-        <div class="header"><h1>Dinner Planner</h1></div>
+      <div class="grid-container" style="grid-template-rows: 0 auto;">
         <div class="sidebar" id="sbv">sidebar</div>
         <div class="main" id="recipecontainer"><h1><h1></div>
         <div style="display:none" id="dishSearchView"></div>

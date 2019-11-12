@@ -60,7 +60,7 @@ h1 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;    
-    min-height: 75px;
+    height: 105px;
     min-width: 0;
     word-wrap: break-word;
     grid-area: header;
@@ -115,35 +115,33 @@ hr.horizontal-line {
 
 
 .grid-container {
-  background-color: #000000;
+  background-color: #000001;
   display: grid;
   grid-template-rows: 
-  minmax(100px, 10%) 
+  0 
   minmax(110px, 12%) 
   40% 
   auto;
   grid-template-areas:
-    'header'
+    'search'
     'search'
     'main'
     'sidebar';
   grid-gap: 0px;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 105px);
   border-style: none;
 }
 
 @media (min-width: 1024px){
 .grid-container {
     grid-template-rows: 
-    minmax(120px, 10%) 
     minmax(110px, 12%)
     auto;
     grid-template-columns: 
     400px 
     auto;
     grid-template-areas:
-      'header header'
       'sidebar search'
       'sidebar main';
 }

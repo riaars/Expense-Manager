@@ -16,7 +16,10 @@ class Router{
         if(!route[0])
             container("notfound").style.display = "block";
         else
-            container(route[0].path).style.display = "block";
+        {
+            screens[route[0].path]
+            .forEach(containerName => container(containerName).style.display = "block");
+        }
 
     }
 
