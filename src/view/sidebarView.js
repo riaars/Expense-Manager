@@ -29,7 +29,6 @@ class SidebarView {
     }
   
     render() {
-        
         //setTimeout(function() {th.render()}, 2000);
       let innerHTML = 
       `
@@ -57,14 +56,14 @@ class SidebarView {
       </div>
       `
     this.container.innerHTML = innerHTML;
-    this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{show("overview")});
-    let numGuestsFunc = this.model.setNumberOfGuests;
-    this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
-    this.container.getElementsByClassName("numpeople")[0].addEventListener("change", function(obj){numGuestsFunc(this.value)});
-    this.updateMenu(this.model.getFullMenu(), this.model.getNumberOfGuests());
+    this.afterRender();
 }
 
     afterRender() {
-        
+      this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{show("overview")});
+      let numGuestsFunc = this.model.setNumberOfGuests;
+      this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
+      this.container.getElementsByClassName("numpeople")[0].addEventListener("change", function(obj){numGuestsFunc(this.value)});
+      this.updateMenu(this.model.getFullMenu(), this.model.getNumberOfGuests());
     }
   }

@@ -6,7 +6,8 @@ class DishDetailsView {
       this.recipeListView = undefined;
     }
   
-    render(dishId = 123) {
+    render(dishId = 512) {
+      dishId = Math.floor(20 + Math.random() * Math.floor(512));
       console.log(dishId);
       let innerHTML = 
       `

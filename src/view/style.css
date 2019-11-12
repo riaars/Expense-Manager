@@ -87,7 +87,20 @@ h1 {
 }
 }
 
+th {
+    font-weight: normal;
+}
 
+hr.horizontal-line {
+        border-top: solid black;
+}
+
+
+.recipe-ingredients {
+    background-color: #ffe698;
+    border: solid black;
+
+}
 
 .search {
     border-top:solid gray; 
@@ -159,8 +172,16 @@ h1 {
     padding: 15%;
 }
 
+.recipeview-container {
+    display:flex; 
+    flex-direction:left; 
+    text-align:left; 
+    overflow-y: scroll; 
+    height: calc(100vh - 120px);
+}
+
 .startBtn{
-    background-color: orange !important;
+    background-color: #f7b36a !important;
     display: inline-block;
     padding: 0.35em 1.2em;
     border:0.1em solid #000000;
