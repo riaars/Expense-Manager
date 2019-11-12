@@ -97,8 +97,9 @@ class RecipeView {
             //Append the ingredients
             "display: flex; justify-content: space-between;"
             dish.extendedIngredients.map(ingredient => {
-                let textC1 = parseFloat(ingredient.measures.metric.amount).toFixed(2) + " " + ingredient.measures.metric.unitShort 
-                let textC2 = ingredient.meta[0] + " "  + ingredient.name;
+                            //parse(parse()) => Max 2 dec, but remove trailing zeros
+                let textC1 = parseFloat(parseFloat(ingredient.measures.metric.amount).toFixed(2)) + " " + ingredient.measures.metric.unitShort 
+                let textC2 = ingredient.meta[0] || "" + " "  + ingredient.name;
                 //let textC3 = "SEK"
                 let colCreator = (text) => {
                     let col = document.createElement("th")
