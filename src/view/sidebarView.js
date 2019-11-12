@@ -33,7 +33,7 @@ class SidebarView {
       let innerHTML = 
       `
       <div class="sidebarcontainer">
-        <div style="padding-left:25px;"><h1>My Dinner</h1></div>
+        <div style="padding-left:25px;"><h2>My Dinner</h2></div>
         <div style="padding-left:25px; display: flex; flex-direction: row; width: 50%;">People&nbsp;<input type="number" style="width: 2em;" class="numpeople"></input>
         <div class="value-num-guests"></div>
         </div>

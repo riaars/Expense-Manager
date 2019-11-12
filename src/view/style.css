@@ -1,4 +1,4 @@
-*:not(h1):not(h1):not(h2):not(h3)  { 
+*:not(h1):not(h1):not(h2):not(h3)  {
     margin:0px;
     padding:0px;
     font-family: Comic Sans MS;
@@ -6,6 +6,11 @@
     -moz-box-sizing:border-box;
     -webkit-box-sizing:border-box;
     box-sizing:border-box;
+}
+
+.container {
+    /*App goes into "portrait" mode when small x, so the horizontal scrollbar should never be seen*/
+    overflow-x: hidden!important;
 }
 
 h1 {
@@ -72,8 +77,6 @@ h1 {
 
 .sidebar { 
     border-top:solid black; 
-    border-right:none; 
-    border-left:none;
     grid-area: sidebar; 
     height: 100%;
     padding-left: 0px !important;
@@ -139,7 +142,7 @@ hr.horizontal-line {
     minmax(110px, 12%)
     auto;
     grid-template-columns: 
-    400px 
+    350px 
     auto;
     grid-template-areas:
       'sidebar search'
