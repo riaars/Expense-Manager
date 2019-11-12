@@ -6,7 +6,7 @@ class DishDetailsView {
       this.recipeListView = undefined;
     }
   
-    render(dishId = 512) {
+    render(dishId = 123) {
       console.log(dishId);
       let innerHTML = 
       `

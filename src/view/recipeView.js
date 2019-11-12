@@ -58,6 +58,6 @@ class RecipeView {
             });
                         
         })
-        //this.container.querySelector("#go-back-details").addEventHandler("click", )
+        this.container.querySelector("#go-back-details").addEventListener("click", () => {window.location.hash = '#search';} )
     }
 }

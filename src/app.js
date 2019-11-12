@@ -74,17 +74,18 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
-    model.getDish(522).then(dish => model.addDishToMenu(dish))
-    .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
-    .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)})).then(() => {
-     new HeaderView(container("header")).render();
-     new HomeView(container("home"), model).render();
-     new OverviewView(container("overview"), model).render();
-     new SearchView(container("search"), model).render();
-     new DishDetailsView(container("details"), model).render();
-     new PrintoutView(container("printout"),model).render();
-     new MyDinnerView(container("mydinner"),model).render();
-    })
+  //Make sure all promises resolve so model is populated
+  Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
+  .then(dishes => {
+    dishes.forEach(model.addDishToMenu);
+    new HeaderView(container("header")).render();
+    new HomeView(container("home"), model).render();
+    new OverviewView(container("overview"), model).render();
+    new SearchView(container("search"), model).render();
+    new DishDetailsView(container("details"), model).render();
+    new PrintoutView(container("printout"),model).render();
+    new MyDinnerView(container("mydinner"),model).render();
+})
 
 
  
@@ -94,7 +95,7 @@ window.onload = function () {
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
-  show("mydinner");
+  show("details");
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body

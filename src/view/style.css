@@ -97,7 +97,7 @@ h1 {
 
 .main { 
     grid-area: main;
-    flex-grow: 1;
+    flex-grow: 1;   
 }
 
 
