@@ -74,17 +74,17 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
-  //  model.getDish(522).then(dish => model.addDishToMenu(dish))
-  //  .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
-  //  .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)})).then(() => {
-  //   new HeaderView(container("header")).render();
-  //   new HomeView(container("home"), model).render();
-  //   new OverviewView(container("overview"), model).render();
-  //   new SearchView(container("search"), model).render();
-  //   new DishDetailsView(container("details"), model).render();
-  //   new PrintoutView(container("printout"),model).render();
- // })
-  new MyDinnerView(container("mydinner"),model).render();
+    model.getDish(522).then(dish => model.addDishToMenu(dish))
+    .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
+    .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)})).then(() => {
+     new HeaderView(container("header")).render();
+     new HomeView(container("home"), model).render();
+     new OverviewView(container("overview"), model).render();
+     new SearchView(container("search"), model).render();
+     new DishDetailsView(container("details"), model).render();
+     new PrintoutView(container("printout"),model).render();
+     new MyDinnerView(container("mydinner"),model).render();
+    })
 
 
  

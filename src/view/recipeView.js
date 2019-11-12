@@ -20,7 +20,8 @@ class RecipeView {
             libero ut tortor. Proin erat mauris, 
             pretium eget sapien quis, auctor semper sem.</div>
             <div class="startBtn" id="go-back-details">Back to search</div>
-            <div class="back-button">PREPARATION</div>
+            <div class="back-button"><h2>PREPARATION<h2></div>
+            <div id="instructions-container" style="font-size:80%;"></div>
         </div>
         <div class="rightUpper" style="width:50%;">RU
             <div>INGREDIENTS LIST
@@ -33,16 +34,29 @@ class RecipeView {
     }
 
     afterRender() {
-        console.log("sdkjfds")
-        console.log(this.dishId);
         this.model.getDish(this.dishId).then( dish => {
             console.log(dish)
+            //Append the image and title
             this.container.querySelector("#dish-title").innerHTML = dish.title;
             let imgElem = document.createElement("img");
             imgElem.setAttribute("src", dish.image);
             imgElem.setAttribute("style", "width:100%;");
             this.container.querySelector("#dish-image")
             .appendChild(imgElem);
+
+            //Append the instructions
+            let instructionElements = dish.analyzedInstructions[0].steps.map((stepInfo) => {
+                console.log(stepInfo)
+                let stepElem = document.createElement("div");
+                let stepParagraph = document.createElement("p")
+                stepElem.setAttribute("style", "padding-top:1em")
+                stepParagraph.innerHTML = stepInfo.number +": " + stepInfo.step;
+                stepElem.appendChild(stepParagraph);
+                return stepElem;
+            }).forEach((elem) => {
+                this.container.querySelector("#instructions-container").appendChild(elem);
+            });
+                        
         })
         //this.container.querySelector("#go-back-details").addEventHandler("click", )
     }
