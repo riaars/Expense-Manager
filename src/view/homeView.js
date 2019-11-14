@@ -31,6 +31,6 @@ class HomeView {
   }
 
   createNewDinner() {
-    show("search");
+    window.location.hash = 'search';
   }
 }

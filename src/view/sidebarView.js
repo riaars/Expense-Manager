@@ -5,6 +5,7 @@ class SidebarView {
       this.model.subscribeToProperty(["dishes", "numberOfGuests"], this.updateMenu.bind(this));
       this.isCollapsed = false;
     }
+    
     updateMenu(dishes, numGuests) {
         this.container.querySelector("#dishlistcontainer").innerHTML = "";
         dishes.forEach(function(dish){
@@ -30,7 +31,6 @@ class SidebarView {
     }
   
     render() {
-        //setTimeout(function() {th.render()}, 2000);
       let innerHTML = 
       `
       <div class="sidebarcontainer" style:"height:100%">

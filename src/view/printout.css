@@ -29,6 +29,7 @@
     display: grid;
     grid-template-columns: 0.5fr 1fr 1fr;
 }
+
 .printpicdiv{
     margin: 5%;
     width:100%;
@@ -48,6 +49,7 @@
     padding-top: 20%;
     
 }
+
 @media (max-width: 1024px){ 
 
     .printdiv{
