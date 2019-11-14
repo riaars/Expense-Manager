@@ -22,25 +22,29 @@
 
     <script src="https://unpkg.com/chai/chai.js"></script>
     <script src="https://unpkg.com/mocha/mocha.js"></script>
+    <!-- Redux -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.5.2/redux.js"></script>
+    <!-- babel, mithril for JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" SameSite="None" charset="utf-8"></script>
+    <script src="https://unpkg.com/mithril/mithril.js"></script>
 
     <script class="mocha-init">
       mocha.setup({
         ui: 'bdd',
         timeout: 5000
       });
-      mocha.checkLeaks();
+      //mocha.checkLeaks();
     </script>
 
-    <!-- Redux -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.5.2/redux.js"></script>
+
     
     <!-- The application JavaScript code -->
     <script src="src/model/apiConfig.js"></script>
     <script src="src/model/dinnerModel.js"></script>
     <script src="src/view/homeView.js"></script>
-    <script src="src/view/searchView.js"></script>
+    <script type="text/jsx" src="src/view/searchView.js"></script>
     <script src="src/view/overviewView.js"></script>
-    <script src="src/view/sidebarView.js"></script>
+    <script type="text/jsx" src="src/view/sidebarView.js"></script>
     <script src="src/view/dishsearchView.js"></script>
     <script src="src/view/myDinnerView.js"></script>
     <script src="src/view/headerView.js"></script>
@@ -50,11 +54,11 @@
     <script src="src/view/searchresultsView.js"></script>
     <script src="src/view/smalldishpreviewView.js"></script>
 
-    <!-- <script src="src/model/dinnerModel.test.js"></script> -->
+    <!-- <script src="src/model/dinnerModel.test.js"></script> type set to text/jsx -->
     <script src="src/app.test.js"></script>
 
     <script class="mocha-exec">
-      mocha.run();
+      setTimeout(mocha.run, 1);
     </script>
 
   </body>

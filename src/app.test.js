@@ -1,5 +1,8 @@
+/* @jsx m*/
 var assert = chai.assert;
 var expect = chai.expect;
+
+console.log(Babel);
 
 describe("DinnerPlanner App", () => {
   let model = null;

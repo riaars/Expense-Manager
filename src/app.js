@@ -1,3 +1,4 @@
+/* @jsx m*/
 // helper function to find the container by short name
 const container=function(containerName){
   return document.body.querySelector("#container-"+containerName);

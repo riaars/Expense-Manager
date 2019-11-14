@@ -1,3 +1,4 @@
+/* @jsx m*/
 //This is a "dumb" view i.e. it does not require access to the model
 //It exists only to generate the HTML for a small dish preview
 //It could have been made as a template string in the search view results panel
@@ -10,20 +11,17 @@ class SmallDishPreviewView {
         this.dishSummary = dishSummary;
         this.container = container;
     }
-    render() {
-        let innerHTML = `
-        <div class="small-dish-preview-container" style="border:solid black; background-color:#dedede">
-            <img class="small-dish-preview-image" style="max-width:100%; height:150px;"></img>
-            <div class="small-dish-preview-text" style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden">
+
+    jsx = () => (
+      <div className="small-dish-preview-container" style={{border:"solid black", backgrounColor:"#dedede"}}>
+        <img className="small-dish-preview-image" style={{maxWidth:"100%", height:"150px"}} src={this.dishSummary.imageUrls[0]}></img>
+        <div className="small-dish-preview-text" style={{whiteSpace:"nowrap", textOverflow:"ellipsis", overflow:"hidden"}}>
+          {this.dishSummary.title}
         </div>
-        `
-        this.container.innerHTML = innerHTML;
-        this.afterRender();
-    }
+      </div>
+    )
 
-    afterRender() {
-        this.container.getElementsByClassName("small-dish-preview-image")[0].setAttribute("src", this.dishSummary.imageUrls[0])
-        this.container.getElementsByClassName("small-dish-preview-text")[0].innerHTML = this.dishSummary.title;
+    render() {
+      m.render(this.container, this.jsx());
     }
-
 }

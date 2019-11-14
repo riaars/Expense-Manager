@@ -1,3 +1,4 @@
+/* @jsx m*/
 class SearchView {
   constructor(container, model) {
     this.container = container;
@@ -7,17 +8,17 @@ class SearchView {
     this.searchResultsView = undefined;
   }
 
-  render(dishId) {
-    let innerHTML = 
-    `
+  jsx = () => { return ( 
     <div class="grid-container">
-      <div class="sidebar" id="sideBarView">
-      sidebar</div>
+      <div class="sidebar" id="sideBarView">sidebar</div>
       <div class="main" id="searchResultsView">Main</div>
       <div class="search" id="dishSearchView">SEARCH</div>
     </div>
-    `
-    this.container.innerHTML = innerHTML;
+  )};
+
+
+  render(dishId) {
+    m.render(this.container, this.jsx());
     if(this.sidebarView === undefined) {
       this.sidebarView = new SidebarView(this.container.querySelector("#sideBarView"), this.model);
     }
