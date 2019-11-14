@@ -29,12 +29,11 @@ class SidebarView {
     }
   
     render() {
-        
         //setTimeout(function() {th.render()}, 2000);
       let innerHTML = 
       `
       <div class="sidebarcontainer">
-        <div style="padding-left:25px;"><h1>My Dinner</h1></div>
+        <div style="padding-left:25px;"><h2>My Dinner</h2></div>
         <div style="padding-left:25px; display: flex; flex-direction: row; width: 50%;">People&nbsp;<input type="number" style="width: 2em;" class="numpeople"></input>
         <div class="value-num-guests"></div>
         </div>
@@ -57,14 +56,14 @@ class SidebarView {
       </div>
       `
     this.container.innerHTML = innerHTML;
-    this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{show("overview")});
-    let numGuestsFunc = this.model.setNumberOfGuests;
-    this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
-    this.container.getElementsByClassName("numpeople")[0].addEventListener("change", function(obj){numGuestsFunc(this.value)});
-    this.updateMenu(this.model.getFullMenu(), this.model.getNumberOfGuests());
+    this.afterRender();
 }
 
     afterRender() {
-        
+      this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{show("overview")});
+      let numGuestsFunc = this.model.setNumberOfGuests;
+      this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
+      this.container.getElementsByClassName("numpeople")[0].addEventListener("change", function(obj){numGuestsFunc(this.value)});
+      this.updateMenu(this.model.getFullMenu(), this.model.getNumberOfGuests());
     }
   }

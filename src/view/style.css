@@ -1,4 +1,4 @@
-*:not(h1):not(h1):not(h2):not(h3)  { 
+*:not(h1):not(h1):not(h2):not(h3)  {
     margin:0px;
     padding:0px;
     font-family: Comic Sans MS;
@@ -8,6 +8,7 @@
     box-sizing:border-box;
 }
 
+<<<<<<< HEAD
 .page-content{
     max-width: 1920px;
     max-height: 1080px;
@@ -16,6 +17,13 @@
 }
 
 
+=======
+.container {
+    /*App goes into "portrait" mode when small x, so the horizontal scrollbar should never be seen*/
+    overflow-x: hidden!important;
+}
+
+>>>>>>> 54fe81b2afade907127d5aae083bfcb663cd4f34
 h1 {
     font-size: 40px;
 }
@@ -60,6 +68,7 @@ h1 {
 }
 
 
+<<<<<<< HEAD
 .header{ 
         padding:0px;
         text-align: center;
@@ -76,6 +85,23 @@ h1 {
         position: relative;
         align-content: center;
         
+=======
+.header{
+    padding:0px;
+    text-align: center;
+    align-content: center;      
+    background-color: #e3e3e3 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;    
+    height: 105px;
+    min-width: 0;
+    word-wrap: break-word;
+    grid-area: header;
+    text-align: center;
+    position: relative;
+    align-content: center;
+>>>>>>> 54fe81b2afade907127d5aae083bfcb663cd4f34
     
 }
 
@@ -87,8 +113,6 @@ h1 {
 
 .sidebar { 
     border-top:solid black; 
-    border-right:none; 
-    border-left:none;
     grid-area: sidebar; 
     height: 100%;
     padding-left: 0px !important;
@@ -102,7 +126,20 @@ h1 {
 }
 }
 
+th {
+    font-weight: normal;
+}
 
+hr.horizontal-line {
+        border-top: solid black;
+}
+
+
+.recipe-ingredients {
+    background-color: #ffe698;
+    border: solid black;
+
+}
 
 .search {
     border-top:solid gray; 
@@ -112,41 +149,38 @@ h1 {
 
 .main { 
     grid-area: main;
-    flex-grow: 1;
-    background-color: #e3e3e3 !important;
+    flex-grow: 1;   
 }
 
 
 .grid-container {
-  background-color: #000000;
+  background-color: #000001;
   display: grid;
   grid-template-rows: 
-  minmax(100px, 10%) 
+  0 
   minmax(110px, 12%) 
   40% 
   auto;
   grid-template-areas:
-    'header'
+    'search'
     'search'
     'main'
     'sidebar';
   grid-gap: 0px;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 105px);
   border-style: none;
 }
 
 @media (min-width: 1024px){
 .grid-container {
     grid-template-rows: 
-    minmax(120px, 10%) 
     minmax(110px, 12%)
     auto;
     grid-template-columns: 
-    400px 
+    350px 
     auto;
     grid-template-areas:
-      'header header'
       'sidebar search'
       'sidebar main';
 }
@@ -177,8 +211,16 @@ h1 {
     z-index: 100;
 }
 
+.recipeview-container {
+    display:flex; 
+    flex-direction:left; 
+    text-align:left; 
+    overflow-y: scroll; 
+    height: calc(100vh - 120px);
+}
+
 .startBtn{
-    background-color: orange !important;
+    background-color: #f7b36a !important;
     display: inline-block;
     padding: 0.35em 1.2em;
     border:0.1em solid #000000;

@@ -10,7 +10,6 @@ class SearchView {
     let innerHTML = 
     `
     <div class="grid-container">
-      <div class="header"><h1>Dinner Planner</h1></div>
       <div class="sidebar" id="sideBarView">
       sidebar</div>
       <div class="main" id="dishItems">Main</div>
