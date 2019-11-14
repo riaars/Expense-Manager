@@ -4,7 +4,7 @@
     flex-direction: column;
     align-self: center;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 0.2fr 0.2fr 4fr 0.2fr;
+    grid-template-rows: 0.2fr 0.2fr 4fr 0.1fr;
     border-style: solid;  
  } 
 
@@ -17,7 +17,7 @@
      display: flex;
      flex-direction: column;
      grid-area: 2/1/span 1/span 3;
-     border-style: solid;
+    
  }
   
 .overviewmain{
@@ -26,16 +26,17 @@
      grid-template-columns: 1fr 1fr 1fr 1fr;
      grid-template-rows: 1fr 1fr 1fr 1fr;
      grid-area: 3/1/span 1/span 3;
-     border-style: solid;
-     height: 55vh;
+     height: auto;
+     border-bottom: solid;
  }
  .overviewdishpresenter{
      display: flex;
      flex-direction: row;
      grid-area: 1/1/span 4/ span 3;
-     border-style: solid;
-     border-color: red;
      height: 100%;
+     border-right: solid;
+
+    
 }
     
 .overviewpresenttotal{
@@ -50,26 +51,87 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-area: 4/1/span 1/span 1;
-    border-style: dotted;
+    
+    height: fit-content;
    
 }
 .overviewbutton{
     grid-area: 2/2/span 1/span 1;
     text-align: center;
 }
-/*
 
- @media (max-width: 800px){ 
-     .overviewpresenttotal{
-         font-size:2.5vw;
-     }
- }
-*/
- 
-#fullrecipebtn{
+#toPrintBtn{
     grid-area: 2/2/span 1/span 1;
     align-content: center;
     text-align: center;
     font-size: 25px;
+}
+
+.dishdiv{
+    display: grid;
+    grid-template-rows: 1fr 0.1fr 0.1fr;
+    padding: 2%;
+    
+
+}
+
+.picdiv{
+    grid-area: 1/1/span 1/span 1;
+    height: auto;
+    border: solid;
+    width:100%;
+}
+
+.namediv{
+    grid-area: 2/1/span 1/span 1;
+    height:fit-content;
+    text-align: right;
+    border: solid;
+    background-color: #e3e3e3 ;
+    padding-right: 2%;
+}
+
+.pricediv{
+    grid-area: 3/1/span 1/span 1;
+    height:fit-content;
+    color: red;
+    text-align: right;
+}
+
+
+ @media (max-width: 1024px){ 
+
+    .container-overview{
+        display:grid;  
+        flex-direction: column;
+        align-self: center;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 0.2fr 0.2fr 4fr 0.001fr;
+        border-style: solid;  
+     } 
+
+
+    .overviewmain{
+        display: grid;
+        flex:1;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 0.04fr;
+    }
+
+    .overviewdishpresenter{
+        display: flex;
+        flex-direction: column;
+        grid-area: 1/1/span 1/ span 1;
+        border-style: solid;
+        border-color: red;
+        height: 100%;
+   }
+       
+   .overviewpresenttotal{
+    display: inline;
+    flex-direction: column;
+    grid-area: 2/1/span 1/ span 1;
+    font-size: 20px;
+    text-align: right;
+}
  }
- 

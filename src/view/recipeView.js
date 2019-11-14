@@ -67,7 +67,6 @@ class RecipeView {
         });
 
         this.model.getDish(this.dishId).then( dish => {
-            console.log(dish)
             this.dish = dish;
             //Append the image and title
             this.container.querySelector("#dish-title").innerHTML = dish.title;
@@ -81,7 +80,6 @@ class RecipeView {
             if(dish.analyzedInstructions[0]) {
                 
                 dish.analyzedInstructions[0].steps.map((stepInfo) => {
-                    console.log(stepInfo)
                     let stepElem = document.createElement("div");
                     let stepParagraph = document.createElement("p")
                     stepElem.setAttribute("style", "padding-top:1em")

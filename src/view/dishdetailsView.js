@@ -8,7 +8,6 @@ class DishDetailsView {
   
     render(dishId = 512) {
       dishId = Math.floor(20 + Math.random() * Math.floor(512));
-      console.log(dishId);
       let innerHTML = 
       `
       <div class="grid-container" style="grid-template-rows: 0 auto;">

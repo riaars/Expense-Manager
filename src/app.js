@@ -11,7 +11,8 @@ const screens = {
          overview: [ "overview"],
          details: ["details", "details"],
          header: ["header"],
-         mydinner: ["mydinner"]
+         mydinner: ["mydinner"],
+         printout:["printout"]
          
       // TODO: add more screens here!    
 };
@@ -97,7 +98,7 @@ window.onload = function () {
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
  
-  show("overview");
+  show("printout");
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body
