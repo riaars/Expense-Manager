@@ -75,6 +75,12 @@ h1 {
     
 }
 
+@media (max-width: 1024px){
+    .header{
+        font-size:40px;
+    }
+}
+
 .sidebar { 
     border-top:solid black; 
     grid-area: sidebar; 
@@ -162,15 +168,17 @@ hr.horizontal-line {
     padding: 10px;
 }
 
-#homeview-grid-container{
-    display: flex;
-    flex-direction: column; 
-
-}
-
-.centertext{
+.spinner-border {
+    font-size: 120%;
+    background-color: rgba(0,0,0,0.5);
+    height: 100%;
+    width:100%;
+    position: absolute;
     text-align: center;
-    padding: 15%;
+    padding-top: 30%;
+    align-content: center;
+    overflow: hidden;
+    z-index: 100;
 }
 
 .recipeview-container {
@@ -201,7 +209,7 @@ hr.horizontal-line {
     font-weight:300;
     text-align:center;
     transition: all 0.2s;
-    max-width: 200px;
+    max-width: 350px;
     position: relative;
     align-self: center;
 }
@@ -211,18 +219,6 @@ hr.horizontal-line {
     background-color:#FFFFFF;
 }
 
-.spinner-border {
-    font-size: 120%;
-    background-color: rgba(0,0,0,0.5);
-    height: 100%;
-    width:100%;
-    position: absolute;
-    text-align: center;
-    padding-top: 30%;
-    align-content: center;
-    overflow: hidden;
-    z-index: 100;
-}
 
 .startBtn:active {
     background-color: #fdfdfd;
@@ -230,112 +226,9 @@ hr.horizontal-line {
     transform: translateY(4px);
 }
 
-#overview-grid-container{
-   display:grid;  
-   grid-template-columns: 1fr 1fr ;
-   grid-template-rows: 0.5fr 1fr 1fr 1fr;
-   grid-template-areas: 
-   'overviewHeader overviewHeader'
-   'overviewDinner overviewDinner' 
-   'overviewMain overviewMain'  
-   'printFullRecipe printFullRecipe';
-}
-
-#overviewdinner{
-    grid-area: overviewDinner;
-    text-align: center;
-    align-content: center;
-    font-size: 30px;
-}
-
-#overviewheader{
-    display: grid;
-    flex-direction: column;
-    grid-area: overviewHeader;
-    text-align: center;
-    background-color: #e3e3e3 ;
-    align-content: center;
-    max-height: 100px;
-    min-height: 75px;
-    font-size: 50px;
-    
-}
-
-#overviewmain{
-    grid-area: overviewMain;
-    align-content: center;
-    text-align: center;
-
-}
 
 
 
 
-#fullrecipebtn{
-   grid-area: printFullRecipe;  
-   align-content: center;
-   text-align: center;
-}
-
-.mydinner{
-    display: grid;
-    grid-template-columns: 1fr 1fr ;
-    flex-direction: column;
-    margin: 0;
-    align-content: center;
-    height: 60px;
-    border-bottom: solid;
-    flex: 1;
-    border-width: 2px;
-    border-top: 2px  grey;
-}
-
-.leftmydinner{
-    display:flex;
-    align-items: center; 
-    font-size: 20px;
-    flex-direction: row;
-    flex: 1;
-    margin-left: 25px;
-}
-
-@media (max-width: 500px){  
-.leftmydinner{
-    display:flex;
-    align-items: center; 
-    font-size: 13px;
-    flex-direction: row;
-    flex: 1;
-    margin-left: 25px;
-    }
-}
 
 
-
- .rightmydinner{
-    display: flex;
-    text-align: right;
-    align-content: right;
-    display: inline;
-    align-items: center;
-    flex: 1;
-    align-items: center;
-    margin-top: 4px;
-
- }
-
-#goBackBtn{
-    display: flex;
-    display: inline;
-    align-items: center;
-    font-size: 15px;
-}
-
-@media (max-width: 500px){
-#goBackBtn{
-    display: flex;
-    display: inline;
-    align-items: center;
-    font-size: 10px;
-    }
-}

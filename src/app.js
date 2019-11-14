@@ -8,10 +8,11 @@ const container=function(containerName){
 const screens = { 
          home: ["home"], 
          search: ["header", "sidebar", "search"],
-         overview: ["header", "overview"],
-         details: ["header", "details"],
+         overview: [ "overview"],
+         details: ["details", "details"],
          header: ["header"],
          mydinner: ["mydinner"]
+         
       // TODO: add more screens here!    
 };
 
@@ -93,13 +94,14 @@ window.onload = function () {
 
 
  
-  //Router object which lets the user switch between views using hash in the browser.
-  this.router = new Router(routes);
+    //Router object which lets the user switch between views using hash in the browser.
+    this.router = new Router(routes);
   
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
-  show("search");
+ 
+  show("overview");
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body

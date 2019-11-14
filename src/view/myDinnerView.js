@@ -8,25 +8,23 @@ class MyDinnerView{
 
         const innerHTML = `
         
-                <div class="mydinner" >
+                <div class="mydinner-grid-container" >
+                    
                     <div class="leftmydinner">
                         <div style="display: inline">
                             My dinner:&nbsp;
                         </div>
-                        <div id="numGuest" class="value-num-guests" style="display: inline">
-                           
+                        <div id="numGuest" class="value-num-guests" style="display: inline">                         
                         </div>   
                         <div id="people" style="display: inline">
                         </div>
-                    </div>   
+                    </div> 
                     <div class="rightmydinner">
-                    <button class="startBtn" type="button"  id="goBackBtn" onclick="show('search')" style="margin:0 0em 0em 0; margin-left:25px">
+                    <button class="startBtn" type="button"  id="mydinnergobackbtn" onclick="show('search')">
                           Go back and edit dinner
                     </button>        
                     </div>
-                </div>  
-
-        
+                </div>        
         `;
 
         this.container.innerHTML = innerHTML;
