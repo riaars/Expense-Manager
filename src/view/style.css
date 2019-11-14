@@ -187,6 +187,17 @@ hr.horizontal-line {
     height: calc(100vh - 120px);
 }
 
+.collapse-button {
+    display: block;
+}
+
+@media (min-width: 1024px) {
+    .collapse-button {
+        display:none;
+    }
+}
+
+
 .recipe-view-row-col {
     width:50%; 
     padding:1em;
