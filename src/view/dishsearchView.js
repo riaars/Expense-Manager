@@ -24,7 +24,7 @@ class DishSearchView {
             <select name="cars" id="dish-type-selector" style={{width:"8.5em", marginRight:"25px"}}>
               {
                 this.dropdownOptions.map(option => (
-                <option value={Option.value}>{option.name}</option>))
+                <option value={option.value}>{option.name}</option>))
               }
             </select>
             <button id="search-for-dish-btn" 
