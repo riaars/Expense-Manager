@@ -78,6 +78,10 @@ window.onload = function () {
   Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
   .then(dishes => {
     dishes.forEach(model.addDishToMenu);
+  })
+  //Populate the last search results
+  .then( () => model.getAllDishes("main course", "pizza"))
+  .then(() => {
     new HeaderView(container("header")).render();
     new HomeView(container("home"), model).render();
     new OverviewView(container("overview"), model).render();
@@ -85,7 +89,7 @@ window.onload = function () {
     new DishDetailsView(container("details"), model).render();
     new PrintoutView(container("printout"),model).render();
     new MyDinnerView(container("mydinner"),model).render();
-})
+  })
 
 
  

@@ -31,16 +31,26 @@ class DishSearchView {
         this.afterRender();
     }
     wasUpdated(obj) 
-    {console.log(obj);}
+    {
+        console.log("OJ")
+        console.log(obj);
+    }
     
     afterRender(){
-        this.container.querySelector("#search-for-dish-btn").addEventListener("click", this.searchForDish.bind(this));
+        //this will be replaced by a controller in lab3, only for testing with real content.
+        let btn = this.container.querySelector("#search-for-dish-btn"); 
+        btn.addEventListener("click", this.searchForDish.bind(this));
+        //Enter too
+        this.container.querySelector("#dish-free-text-search").addEventListener("keyup", function(event) {
+            if (event.keyCode === 13)
+                              btn.click();
+        });
         this.model.subscribeToProperty(["dishSearchResults"], this.wasUpdated.bind(this));
     }
 
     searchForDish() {
         let textQuery = this.container.querySelector("#dish-free-text-search").value;
         let dishType = this.container.querySelector("#dish-type-selector").value;
-        this.model.getAllDishes(dishType, textQuery).then(console.log);
+        this.model.getAllDishes(dishType, textQuery);
     }
 }

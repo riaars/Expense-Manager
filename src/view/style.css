@@ -178,7 +178,14 @@ hr.horizontal-line {
     flex-direction:left; 
     text-align:left; 
     overflow-y: scroll; 
+    /*Use variable for dishsearch height*/
     height: calc(100vh - 120px);
+}
+
+.dish-search-results-container {
+    overflow-y: scroll; 
+    /*Use variables for dishsearch and header height*/
+    height: calc(100vh - 120px - 120px);
 }
 
 .startBtn{
