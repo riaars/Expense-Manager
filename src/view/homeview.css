@@ -1,0 +1,20 @@
+
+.homeview-grid-container{
+    grid-template-rows: 0.2fr 1fr ;
+    
+    display: grid;
+    flex-direction: column; 
+    text-align: center;
+}
+
+.centertext{
+    grid-area: 2/1/span 1/span 1; 
+    text-align: center;
+    padding: 15%;
+}
+
+#startBtn{
+    display: inline;
+    grid-area: 2/1/span 1/span 1; 
+}
+

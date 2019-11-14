@@ -8,10 +8,11 @@ const container=function(containerName){
 const screens = { 
          home: ["home"], 
          search: ["header", "sidebar", "search"],
-         overview: ["header", "overview"],
+         overview: ["header", "overview", "mydinner"],
          details: ["details", "details"],
          header: ["header"],
          mydinner: ["mydinner"]
+         
       // TODO: add more screens here!    
 };
 
@@ -74,27 +75,28 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
-  //  model.getDish(522).then(dish => model.addDishToMenu(dish))
-  //  .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
-  //  .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); console.log(dish)})).then(() => {
-  //   new HeaderView(container("header")).render();
-  //   new HomeView(container("home"), model).render();
-  //   new OverviewView(container("overview"), model).render();
-  //   new SearchView(container("search"), model).render();
-  //   new DishDetailsView(container("details"), model).render();
-  //   new PrintoutView(container("printout"),model).render();
- // })
-  new MyDinnerView(container("mydinner"),model).render();
-
-
+     model.getDish(522).then(dish => model.addDishToMenu(dish))
+   .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
+   .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); 
+    console.log(model.getFullMenu())
+    new OverviewView(container("overview"), model).render();
+  }))
+   
+    //new HomeView(container("home"), model).render();
+    // new SearchView(container("search"), model).render();
+    //new HeaderView(container("header")).render();
+   // new OverviewView(container("overview"), model).render();
+    
+    //new MyDinnerView(container("mydinner"),model).render();
  
-  //Router object which lets the user switch between views using hash in the browser.
-  this.router = new Router(routes);
+    //Router object which lets the user switch between views using hash in the browser.
+    this.router = new Router(routes);
   
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
-  show("mydinner");
+ 
+  show("overview");
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body

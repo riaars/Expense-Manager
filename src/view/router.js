@@ -22,7 +22,7 @@ class Router{
 
     //hides the contents of the different views
     hideViews(container){
-        ["header", "home", "overview", "search", "sidebar", "notfound"]
+        ["home", "overview", "search", "sidebar", "notfound"]
       .forEach(containerName => container(containerName).style.display="none");
     }
 }
