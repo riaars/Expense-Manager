@@ -112,7 +112,6 @@ hr.horizontal-line {
 }
 
 .search {
-    border-top:solid gray; 
     border-bottom:solid black;
     grid-area: search;
 }

@@ -6,13 +6,13 @@ const container=function(containerName){
 // the View containers will not all be visible at the same time. 
 // Various screens will show different Views                                                              
 const screens = { 
-         home: ["home"], 
+         home: ["header", "home"], 
          search: ["header", "sidebar", "search"],
-         overview: [ "overview"],
-         details: ["details", "details"],
+         overview: ["overview"],
+         details: ["header", "details", "details"],
          header: ["header"],
          mydinner: ["mydinner"],
-         printout:["printout"]
+         printout:["header", "printout"]
          
       // TODO: add more screens here!    
 };
@@ -69,6 +69,8 @@ const hashHasChanged = function(){
 };
 
 window.onload = function () {
+  //make sure the hash changes after populating model, so home is always shown
+  window.location.hash = '';
 
   //Processes hashchange events. Event fires when a window's hash changes.
   window.addEventListener("hashchange", hashHasChanged, false);
@@ -84,6 +86,7 @@ window.onload = function () {
   //Populate the last search results
   .then( () => model.getAllDishes("main course", "pizza"))
   .then(() => {
+    
     new HeaderView(container("header")).render();
     new HomeView(container("home"), model).render();
     new OverviewView(container("overview"), model).render();
@@ -91,6 +94,7 @@ window.onload = function () {
     new DishDetailsView(container("details"), model).render();
     new PrintoutView(container("printout"),model).render();
     new MyDinnerView(container("mydinner"),model).render();
+    window.location.hash = 'home';
   })
 
 
@@ -101,8 +105,7 @@ window.onload = function () {
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
- 
-  show("printout");
+
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body

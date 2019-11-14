@@ -15,9 +15,6 @@ constructor(container, model){
 
     render(){
         const innerHTML = `
-
-            <div id="printoutheader">
-            </div>
             <div class="printoutmydinner" id="printoutmydinner">
             </div>
             <div class="printoutmain" id="printoutmain">
@@ -36,7 +33,6 @@ constructor(container, model){
     }
 
     afterRender(){
-        this.printoutheader.render();
         this.printoutmydinner.render();
         this.dishpresenter();
     }
@@ -61,6 +57,7 @@ constructor(container, model){
 
             desc.appendChild(document.createElement("h3"));
             desc.firstChild.innerHTML = dish.title;
+            //desc.firstChild.setAttribute("class", "value-main-course-name");
             desc.appendChild(document.createElement("div"));
             desc.children[1].innerHTML = text;
 

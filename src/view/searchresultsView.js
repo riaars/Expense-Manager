@@ -13,6 +13,7 @@ class SearchResultsView {
         searchResults.forEach(element => {
             let previewElement = document.createElement("div")
             previewElement.setAttribute("style", "width:150px; height:150px; margin:1em; margin-bottom:3em;")
+            previewElement.addEventListener("click", () => {window.location.hash = 'details'})
             let copy = JSON.parse(JSON.stringify(element))
             let url = "https://spoonacular.com/recipeImages/" + element.imageUrls[0];
             copy.imageUrls[0] = url; 
@@ -23,7 +24,7 @@ class SearchResultsView {
 
     render() {
         let innerHTML = `
-        <div class="dish-search-results-container">
+        <div class="dish-search-results-container" id="dishItems">
             <div class="dish-previews-container" style="margin: 5%; display:flex; flex-flow:row wrap; justify-content: left;">
             </div>
         </div>`

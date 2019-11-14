@@ -60,7 +60,7 @@ class SidebarView {
 }
 
     afterRender() {
-      this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{show("overview")});
+      this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{window.location.hash = '#overview'});
       let numGuestsFunc = this.model.setNumberOfGuests;
       this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
       this.container.getElementsByClassName("numpeople")[0].addEventListener("change", function(obj){numGuestsFunc(this.value)});

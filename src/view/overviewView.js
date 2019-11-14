@@ -20,7 +20,7 @@ class OverviewView {
                 </div>
                 <div class="overviewpresenttotal">
                       Total:
-                      <div class="overviewtotalnumber" id="value-num-guests" style="color: red; display:inline;">
+                      <div class="overviewtotalnumber value-total-price" style="color: red; display:inline;">
                       </div>
                       <div style="display: inline; color: red;">
                           SEK
@@ -50,6 +50,7 @@ class OverviewView {
 	}
 
     afterRender() {
+      this.container.querySelector("#toPrintBtn").addEventListener("click", () =>{ window.location.hash = '#printout'});
       this.overviewMyDinner.render();
       this.overviewHeader.render();
       this.dishPresenter();
@@ -64,16 +65,15 @@ class OverviewView {
         let name = document.createElement("div");
         let price = document.createElement("div");
     
-    
         elem.classList.add("dishdiv");
         pic.classList.add("picdiv");
         name.classList.add("namediv");
+        name.classList.add("value-main-course-name");
         price.classList.add("pricediv");
-
+        
         pic.setAttribute("src", dish.image);
         pic.setAttribute("style", "width:100%;");
       
-
         name.innerHTML = dish.title;
         var numb =  dish.pricePerServing/dish.servings;
         price.innerHTML = numb.toFixed(2)  + " SEK";
@@ -88,6 +88,6 @@ class OverviewView {
     this.container.querySelector("#value-main-course-name").appendChild(element);
     });
 
-    this.container.querySelector("#value-num-guests").innerHTML = this.model.getTotalMenuPrice().toFixed(2);
+    this.container.getElementsByClassName("value-total-price")[0].innerHTML = this.model.getTotalMenuPrice().toFixed(2);
     }
 }

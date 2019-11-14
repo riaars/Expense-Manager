@@ -22,62 +22,62 @@ describe("DinnerPlanner App", () => {
     });
   });
 
-  // describe("Search view", () => {
-  //   beforeEach(async () => {
-  //     let mydish = await model.getDish(559251);
-  //     model.addDishToMenu(mydish);
-  //     searchView.render();
-  //   });
+  describe("Search view", () => {
+    beforeEach(async () => {
+      let mydish = await model.getDish(559251);
+      model.addDishToMenu(mydish);
+      searchView.render();
+    });
 
-  //   it("has a sidebar", () => {
-  //     const sidebar = document.getElementById("sideBarView");
-  //     expect(sidebar).to.not.be.a("null");
-  //   });
+    it("has a sidebar", () => {
+      const sidebar = document.getElementById("sideBarView");
+      expect(sidebar).to.not.be.a("null");
+    });
 
-  //   it("has a dish search container", () => {
-  //     const dishSearch = document.getElementById("dishSearchView");
-  //     expect(dishSearch).to.not.be.a("null");
-  //   });
+    it("has a dish search container", () => {
+      const dishSearch = document.getElementById("dishSearchView");
+      expect(dishSearch).to.not.be.a("null");
+    });
 
-  //   it("displays a loading message", (done) => {
-  //     const loader = document.getElementById("loader");
-  //     expect(loader).to.not.be.a("null");
-  //       done();
-  //   }).timeout(3000);
+    it("displays a loading message", (done) => {
+      const loader = document.getElementById("loader");
+      expect(loader).to.not.be.a("null");
+        done();
+    }).timeout(3000);
 
-  //   it("displays dishes", (done) => {
-  //     const dishes = document.getElementById("dishItems");
-  //     expect(dishes).to.not.be.a("null");
-  //     done();
-  //   }).timeout(3000);
+    it("displays dishes", (done) => {
+      const dishes = document.getElementById("dishItems");
+      expect(dishes).to.not.be.a("null");
+      done();
+    }).timeout(3000);
 
-  //   it("Has a number of guests value", () => {
-  //     const valueHolders = document.getElementsByClassName("value-num-guests");
-  //     expect(valueHolders.length).to.be.above(0);
-  //     for (let v of valueHolders) {
-  //       expect(v).to.not.be.a("null");
-  //       expect(v.innerHTML).to.equal(""+model.getNumberOfGuests());
-  //     }
-  //   });
+    it("Has a number of guests value", () => {
+      const valueHolders = document.getElementsByClassName("value-num-guests");
+      expect(valueHolders.length).to.be.above(0);
+      for (let v of valueHolders) {
+        expect(v).to.not.be.a("null");
+        expect(v.innerHTML).to.equal(""+model.getNumberOfGuests());
+      }
+    });
 
-  //   it("Has data on current dishes", () => {
-  //     const valueHolders = document.getElementsByClassName("value-main-course-name");
-  //     expect(valueHolders.length).to.be.above(0);
-  //     for (let v of valueHolders) {
-  //       expect(v).to.not.be.a("null");
-  //       expect(v.innerHTML).to.equal("Breakfast Pizza");
-  //     }
-  //   });
+    it("Has data on current dishes", () => {
+      const valueHolders = document.getElementsByClassName("value-main-course-name");
+      expect(valueHolders.length).to.be.above(0);
+      for (let v of valueHolders) {
+        expect(v).to.not.be.a("null");
+        expect(v.innerHTML).to.equal("Breakfast Pizza");
+      }
+    });
 
-  //   it("Displays the total price correctly", () => {
-  //     const valueHolders = document.getElementsByClassName("value-total-price");
-  //     expect(valueHolders.length).to.be.above(0);
-  //     for (let v of valueHolders) {
-  //       expect(v).to.not.be.a("null");
-  //       expect(v.innerHTML).to.equal(""+model.getTotalMenuPrice());
-  //     }
-  //   });
-  // });
+    it("Displays the total price correctly", () => {
+      const valueHolders = document.getElementsByClassName("value-total-price");
+      expect(valueHolders.length).to.be.above(0);
+      for (let v of valueHolders) {
+        expect(v).to.not.be.a("null");
+        expect(v.innerHTML).to.equal(""+model.getTotalMenuPrice());
+      }
+    });
+  });
 
   describe("Confirmation page", () => {
     beforeEach(async () => {

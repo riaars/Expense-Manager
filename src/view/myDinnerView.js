@@ -20,7 +20,7 @@ class MyDinnerView{
                         </div>
                     </div> 
                     <div class="rightmydinner">
-                    <button class="startBtn" type="button"  id="mydinnergobackbtn" onclick="show('search')">
+                    <button class="startBtn" type="button"  id="mydinnergobackbtn" onclick="window.location.hash = '#search'">
                           Go back and edit dinner
                     </button>        
                     </div>

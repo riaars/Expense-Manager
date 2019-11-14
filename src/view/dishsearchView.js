@@ -30,10 +30,8 @@ class DishSearchView {
         this.container.innerHTML = innerHTML;
         this.afterRender();
     }
-    wasUpdated(obj) 
-    {
-        console.log("OJ")
-        console.log(obj);
+    wasUpdated(obj) {
+    //Handle the changed state
     }
     
     afterRender(){
