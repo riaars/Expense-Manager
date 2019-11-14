@@ -52,13 +52,15 @@
     <script src="src/view/dishdetailsView.js"></script>
     <script src="src/view/recipeView.js"></script>
     <script src="src/view/searchresultsView.js"></script>
-    <script src="src/view/smalldishpreviewView.js"></script>
+    <script type="text/jsx" src="src/view/smalldishpreviewView.js"></script>
 
     <!-- <script src="src/model/dinnerModel.test.js"></script> type set to text/jsx -->
     <script src="src/app.test.js"></script>
 
     <script class="mocha-exec">
-      setTimeout(mocha.run, 1);
+      //Running tests immediately caused all tests to error when using JSX
+      window.addEventListener("load", function(){mocha.run()});
+      //setTimeout(mocha.run, 1);
     </script>
 
   </body>

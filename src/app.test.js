@@ -2,7 +2,6 @@
 var assert = chai.assert;
 var expect = chai.expect;
 
-console.log(Babel);
 
 describe("DinnerPlanner App", () => {
   let model = null;
@@ -86,8 +85,6 @@ describe("DinnerPlanner App", () => {
     beforeEach(async () => {
       let dish = await model.getDish(559251);
       model.addDishToMenu(dish);
-      console.log("CONF");
-      console.log(dish);
       overviewView.render();
     });
 
