@@ -112,11 +112,11 @@ hr.horizontal-line {
 }
 
 .search {
-    border-bottom:solid black;
     grid-area: search;
 }
 
-.main { 
+.main {
+    border-top:solid black; 
     grid-area: main;
     flex-grow: 1;   
 }
@@ -126,15 +126,13 @@ hr.horizontal-line {
   background-color: #000001;
   display: grid;
   grid-template-rows: 
-  0 
   minmax(110px, 12%) 
-  40% 
+  auto 
   auto;
   grid-template-areas:
     'search'
-    'search'
-    'main'
-    'sidebar';
+    'sidebar'
+    'main';
   grid-gap: 0px;
   width: 100vw;
   height: calc(100vh - 105px);
@@ -188,6 +186,27 @@ hr.horizontal-line {
     /*Use variable for dishsearch height*/
     height: calc(100vh - 120px);
 }
+
+.recipe-view-row-col {
+    width:50%; 
+    padding:1em;
+}
+@media (max-width: 1024px) {
+    .recipe-view-row-col {
+        width:100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .recipeview-container {
+        display:flex; 
+        flex-direction:column; 
+        text-align:left; 
+        overflow-y: scroll; 
+        /*Use variable for dishsearch height*/
+        height: calc(100vh - 250px);
+    }
+    }
 
 .dish-search-results-container {
     overflow-y: scroll; 

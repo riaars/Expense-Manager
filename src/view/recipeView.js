@@ -9,7 +9,7 @@ class RecipeView {
     render() {
         let innerHTML = `
         <div class="recipeview-container">
-        <div class="leftUpper" style="width:50%; padding:1em;">
+        <div class="recipe-view-row-col">
         <h2><div id="dish-title">Dish Title</div></h2>
             <div id="dish-image"></div>
             <div class="dish-description" style="text-align:justify;  font-size:80%;">
@@ -25,7 +25,7 @@ class RecipeView {
             <div id="instructions-container" style="font-size:80%;">
             </div>
         </div>
-        <div class="rightUpper" style="width:50%; padding:1em">
+        <div class="recipe-view-row-col">
             
             <div class="recipe-ingredients" style="padding:1em">
             <div>
@@ -90,7 +90,7 @@ class RecipeView {
                     this.container.querySelector("#instructions-container").appendChild(elem);
                 });   
             } else 
-                this.container.querySelector("#instructions-container").innerHTML = "Instructions not clear, try sticking all the ingredients in a blender (API did not provide instructions)";
+                this.container.querySelector("#instructions-container").innerHTML = "Instructions not clear, try sticking all the ingredients in a blender (API did not provide instructions)<br>Try reloading the page to get a new random dish!";
             
             //Append the ingredients
             "display: flex; justify-content: space-between;"

@@ -3,6 +3,7 @@ class SidebarView {
       this.container = container;
       this.model = model;
       this.model.subscribeToProperty(["dishes", "numberOfGuests"], this.updateMenu.bind(this));
+      this.isCollapsed = false;
     }
     updateMenu(dishes, numGuests) {
         this.container.querySelector("#dishlistcontainer").innerHTML = "";
@@ -32,8 +33,13 @@ class SidebarView {
         //setTimeout(function() {th.render()}, 2000);
       let innerHTML = 
       `
-      <div class="sidebarcontainer">
-        <div style="padding-left:25px;"><h2>My Dinner</h2></div>
+      <div class="sidebarcontainer" style:"height:100%">
+      <div style="display:flex; flex-direction:row; justify-content:space-between; padding-left:25px; padding-right:25px; margin:0;">
+        <div><h2>My Dinner</h2></div>
+        <div class="collapse-button">
+          collapse
+        </div>
+      </div>
         <div style="padding-left:25px; display: flex; flex-direction: row; width: 50%;">People&nbsp;<input type="number" style="width: 2em;" class="numpeople"></input>
         <div class="value-num-guests" style="display:none"></div>
         </div>
@@ -58,9 +64,21 @@ class SidebarView {
     this.container.innerHTML = innerHTML;
     this.afterRender();
 }
+    toggleCollapsed() {
+      this.isCollapsed = !this.isCollapsed;
+      let sidebarContainer = this.container.getElementsByClassName("sidebarcontainer")[0];
+      this.isCollapsed ? 
+      (sidebarContainer.setAttribute("style", "height:1em")) :
+      (sidebarContainer.setAttribute("style", "height:100%"))
+      this.container.getElementsByClassName("collapse-button")[0].innerHTML = this.isCollapsed ? "expand" : "collapse";
+      console.log(this.container.querySelector("#confirmorderbutton").style);
+      this.container.querySelector("#confirmorderbutton").style.display = !this.isCollapsed || "none"
+    }
 
     afterRender() {
-      this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{window.location.hash = '#overview'});
+      //Add collapser button
+      this.container.getElementsByClassName("collapse-button")[0].addEventListener("click", this.toggleCollapsed.bind(this)) 
+      this.container.querySelector("#confirmorderbutton").addEventListener("click", () =>{ window.location.hash = '#overview'});
       let numGuestsFunc = this.model.setNumberOfGuests;
       this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();
       this.container.getElementsByClassName("numpeople")[0].addEventListener("change", function(obj){numGuestsFunc(this.value)});

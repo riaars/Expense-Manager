@@ -35,17 +35,18 @@ class DishSearchView {
     }
     
     afterRender(){
-        //this will be replaced by a controller in lab3, only for testing with real content.
+        //this will be handled by a controller in lab3, only for testing with real content.
         let btn = this.container.querySelector("#search-for-dish-btn"); 
         btn.addEventListener("click", this.searchForDish.bind(this));
         //Enter too
         this.container.querySelector("#dish-free-text-search").addEventListener("keyup", function(event) {
             if (event.keyCode === 13)
-                              btn.click();
+            btn.click();
         });
         this.model.subscribeToProperty(["dishSearchResults"], this.wasUpdated.bind(this));
     }
 
+    //This will be moved into a controller in lab3, it is only here for testing.
     searchForDish() {
         let textQuery = this.container.querySelector("#dish-free-text-search").value;
         let dishType = this.container.querySelector("#dish-type-selector").value;
