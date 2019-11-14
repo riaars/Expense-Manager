@@ -25,11 +25,7 @@ class Router{
 
     //hides the contents of the different views
     hideViews(container){
-<<<<<<< HEAD
-        ["home", "overview", "search", "sidebar", "notfound"]
-=======
         ["header", "home", "overview", "search", "sidebar", "notfound", "details"]
->>>>>>> 54fe81b2afade907127d5aae083bfcb663cd4f34
       .forEach(containerName => container(containerName).style.display="none");
     }
 }

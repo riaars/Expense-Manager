@@ -8,13 +8,8 @@ const container=function(containerName){
 const screens = { 
          home: ["home"], 
          search: ["header", "sidebar", "search"],
-<<<<<<< HEAD
-         overview: ["header", "overview", "mydinner"],
+         overview: [ "overview"],
          details: ["details", "details"],
-=======
-         overview: ["header", "overview"],
-         details: ["header", "details"],
->>>>>>> 54fe81b2afade907127d5aae083bfcb663cd4f34
          header: ["header"],
          mydinner: ["mydinner"]
          
@@ -80,21 +75,6 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
-<<<<<<< HEAD
-     model.getDish(522).then(dish => model.addDishToMenu(dish))
-   .then(model.getDish(522).then(dish => model.addDishToMenu(dish)))
-   .then(model.getDish(512).then(dish => {model.addDishToMenu(dish); 
-    console.log(model.getFullMenu())
-    new OverviewView(container("overview"), model).render();
-  }))
-   
-    //new HomeView(container("home"), model).render();
-    // new SearchView(container("search"), model).render();
-    //new HeaderView(container("header")).render();
-   // new OverviewView(container("overview"), model).render();
-    
-    //new MyDinnerView(container("mydinner"),model).render();
-=======
   //Make sure all promises resolve so model is populated
   Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
   .then(dishes => {
@@ -109,7 +89,6 @@ window.onload = function () {
 })
 
 
->>>>>>> 54fe81b2afade907127d5aae083bfcb663cd4f34
  
     //Router object which lets the user switch between views using hash in the browser.
     this.router = new Router(routes);
@@ -117,12 +96,8 @@ window.onload = function () {
   // TODO:  more views here
   // TODO: The views are not being rendered yet. Figure out how to do so.
   
-<<<<<<< HEAD
  
   show("overview");
-=======
-  show("search");
->>>>>>> 54fe81b2afade907127d5aae083bfcb663cd4f34
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body

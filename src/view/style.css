@@ -8,22 +8,11 @@
     box-sizing:border-box;
 }
 
-<<<<<<< HEAD
-.page-content{
-    max-width: 1920px;
-    max-height: 1080px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-
-=======
 .container {
     /*App goes into "portrait" mode when small x, so the horizontal scrollbar should never be seen*/
     overflow-x: hidden!important;
 }
 
->>>>>>> 54fe81b2afade907127d5aae083bfcb663cd4f34
 h1 {
     font-size: 40px;
 }
@@ -68,24 +57,6 @@ h1 {
 }
 
 
-<<<<<<< HEAD
-.header{ 
-        padding:0px;
-        text-align: center;
-        align-content: center;      
-        background-color: #e3e3e3 !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;    
-        height: 105px;
-        min-width: 0;
-        word-wrap: break-word;
-        grid-area: header;
-        text-align: center;
-        position: relative;
-        align-content: center;
-        
-=======
 .header{
     padding:0px;
     text-align: center;
@@ -101,7 +72,6 @@ h1 {
     text-align: center;
     position: relative;
     align-content: center;
->>>>>>> 54fe81b2afade907127d5aae083bfcb663cd4f34
     
 }
 
