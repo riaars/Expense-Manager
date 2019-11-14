@@ -17,9 +17,15 @@ class SidebarView {
             titleElem.innerHTML = dish.title;
             let costElem = document.createElement("div");
             costElem.innerHTML = Math.round(dish.pricePerServing*numGuests);
+
+            let removeBtn = document.createElement("span")
+            removeBtn.className = "button-remove-dish";
+            removeBtn.addEventListener("click", function() {this.model.removeDishFromMenu(dish.id)}.bind(this))
+            removeBtn.innerHTML = " X";
+            costElem.appendChild(removeBtn);
+            elem.appendChild(titleElem).style = "padding-left:2em;";
+            elem.appendChild(costElem).style = "padding-right:1em; ";
             
-            elem.appendChild(titleElem).style = "padding-left:25px;";
-            elem.appendChild(costElem).style= "padding-right:25px; ";
             this.container.querySelector("#dishlistcontainer").appendChild(elem);
             this.container.getElementsByClassName("value-num-guests")[0].innerHTML = this.model.getNumberOfGuests();
             this.container.getElementsByClassName("numpeople")[0].value = this.model.getNumberOfGuests();

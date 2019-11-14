@@ -122,6 +122,10 @@ hr.horizontal-line {
 }
 
 
+.button-remove-dish {
+    color:darkred;
+}
+
 .grid-container {
   background-color: #000001;
   display: grid;
