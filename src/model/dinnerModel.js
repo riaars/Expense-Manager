@@ -2,8 +2,13 @@
 const createStore = Redux.createStore;
 
 //toggles the loader indicator to indicate whether an api call is currently loading
+ongoingRequests = 0;
 function toggleLoader(state){
-  document.querySelector("#loader").style.display = state ? '' : 'none';
+  ongoingRequests += state ? 1 : -1;
+  if(ongoingRequests === 0)
+    document.querySelector("#loader").style.display = 'none';
+  else 
+    document.querySelector("#loader").style.display = 'block';
 };
 
 const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
@@ -83,17 +88,22 @@ class DinnerModel {
   handleStoreChange() {
     let state = store.getState();
     this.subscribers.forEach(function(sub) {
-      console.log(sub.subscribedProp[0]);
-      console.log(...sub.subscribedProp.map((prop) => state[prop]));
+      //console.log(sub.subscribedProp[0]);
+      //console.log(...sub.subscribedProp.map((prop) => state[prop]));
       sub.func(...sub.subscribedProp.map((prop) => state[prop]));
     })
   }
 
+  
   //A particular view wants to subscribe to a store property,
   //Instead of subscribing directly to the store, its added as a subscriber
   //And on store update, is notified of the properties new state.
   subscribeToProperty(properties, callback) {
     this.subscribers.push({subscribedProp: properties, func: callback})
+  }
+
+  getLastSearchResults() {
+    return store.getState().dishSearchResults;
   }
 
     setNumberOfGuests(num) {
@@ -154,7 +164,8 @@ class DinnerModel {
         {headers:{'X-Mashape-Key': API_KEY}})
         .then(response => response.json())
         .then(responseJson => {
-          toggleLoader(false); 
+          toggleLoader(false);
+          store.dispatch(actions.replaceLastSearchAction(responseJson.results));
           resolve(responseJson.results)})
         .catch((error) => {
           console.error(error); 
@@ -190,7 +201,7 @@ class DinnerModel {
           //From the tests it seems no matter what, never reject()
           resolve(undefined)});
       }  catch(e) {
-        console.log("Error in evualuation, not api call call");
+        //console.log("Error in evualuation, not api call call");
           //this is nnot good, but it is here because otherwise, since the call throws immediately,
           //the loader would be shown, then immediately removed, and the promise would resolve before
           //the "loader is present" test was performed. Maybe it is me misunderstanding something, 

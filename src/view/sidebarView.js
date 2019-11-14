@@ -35,14 +35,14 @@ class SidebarView {
       <div class="sidebarcontainer">
         <div style="padding-left:25px;"><h2>My Dinner</h2></div>
         <div style="padding-left:25px; display: flex; flex-direction: row; width: 50%;">People&nbsp;<input type="number" style="width: 2em;" class="numpeople"></input>
-        <div class="value-num-guests"></div>
+        <div class="value-num-guests" style="display:none"></div>
         </div>
         <div style="
           display: flex; 
           justify-content: space-between; 
           border-top:5px solid black; 
           border-bottom:5px solid black;  
-          background-color: gray; 
+          background-color: #dedede; 
           ">
             <div style="padding-left:25px">Dish Name</div>
             <div style="padding-right:25px">Cost</div>
