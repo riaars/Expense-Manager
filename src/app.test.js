@@ -81,7 +81,7 @@ describe("DinnerPlanner App", () => {
 
   describe("Confirmation page", () => {
     beforeEach(async () => {
-      let dish = model.getDish(559251);
+      let dish = await model.getDish(559251);
       model.addDishToMenu(dish);
       console.log("CONF");
       console.log(dish);
