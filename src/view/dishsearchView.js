@@ -1,49 +1,58 @@
+/* @jsx m*/
 class DishSearchView {
     constructor(container, model) {
       this.container = container;
       this.model = model;
       this.sidebarView = undefined;
+      this.model.subscribeToProperty(["dishSearchResults"], this.wasUpdated.bind(this));
+      this.dropdownOptions = [
+      {value:"", name:"Select A Type"},
+      {value:"main course", name:"Main course"},
+      {value:"side dish", name:"Side Dish"},
+      {value:"dessert", name:"Dessert"},
+      {value:"starter", name:"Starter"}]
     }
     
-    render() {
-        let innerHTML = `
-        <div id="dishsearchcontainer" style="padding-left:25px; padding-bottom:20px;">
-        <div style="text-align:left;">
-            Find a Dish
+    jsx = () => (
+      <div id="dishsearchcontainer" style={{paddingLeft:"25px", paddingBottom:"20px"}}>
+        <div style={{textAlign:"left"}}>
+          Find a Dish
         </div>
-        <div class="search-area">
-        <input type="text" placeholder="Enter key words" id="dish-free-text-search" style="width:8.5em; margin-right:25px"></input>
-        <div style="display:flex; flex-direction:row;">
-            <select name="cars" id="dish-type-selector" style="width:8.5em; margin-right:25px;">
-                <option value="">Select A Type</option>
-                <option value="main course">Main course</option>
-                <option value="side dish">Side Dish</option>
-                <option value="dessert">Dessert</option>
-                <option value="starter">Starter</option>
+        <div className="search-area">
+          <input type="text" placeholder="Enter key words" id="dish-free-text-search" style={{width:"8.5em", marginRight:"25px"}}></input>
+          <div style={{display:"flex", flexDirection:"row"}}>
+            <select name="cars" id="dish-type-selector" style={{width:"8.5em", marginRight:"25px"}}>
+              {
+                this.dropdownOptions.map(option => (
+                <option value={Option.value}>{option.name}</option>))
+              }
             </select>
-            <button id="search-for-dish-btn" class="startBtn" type="button" style="margin:0 0em 0em 0; margin-left:25px">
+            <button id="search-for-dish-btn" 
+              className="startBtn" 
+              type="button"
+              style={{margin:"0 0em 0em 0", marginLeft:"25px"}}
+              onclick={this.searchForDish.bind(this)}>
               Search
             </button>
-            </div>
+          </div>
         </div>
-        `;
-        this.container.innerHTML = innerHTML;
-        this.afterRender();
+      </div>
+    )
+
+    render() {
+      m.render(this.container, this.jsx());
+      this.afterRender();
     }
     wasUpdated(obj) {
-    //Handle the changed state
+      //Handle the changed state
     }
     
-    afterRender(){
-        //this will be handled by a controller in lab3, only for testing with real content.
-        let btn = this.container.querySelector("#search-for-dish-btn"); 
-        btn.addEventListener("click", this.searchForDish.bind(this));
-        //Enter too
+    afterRender() {
+      //Listen for enter key
         this.container.querySelector("#dish-free-text-search").addEventListener("keyup", function(event) {
-            if (event.keyCode === 13)
-            btn.click();
-        });
-        this.model.subscribeToProperty(["dishSearchResults"], this.wasUpdated.bind(this));
+          if (event.keyCode === 13)
+          this.container.querySelector("#search-for-dish-btn").click();
+        }.bind(this));    
     }
 
     //This will be moved into a controller in lab3, it is only here for testing.
