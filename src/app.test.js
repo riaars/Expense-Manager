@@ -27,7 +27,7 @@ describe("DinnerPlanner App", () => {
       let dish = await model.getDish(559251);
       model.addDishToMenu(dish);
       searchView.render();
-    });
+    })
 
     it("has a sidebar", () => {
       const sidebar = document.getElementById("sideBarView");
