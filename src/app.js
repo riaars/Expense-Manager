@@ -8,7 +8,7 @@ const container=function(containerName){
 const screens = { 
          home: ["header", "home"], 
          search: ["header", "sidebar", "search"],
-         overview: ["overview"],
+         overview: ["header", "overview"],
          details: ["header", "details", "details"],
          header: ["header"],
          mydinner: ["mydinner"],

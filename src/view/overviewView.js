@@ -10,9 +10,6 @@ class OverviewView {
     render() {
 
       let innerHTML = `
-      
-            <div id="overviewheader">
-            </div>
             <div class="overviewmydinner" id="overviewmydinner">      
             </div>         
             <div class="overviewmain" id="overviewView">
@@ -43,16 +40,12 @@ class OverviewView {
       if(this.overviewMyDinner === undefined)
             this.overviewMyDinner = new MyDinnerView(this.container.querySelector("#overviewmydinner"), this.model);
 
-       if(this.overviewHeader === undefined)
-             this.overviewHeader = new HeaderView(this.container.querySelector("#overviewheader"));
-
       this.afterRender();
 	}
 
     afterRender() {
       this.container.querySelector("#toPrintBtn").addEventListener("click", () =>{ window.location.hash = '#printout'});
       this.overviewMyDinner.render();
-      this.overviewHeader.render();
       this.dishPresenter();
     }
 

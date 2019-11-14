@@ -24,8 +24,8 @@ describe("DinnerPlanner App", () => {
 
   describe("Search view", () => {
     beforeEach(async () => {
-      let mydish = await model.getDish(559251);
-      model.addDishToMenu(mydish);
+      let dish = await model.getDish(559251);
+      model.addDishToMenu(dish);
       searchView.render();
     });
 
@@ -81,8 +81,10 @@ describe("DinnerPlanner App", () => {
 
   describe("Confirmation page", () => {
     beforeEach(async () => {
-      let mydish = await model.getDish(559251);
-      model.addDishToMenu(mydish);
+      let dish = model.getDish(559251);
+      model.addDishToMenu(dish);
+      console.log("CONF");
+      console.log(dish);
       overviewView.render();
     });
 
