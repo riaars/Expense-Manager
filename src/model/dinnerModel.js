@@ -1,16 +1,6 @@
 //static imports not allowed.
 const createStore = Redux.createStore;
 
-//toggles the loader indicator to indicate whether an api call is currently loading
-ongoingRequests = 0;
-function toggleLoader(state){
-  ongoingRequests += state ? 1 : -1;
-  if(ongoingRequests === 0)
-    document.querySelector("#loader").style.display = 'none';
-  else 
-    document.querySelector("#loader").style.display = 'block';
-};
-
 const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
 const ADD_DISH = "ADD_DISH"
 const REMOVE_DISH = "REMOVE_DISH"
@@ -157,19 +147,16 @@ class DinnerModel {
     if(!query)
        query = '';
 
-    toggleLoader(true);
     return new Promise(function(resolve, reject) {
       try{
         return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'search?type=' + type + '&query=' + query , 
         {headers:{'X-Mashape-Key': API_KEY}})
         .then(response => response.json())
         .then(responseJson => {
-          toggleLoader(false);
           store.dispatch(actions.replaceLastSearchAction(responseJson.results));
           resolve(responseJson.results)})
         .catch((error) => {
           console.error(error); 
-          toggleLoader(false);
           //From the tests it seems no matter what, never reject()
           resolve(undefined)})
       }  catch(e) {
@@ -177,7 +164,6 @@ class DinnerModel {
           //the loader would be shown, then immediately removed, and the promise would resolve before
           //the "loader is present" test was performed. Maybe it is me misunderstanding something.
           setTimeout(()=> {
-            toggleLoader(false);
             resolve(undefined);
           }, 1)
       }
@@ -186,18 +172,15 @@ class DinnerModel {
 
   //Returns a dish of specific ID
   getDish(id) {
-    toggleLoader(true); 
     return new Promise(function(resolve, reject) {
       try{  
         return fetch(ENDPOINT +'/' + 'recipes' + '/' + id + '/information', 
         {headers:{'X-Mashape-Key': API_KEY}})
         .then(response => response.json())
         .then(responseJson => {
-          toggleLoader(false); 
           resolve(responseJson)})
         .catch((error) => {
           console.error(error);
-          toggleLoader(false);
           //From the tests it seems no matter what, never reject()
           resolve(undefined)});
       }  catch(e) {
@@ -207,7 +190,6 @@ class DinnerModel {
           //the "loader is present" test was performed. Maybe it is me misunderstanding something, 
           //but it passes the tests :)
           setTimeout(()=> {
-            toggleLoader(false);
             resolve(undefined);
           }, 1)
         }

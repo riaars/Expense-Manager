@@ -16,7 +16,9 @@ class DishDetailsView {
     ) 
 
     render(dishId = 512) {
-      dishId = Math.floor(20 + Math.random() * Math.floor(512));
+      //dishId = Math.floor(20 + Math.random() * Math.floor(512));
+      //hardcoded dish 
+      dishId = 511;
       m.render(this.container, this.jsx());
 
       if(this.sidebarView === undefined) 

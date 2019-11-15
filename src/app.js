@@ -1,4 +1,18 @@
 /* @jsx m*/
+//Robert said using a global function for the toggler was ok
+//But it also needs its own state to handle multiple ongoing requests, let it live inside a global object.
+const loader = {
+  ongoingRequests: 0,
+  toggle: function(state){
+    this.ongoingRequests += state ? 1 : -1;
+    if(this.ongoingRequests === 0)
+      document.querySelector("#loader").style.display = 'none';
+    else 
+      document.querySelector("#loader").style.display = 'block';
+  },
+}
+
+
 // helper function to find the container by short name
 const container=function(containerName){
   return document.body.querySelector("#container-"+containerName);
@@ -80,6 +94,7 @@ window.onload = function () {
   const model = new DinnerModel();
 
   //Make sure all promises resolve so model is populated
+  loader.toggle(true);
   Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
   .then(dishes => {
     dishes.forEach(model.addDishToMenu);
@@ -87,7 +102,6 @@ window.onload = function () {
   //Populate the last search results
   .then( () => model.getAllDishes("main course", "pizza"))
   .then(() => {
-    
     new HeaderView(container("header")).render();
     new HomeView(container("home"), model).render();
     new OverviewView(container("overview"), model).render();
@@ -96,6 +110,7 @@ window.onload = function () {
     new PrintoutView(container("printout"),model).render();
     new MyDinnerView(container("mydinner"),model).render();
     window.location.hash = 'home';
+    loader.toggle(false);
   })
 
 

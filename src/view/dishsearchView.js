@@ -59,6 +59,7 @@ class DishSearchView {
     searchForDish() {
         let textQuery = this.container.querySelector("#dish-free-text-search").value;
         let dishType = this.container.querySelector("#dish-type-selector").value;
-        this.model.getAllDishes(dishType, textQuery);
+        loader.toggle(true);
+        this.model.getAllDishes(dishType, textQuery).then(() => {loader.toggle(false);})
     }
 }
