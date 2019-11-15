@@ -39,7 +39,7 @@
 
     
     <!-- The application JavaScript code -->
-    <script src="src/model/apiConfig.js"></script>
+    <script type="text/jsx" src="src/model/apiConfig.js"></script>
     <script src="src/model/dinnerModel.js"></script>
     <script type="text/jsx" src="src/view/homeView.js"></script>
     <script type="text/jsx" src="src/view/searchView.js"></script>
@@ -58,8 +58,8 @@
 
     <script class="mocha-exec">
       //Running tests immediately caused all tests to error when using JSX
-      window.addEventListener("load", function(){mocha.run()});
-      //setTimeout(mocha.run, 1);
+      //window.addEventListener("load", function(){mocha.run()});
+      setTimeout(mocha.run, 20);
     </script>
 
   </body>
