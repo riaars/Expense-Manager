@@ -76,6 +76,8 @@ class RecipeView {
             //Append the image and title
             m.render(this.container.querySelector("#dish-title"), dish.title);
             m.render(this.container.querySelector("#dish-image"),<img src={dish.image} style={{width:"100%"}}/>)
+            //Set the totalPrice
+            this.container.querySelector("#recipe-final-price").innerHTML =(dish.pricePerServing*this.model.getNumberOfGuests()).toFixed(2);
 
             //Append the instructions if there are any
             if(dish.analyzedInstructions[0]) {

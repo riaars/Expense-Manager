@@ -24,11 +24,10 @@ const screens = {
          home: ["header", "home"], 
          search: ["header", "sidebar", "search"],
          overview: ["header", "overview"],
-         details: ["header", "details", "details"],
+         details: ["header", "details"],
          header: ["header"],
          mydinner: ["mydinner"],
-         printout:["header", "printout"]
-         
+         printout:["header", "printout"]         
       // TODO: add more screens here!    
 };
 
