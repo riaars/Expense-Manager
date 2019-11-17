@@ -11,6 +11,7 @@ constructor(container, model){
     this.container = container;
     this.printoutmydinner = undefined;
     this.printoutheader= undefined;
+    this.model.addObserver(["dishes"], this.update.bind(this), this);
 }
 
     render(){
@@ -37,8 +38,13 @@ constructor(container, model){
         this.dishpresenter();
     }
 
+    update(obj){
+        this.dishpresenter();
+    }
+
     dishpresenter(){
 
+        this.container.querySelector("#printoutmain").innerHTML = "";
 
         let dishes = this.model.getFullMenu();
 

@@ -2,6 +2,7 @@ class MyDinnerView{
     constructor(container, model){
         this.container = container;
         this.model = model;
+        this.model.addObserver(["numberOfGuests"], this.update.bind(this), this);
     }
 
     render(){
@@ -29,6 +30,10 @@ class MyDinnerView{
 
         this.container.innerHTML = innerHTML;
         this.afterRender();
+    }
+
+    update(obj){
+        this.myDinner();
     }
 
     afterRender(){

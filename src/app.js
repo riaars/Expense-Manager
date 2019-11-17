@@ -101,15 +101,15 @@ window.onload = function () {
   //Populate the last search results
   .then( () => model.getAllDishes("main course", "pizza"))
   .then(() => {
-    new HeaderView(container("header")).render();
-    new HomeView(container("home"), model).render();
+    const header = new HeaderView(container("header")).render();
+    let home = new HomeView(container("home"), model).render();
     new OverviewView(container("overview"), model).render();
     new SearchView(container("search"), model).render();
     new DishDetailsView(container("details"), model).render();
     new PrintoutView(container("printout"),model).render();
     new MyDinnerView(container("mydinner"),model).render();
     window.location.hash = 'home';
-    loader.toggle(false);
+   loader.toggle(false);
   })
 
 
