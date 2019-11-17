@@ -4,7 +4,9 @@ class SearchResultsView {
         //Subscribe to the model search results, will be replaced by a controller in lab3
         this.container = container;
         this.model = model;
-        this.model.addObserver(["dishSearchResults"], this.update.bind(this));
+        this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
+        this.model.removeObserver(this);
+        this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
     }
 
     update(searchResults) {

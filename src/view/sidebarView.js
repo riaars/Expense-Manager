@@ -3,7 +3,7 @@ class SidebarView {
     constructor(container, model) {
       this.container = container;
       this.model = model;
-      this.model.addObserver(["dishes", "numberOfGuests"], this.update.bind(this));
+      this.model.addObserver(["dishes", "numberOfGuests"], this.update.bind(this), this);
       this.isCollapsed = false;
     }
     

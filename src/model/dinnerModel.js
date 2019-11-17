@@ -75,7 +75,6 @@ class DinnerModel {
   }
 
   //Notifies the subscribers with the state of their subscribed properties
-  //handleStoreChange() {
   notifyObservers() {
     let state = store.getState();
     this.subscribers.forEach(function(sub) {
@@ -87,14 +86,13 @@ class DinnerModel {
   //A particular view wants to subscribe to a store property,
   //Instead of subscribing directly to the store, its added as a subscriber
   //And on store update, is notified of the properties new state.
-  //subscribeToProperty(properties, callback) {
-  addObserver(properties, callback) {
-    this.subscribers.push({subscribedProp: properties, func: callback})
+  addObserver(properties, callback, owner) {
+    this.subscribers.push({subscribedProp: properties, func: callback, owner: owner})
   }
 
-  //Removes the associated callback from the list of observers
-  removeObserver(observerFunc) {
-    this.subscribers = this.subscribers.filter((observer) => {observer.func != observedFunc})
+  //Removes the observer from the list of observers
+  removeObserver(observer) {
+    this.subscribers = this.subscribers.filter((elem) => elem.owner != observer)
   }
 
   getLastSearchResults() {
