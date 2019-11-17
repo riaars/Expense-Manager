@@ -69,17 +69,16 @@ function dishes(state=[], action) {
 class DinnerModel {
   constructor() {
     this.subscribers = [];
-    store.subscribe(this.handleStoreChange.bind(this));
+    store.subscribe(this.notifyObservers.bind(this));
     store.dispatch(actions.setDishAction([]));
     store.dispatch(actions.setNoGuestsAction(0));
   }
 
   //Notifies the subscribers with the state of their subscribed properties
-  handleStoreChange() {
+  //handleStoreChange() {
+  notifyObservers() {
     let state = store.getState();
     this.subscribers.forEach(function(sub) {
-      //console.log(sub.subscribedProp[0]);
-      //console.log(...sub.subscribedProp.map((prop) => state[prop]));
       sub.func(...sub.subscribedProp.map((prop) => state[prop]));
     })
   }
@@ -88,8 +87,14 @@ class DinnerModel {
   //A particular view wants to subscribe to a store property,
   //Instead of subscribing directly to the store, its added as a subscriber
   //And on store update, is notified of the properties new state.
-  subscribeToProperty(properties, callback) {
+  //subscribeToProperty(properties, callback) {
+  addObserver(properties, callback) {
     this.subscribers.push({subscribedProp: properties, func: callback})
+  }
+
+  //Removes the associated callback from the list of observers
+  removeObserver(observerFunc) {
+    this.subscribers = this.subscribers.filter((observer) => {observer.func != observedFunc})
   }
 
   getLastSearchResults() {

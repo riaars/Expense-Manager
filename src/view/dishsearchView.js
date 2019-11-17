@@ -4,7 +4,7 @@ class DishSearchView {
       this.container = container;
       this.model = model;
       this.sidebarView = undefined;
-      this.model.subscribeToProperty(["dishSearchResults"], this.wasUpdated.bind(this));
+      this.model.addObserver(["dishSearchResults"], this.update.bind(this));
       this.dropdownOptions = [
       {value:"", name:"Select A Type"},
       {value:"main course", name:"Main course"},
@@ -43,7 +43,8 @@ class DishSearchView {
       m.render(this.container, this.jsx());
       this.afterRender();
     }
-    wasUpdated(obj) {
+
+    update(obj) {
       //Handle the changed state
     }
     

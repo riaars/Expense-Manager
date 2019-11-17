@@ -4,10 +4,10 @@ class SearchResultsView {
         //Subscribe to the model search results, will be replaced by a controller in lab3
         this.container = container;
         this.model = model;
-        this.model.subscribeToProperty(["dishSearchResults"], this.onNewSearchResults.bind(this));
+        this.model.addObserver(["dishSearchResults"], this.update.bind(this));
     }
 
-    onNewSearchResults(searchResults) {
+    update(searchResults) {
         m.render(this.container.getElementsByClassName("dish-previews-container")[0], this.getSearchResultsAsJsx(searchResults))
     }
 
@@ -49,7 +49,7 @@ class SearchResultsView {
     afterRender() {
         let sr = this.model.getLastSearchResults(); 
         if(sr)
-            this.onNewSearchResults(sr);
+            this.update(sr);
     }
 
 

@@ -3,11 +3,11 @@ class SidebarView {
     constructor(container, model) {
       this.container = container;
       this.model = model;
-      this.model.addObserver(["dishes", "numberOfGuests"], this.updateMenu.bind(this));
+      this.model.addObserver(["dishes", "numberOfGuests"], this.update.bind(this));
       this.isCollapsed = false;
     }
     
-    updateMenu(dishes, numGuests) {
+    update(dishes, numGuests) {
       m.render(this.container.querySelector("#dishlistcontainer"), this.getDishListAsJsx());
       this.container.getElementsByClassName("num-people-input")[0].value = numGuests;
       this.container.getElementsByClassName("value-num-guests")[0].value = numGuests;
@@ -90,7 +90,6 @@ class SidebarView {
     }
 
     afterRender() {
-
-      this.updateMenu(this.model.getFullMenu(), this.model.getNumberOfGuests());
+      this.update(this.model.getFullMenu(), this.model.getNumberOfGuests());
     }
   }
