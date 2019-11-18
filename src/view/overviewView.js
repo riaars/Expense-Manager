@@ -4,7 +4,7 @@ class OverviewView {
         this.model = model;
         this.overviewMyDinner = undefined;
         this.overviewHeader = undefined;
-        this.model.addObserver(["dishes"], this.update.bind(this), this);
+        this.model.addObserver(["dishes", "prices"], this.dishPresenter.bind(this), this);
     }
 
     // An example of creating HTML procedurally. Think about the pros and cons of this approach.
@@ -41,23 +41,23 @@ class OverviewView {
 
       this.afterRender();
     }
-    
-    update(obj){
-        this.dishPresenter();
-    }
 
     afterRender() {
       this.container.querySelector("#toPrintBtn").addEventListener("click", () =>{ window.location.hash = '#printout'});
       this.overviewMyDinner.render();
-      this.dishPresenter();
     }
 
-    dishPresenter(){
-
-        this.container.querySelector("#value-main-course-name").innerHTML = "";
-
-        let dishes = this.model.getFullMenu();
+    dishPresenter(dishes, prices){
+       
+       this.container.querySelector("#value-main-course-name").innerHTML = "";
      
+       if(dishes.length === 0){
+            let elem = document.createElement("div");
+            elem.innerHTML = "No Dish Chosen!";
+
+            this.container.querySelector("#value-main-course-name").appendChild(elem);
+       }
+       else{
         dishes.map(dish => {
         let elem = document.createElement("div");
         let pic = document.createElement("img");
@@ -86,9 +86,9 @@ class OverviewView {
         })
         .forEach(element => {
         this.container.querySelector("#value-main-course-name").appendChild(element);
-        });
-        
+        });  
+    }
 
-    this.container.getElementsByClassName("value-total-price")[0].innerHTML = this.model.getTotalMenuPrice().toFixed(2);
+        this.container.getElementsByClassName("value-total-price")[0].innerHTML = prices;
     }
 }

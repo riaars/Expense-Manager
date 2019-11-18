@@ -92,36 +92,32 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
+  //We instantiate our controller
+  const controller = new RecipeViewController(model);
+
   //Make sure all promises resolve so model is populated
   loader.toggle(true);
   Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
   .then(dishes => {
     dishes.forEach(model.addDishToMenu);
-  })
+  }).then(()=> model.setTotalMenuPrice())
   //Populate the last search results
   .then( () => model.getAllDishes("main course", "pizza"))
   .then(() => {
-    const header = new HeaderView(container("header")).render();
-    let home = new HomeView(container("home"), model).render();
+    new HeaderView(container("header")).render();
+    new HomeView(container("home"), model).render();
     new OverviewView(container("overview"), model).render();
     new SearchView(container("search"), model).render();
-    new DishDetailsView(container("details"), model).render();
+    new DishDetailsView(container("details"),model).render();
     new PrintoutView(container("printout"),model).render();
     new MyDinnerView(container("mydinner"),model).render();
     window.location.hash = 'home';
-   loader.toggle(false);
+    loader.toggle(false);
   })
 
-
- 
     //Router object which lets the user switch between views using hash in the browser.
     this.router = new Router(routes);
   
-  // TODO:  more views here
-  // TODO: The views are not being rendered yet. Figure out how to do so.
-  
-
-
   /**
    * IMPORTANT: app.js is the only place where you are allowed to use document.body
    * In other Views you should limit your DOM searches to children of that View. For that, you must use querySelector()

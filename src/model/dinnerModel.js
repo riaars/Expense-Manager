@@ -7,6 +7,7 @@ const REMOVE_DISH = "REMOVE_DISH"
 const SET_DISHES = "SET_DISHES" 
 const DELETE_LAST_SEARCH = "DELETE_LAST_SEARCH" 
 const REPLACE_LAST_SEARCH = "REPLACE_LAST_SEARCH" 
+const SET_TOTAL_MENU_PRICE = "SET_TOTAL_MENU_PRICE"
 
 //Action creators.
 const actions = {
@@ -16,6 +17,7 @@ const actions = {
   setDishAction(dishes) {return {type: SET_DISHES, dishes: dishes}},
   replaceLastSearchAction(searchResult) {return {type: REPLACE_LAST_SEARCH, result: searchResult}},
   deletelastSearch() {return {type: DELETE_LAST_SEARCH}},
+  setTotalMenuPriceAction(amount){return {type: SET_TOTAL_MENU_PRICE, totalPrice: amount}}
 }
 
 const store = createStore(reducer);
@@ -26,7 +28,8 @@ function reducer(state = {}, action) {
   return {
       dishes: dishes(state.dishes, action),
       numberOfGuests: numberOfGuests(state.numberOfGuests, action),
-      dishSearchResults: lastSearchResult(state.dishSearchResults, action)
+      dishSearchResults: lastSearchResult(state.dishSearchResults, action),
+      prices: prices(state.prices, action)
     };
 }
   
@@ -65,6 +68,16 @@ function dishes(state=[], action) {
   }
 }
 
+//Prices reducer
+function prices(state=[], action){
+    switch(action.type){
+      case SET_TOTAL_MENU_PRICE:
+        return action.totalPrice;
+      default:
+        return state;
+    }
+}
+
 
 class DinnerModel {
   constructor() {
@@ -95,11 +108,15 @@ class DinnerModel {
     this.subscribers = this.subscribers.filter((elem) => elem.owner != observer)
   }
 
+  setTotalMenuPrice(){
+    store.dispatch(actions.setTotalMenuPriceAction(this.getTotalMenuPrice()));
+  }
+
   getLastSearchResults() {
     return store.getState().dishSearchResults;
   }
 
-    setNumberOfGuests(num) {
+  setNumberOfGuests(num) {
     store.dispatch(actions.setNoGuestsAction(num));
   }
 

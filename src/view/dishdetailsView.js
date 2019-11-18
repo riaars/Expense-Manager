@@ -1,7 +1,8 @@
 /* @jsx m*/
 class DishDetailsView {
-    constructor(container, model) {
+    constructor(container, model, controller) {
       this.container = container;
+      this.controller = controller;
       this.model = model;
       this.sidebarView = undefined;
       this.recipeListView = undefined;
@@ -22,7 +23,7 @@ class DishDetailsView {
       m.render(this.container, this.jsx());
 
       if(this.sidebarView === undefined) 
-        this.sidebarView = new SidebarView(this.container.querySelector("#sbv"), this.model);
+        this.sidebarView = new SidebarView(this.container.querySelector("#sbv"), this.model, this.controller);
       
       
       if(this.recipeListView === undefined) 
@@ -36,4 +37,3 @@ class DishDetailsView {
       this.recipeListView.render();
     }
   }
-  

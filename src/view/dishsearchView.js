@@ -1,8 +1,9 @@
 /* @jsx m*/
 class DishSearchView {
-    constructor(container, model) {
+    constructor(container, model , controller) {
       this.container = container;
       this.model = model;
+      this.controller = controller;
       this.sidebarView = undefined;
       this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
       this.dropdownOptions = [
@@ -61,6 +62,6 @@ class DishSearchView {
         let textQuery = this.container.querySelector("#dish-free-text-search").value;
         let dishType = this.container.querySelector("#dish-type-selector").value;
         loader.toggle(true);
-        this.model.getAllDishes(dishType, textQuery).then(() => {loader.toggle(false);})
+        this.controller.getAllDishes(dishType, textQuery).then(() => {loader.toggle(false);})
     }
 }

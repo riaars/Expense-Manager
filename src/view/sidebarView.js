@@ -1,6 +1,6 @@
 /* @jsx m*/
 class SidebarView {
-    constructor(container, model) {
+    constructor(container, model, controller) {
       this.container = container;
       this.model = model;
       this.model.addObserver(["dishes", "numberOfGuests"], this.update.bind(this), this);
