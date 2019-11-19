@@ -100,74 +100,62 @@ window.onload = function () {
   const controller = new RecipeViewController(model);
 
   //Make sure all promises resolve so model is populated
-<<<<<<< HEAD
-  loader.toggle(true);
-  Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
-  .then(dishes => {
-    dishes.forEach(model.addDishToMenu.bind(model))
-  })
-  //Populate the last search results
-  .then( () => model.getAllDishes("main course", "pizza"))
-  .then(() => {
-   
-   var views = {
-    headerView: new HeaderView(container("header")),
-    homeView: new HomeView(container("home"), model),
-    overView: new OverviewView(container("overview"), model),
-    searchView: new SearchView(container("search"), model),
-    dishDetailsView: new DishDetailsView(container("details"),model),
-    printoutView: new PrintoutView(container("printout"),model),
-    myDinnerView: new MyDinnerView(container("mydinner"),model)
-   }
-   
-   Object.keys(views).map(key => {
-     views[key].render();
-    });
-    
-    var controllers ={
-      homeController: new HomeViewController(views["homeView"])
-    }
-
-    window.location.hash = 'home';
-    loader.toggle(false);
-  })
-
-=======
   if(!SHOULD_RESTORE_FROM_LOCALSTORAGE) {
     loader.toggle(true);
     Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
     .then(dishes => {
-      dishes.forEach(model.addDishToMenu);
+      dishes.forEach(model.addDishToMenu.bind(model));
     }).then(()=> model.setTotalMenuPrice())
     //Populate the last search results
     .then( () => model.getAllDishes("main course", "pizza"))
-    .then(() => {
-      new HeaderView(container("header")).render();
-      new HomeView(container("home"), model).render();
-      new OverviewView(container("overview"), model).render();
-      new SearchView(container("search"), model).render();
-      new DishDetailsView(container("details"),model).render();
-      new PrintoutView(container("printout"),model).render();
-      new MyDinnerView(container("mydinner"),model).render();
-      window.location.hash = 'home';
-      loader.toggle(false);
+    .then(() => {   
+          var views = {
+            headerView: new HeaderView(container("header")),
+            homeView: new HomeView(container("home"), model),
+            overView: new OverviewView(container("overview"), model),
+            searchView: new SearchView(container("search"), model),
+            dishDetailsView: new DishDetailsView(container("details"),model),
+            printoutView: new PrintoutView(container("printout"),model),
+            myDinnerView: new MyDinnerView(container("mydinner"),model)
+          }
+          
+          Object.keys(views).map(key => {
+            views[key].render();
+            });
+            
+            var controllers ={
+              homeController: new HomeViewController(views["homeView"])
+            }
+
+            window.location.hash = 'home';
+            loader.toggle(false);
     })
   } else { 
     setTimeout(
-      () => {
-        //Model is populated from previous session.
-        new HeaderView(container("header")).render();
-        new HomeView(container("home"), model).render();
-        new OverviewView(container("overview"), model).render();
-        new SearchView(container("search"), model).render();
-        new DishDetailsView(container("details"),model).render();
-        new PrintoutView(container("printout"),model).render();
-        new MyDinnerView(container("mydinner"),model).render();
-        window.location.hash = 'home';
+      () => {      
+          var views = {
+            headerView: new HeaderView(container("header")),
+            homeView: new HomeView(container("home"), model),
+            overView: new OverviewView(container("overview"), model),
+            searchView: new SearchView(container("search"), model),
+            dishDetailsView: new DishDetailsView(container("details"),model),
+            printoutView: new PrintoutView(container("printout"),model),
+            myDinnerView: new MyDinnerView(container("mydinner"),model)
+          }
+          
+          Object.keys(views).map(key => {
+            views[key].render();
+            });
+            
+            var controllers ={
+              homeController: new HomeViewController(views["homeView"])
+            }
+
+            window.location.hash = 'home';
+            loader.toggle(false);
         }, 10)
     }
     
->>>>>>> 1816845e8caa71e7a661400581094da8b3c389ca
     //Router object which lets the user switch between views using hash in the browser.
     this.router = new Router(routes);
   
