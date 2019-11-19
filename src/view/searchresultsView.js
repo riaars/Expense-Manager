@@ -15,9 +15,10 @@ class SearchResultsView {
 
     //generate previews from model data
     getSearchResultsAsJsx = (searchResults) => (
+    
         searchResults.map((result) => (
             <div style={{width:"150px", height:"150px", margin:"1em", marginBottom:"3em"}}
-            onclick={() => {window.location.hash = 'details'}}>            
+            onclick={() => {window.location.hash = 'details'}}>        
                 <div className="small-dish-preview-container" style={{border:"solid black", backgrounColor:"#dedede"}}>
                 <img className="small-dish-preview-image" style={{maxWidth:"100%", height:"150px"}} src={"https://spoonacular.com/recipeImages/" + result.imageUrls[0]}></img>
                 <div className="small-dish-preview-text" style={{whiteSpace:"nowrap", textOverflow:"ellipsis", overflow:"hidden"}}>
@@ -53,6 +54,6 @@ class SearchResultsView {
         if(sr)
             this.update(sr);
     }
-
-
 }
+
+// onclick={() => {this.controller.userclickedDish(RESULT.ID)}}   

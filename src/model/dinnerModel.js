@@ -150,11 +150,13 @@ class DinnerModel {
   //Adds the passed dish to the menu. 
   addDishToMenu(dish) {
     store.dispatch(actions.addDishAction(dish));
+    this.setTotalMenuPrice();
   }
 
   //Removes dish with specified id from menu
   removeDishFromMenu(id) {
     store.dispatch(actions.removeDishAction(id));
+    this.setTotalMenuPrice();
   }
 
   //Returns all dishes of specific type (i.e. "starter", "main dish" or "dessert").

@@ -35,6 +35,7 @@ constructor(container, model){
 
     afterRender(){
         this.printoutmydinner.render();
+        this.dishPresenter(this.model.getFullMenu());
     }
 
     dishPresenter(dishes){

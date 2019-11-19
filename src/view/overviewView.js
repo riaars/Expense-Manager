@@ -4,7 +4,7 @@ class OverviewView {
         this.model = model;
         this.overviewMyDinner = undefined;
         this.overviewHeader = undefined;
-        this.model.addObserver(["dishes", "prices"], this.dishPresenter.bind(this), this);
+        this.model.addObserver(["dishes", "prices"], this.update.bind(this), this);
     }
 
     // An example of creating HTML procedurally. Think about the pros and cons of this approach.
@@ -45,9 +45,10 @@ class OverviewView {
     afterRender() {
       this.container.querySelector("#toPrintBtn").addEventListener("click", () =>{ window.location.hash = '#printout'});
       this.overviewMyDinner.render();
+      this.update(this.model.getFullMenu(), this.model.getTotalMenuPrice());
     }
 
-    dishPresenter(dishes, prices){
+    update(dishes, prices){
        
        this.container.querySelector("#value-main-course-name").innerHTML = "";
      

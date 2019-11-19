@@ -12,7 +12,7 @@ class HomeView {
         arcu. Maecenas a efficitur leo.
         <div class="spacing-medium">
         </div>
-        <button id="startBtn" className="startBtn" type="button" onclick={this.createNewDinner}>
+        <button id="startBtn" className="startBtn" type="button">
           Create new dinner
         </button>
       </div>
@@ -21,9 +21,5 @@ class HomeView {
 
   render() {
     m.render(this.container, this.jsx())
-  }
-
-  createNewDinner() {
-    window.location.hash = 'search';
   }
 }

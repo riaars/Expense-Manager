@@ -1,9 +1,8 @@
 /* @jsx m*/
 class RecipeView {
-    constructor (container, model, dishId) {
+    constructor (container, model) {
         this.container = container;
         this.model = model;
-        this.dishId = dishId;
         this.dish = undefined;
     }
 
@@ -49,7 +48,7 @@ class RecipeView {
               onclick={() =>{
                 this.model.getDish(this.dishId)
                 .then(dish => {
-                  this.model.addDishToMenu(dish);
+                  this.model.addDishToMenu_(dish);
                   window.location.hash = '#search';}
                 )
               }}>

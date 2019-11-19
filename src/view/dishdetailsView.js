@@ -16,10 +16,9 @@ class DishDetailsView {
       </div>
     ) 
 
-    render(dishId = 512) {
+    render() {
       //dishId = Math.floor(20 + Math.random() * Math.floor(512));
       //hardcoded dish 
-      dishId = 511;
       m.render(this.container, this.jsx());
 
       if(this.sidebarView === undefined) 
@@ -27,7 +26,7 @@ class DishDetailsView {
       
       
       if(this.recipeListView === undefined) 
-        this.recipeListView = new RecipeView(this.container.querySelector("#recipecontainer"), this.model, dishId);
+        this.recipeListView = new RecipeView(this.container.querySelector("#recipecontainer"), this.model);
 
       this.afterRender();
     }
