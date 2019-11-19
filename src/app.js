@@ -31,7 +31,8 @@ const screens = {
          details: ["header", "details"],
          header: ["header"],
          mydinner: ["mydinner"],
-         printout:["header", "printout"]         
+         printout:["header", "printout"],
+         notfound:["notfound"]         
       // TODO: add more screens here!    
 };
 
@@ -73,13 +74,25 @@ const show= function(screenName) {
     // optional FIXME: we could avoid hiding the containers that are part of the screen to be shown
     // optional FIXME: finding the containers could be done automatically
     // by looking at document.body.firstChild.children
-    ["header", "home", "overview", "search", "sidebar", 'details', 'printout', 'mydinner']
+    ["header", "home", "overview", "search", "sidebar", 'details', 'printout', 'mydinner','notfound']
       .forEach(containerName => container(containerName).style.display="none");
     
     // now we show all the Views used by the indicated screen
     screens[screenName]
       .forEach(containerName => container(containerName).style.display = "block");
 };
+
+const states = [{initialState: 'home', condition: 'startBtn', nextState: 'search'}];
+
+// A General State Controller.
+const GSC = function(initialState, condition){
+  states.forEach(state => {
+      if((state.initialState === initialState) && (state.condition === condition))     
+          show(state.nextState);
+      else
+          show('notfound');
+    });
+}
  
 //called for when the hash has changed
 const hashHasChanged = function(){

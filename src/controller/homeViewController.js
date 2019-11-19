@@ -10,6 +10,6 @@ class HomeViewController{
     }
 
     listener(){
-        window.location.hash = 'search';
+        GSC('home', 'startBtn');
     }
 }
