@@ -88,10 +88,10 @@ class DinnerModel {
     if(SHOULD_RESTORE_FROM_LOCALSTORAGE) {
       this.restoreStateFromDisk();
       store.subscribe(this.saveStateToLocalStorage.bind(this));
+    } else {
+      store.dispatch(actions.setDishAction([]));
+      store.dispatch(actions.setNoGuestsAction(0));
     }
-    console.log("done");
-    //store.dispatch(actions.setDishAction([]));
-    //store.dispatch(actions.setNoGuestsAction(0));
   }
 
   //Restore a saved state from the localstorage into the app state.
