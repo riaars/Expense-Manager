@@ -1,4 +1,8 @@
 /* @jsx m*/
+//For testing
+const SHOULD_RESTORE_FROM_LOCALSTORAGE = false;
+
+
 //Robert said using a global function for the toggler was ok
 //But it also needs its own state to handle multiple ongoing requests, let it live inside a global object.
 const loader = {
@@ -96,25 +100,40 @@ window.onload = function () {
   const controller = new RecipeViewController(model);
 
   //Make sure all promises resolve so model is populated
-  loader.toggle(true);
-  Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
-  .then(dishes => {
-    dishes.forEach(model.addDishToMenu);
-  }).then(()=> model.setTotalMenuPrice())
-  //Populate the last search results
-  .then( () => model.getAllDishes("main course", "pizza"))
-  .then(() => {
-    new HeaderView(container("header")).render();
-    new HomeView(container("home"), model).render();
-    new OverviewView(container("overview"), model).render();
-    new SearchView(container("search"), model).render();
-    new DishDetailsView(container("details"),model).render();
-    new PrintoutView(container("printout"),model).render();
-    new MyDinnerView(container("mydinner"),model).render();
-    window.location.hash = 'home';
-    loader.toggle(false);
-  })
-
+  if(!SHOULD_RESTORE_FROM_LOCALSTORAGE) {
+    loader.toggle(true);
+    Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
+    .then(dishes => {
+      dishes.forEach(model.addDishToMenu);
+    }).then(()=> model.setTotalMenuPrice())
+    //Populate the last search results
+    .then( () => model.getAllDishes("main course", "pizza"))
+    .then(() => {
+      new HeaderView(container("header")).render();
+      new HomeView(container("home"), model).render();
+      new OverviewView(container("overview"), model).render();
+      new SearchView(container("search"), model).render();
+      new DishDetailsView(container("details"),model).render();
+      new PrintoutView(container("printout"),model).render();
+      new MyDinnerView(container("mydinner"),model).render();
+      window.location.hash = 'home';
+      loader.toggle(false);
+    })
+  } else { 
+    setTimeout(
+      () => {
+        //Model is populated from previous session.
+        new HeaderView(container("header")).render();
+        new HomeView(container("home"), model).render();
+        new OverviewView(container("overview"), model).render();
+        new SearchView(container("search"), model).render();
+        new DishDetailsView(container("details"),model).render();
+        new PrintoutView(container("printout"),model).render();
+        new MyDinnerView(container("mydinner"),model).render();
+        window.location.hash = 'home';
+        }, 10)
+    }
+    
     //Router object which lets the user switch between views using hash in the browser.
     this.router = new Router(routes);
   
