@@ -81,10 +81,44 @@ function prices(state=[], action){
 
 class DinnerModel {
   constructor() {
+    this.localStorage = window.localStorage;
     this.subscribers = [];
     store.subscribe(this.notifyObservers.bind(this));
-    store.dispatch(actions.setDishAction([]));
-    store.dispatch(actions.setNoGuestsAction(0));
+    //To make it simple, lets store the entire state in localstorage
+    if(SHOULD_RESTORE_FROM_LOCALSTORAGE) {
+      this.restoreStateFromDisk();
+      store.subscribe(this.saveStateToLocalStorage.bind(this));
+    } else {
+      store.dispatch(actions.setDishAction([]));
+      store.dispatch(actions.setNoGuestsAction(0));
+    }
+  }
+
+  //Restore a saved state from the localstorage into the app state.
+  restoreStateFromDisk() {
+    let p = JSON.parse;
+    for (const key in this.localStorage){
+      switch(key) {
+        case "dishes":
+          store.dispatch(actions.setDishAction(p(this.localStorage.getItem(key))));
+          break;
+        case "numberOfGuests":
+          store.dispatch(actions.setNoGuestsAction(p(this.localStorage.getItem(key))));
+          break;
+        case "dishSearchResults":
+          store.dispatch(actions.replaceLastSearchAction(p(this.localStorage.getItem(key))));
+          break;
+        case "prices":
+          store.dispatch(actions.setTotalMenuPriceAction(p(this.localStorage.getItem(key))));
+          break;
+      }
+    }
+  }
+
+  saveStateToLocalStorage() {
+    let state = store.getState();
+    for(const key in state)
+      this.localStorage.setItem(key,  JSON.stringify(state[key]));
   }
 
   //Notifies the subscribers with the state of their subscribed properties
@@ -96,9 +130,9 @@ class DinnerModel {
   }
 
   
-  //A particular view wants to subscribe to a store property,
+  //A particular view wants to subscribe to a state property,
   //Instead of subscribing directly to the store, its added as a subscriber
-  //And on store update, is notified of the properties new state.
+  //And on store update, is notified of the properties' new state.
   addObserver(properties, callback, owner) {
     this.subscribers.push({subscribedProp: properties, func: callback, owner: owner})
   }
