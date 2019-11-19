@@ -104,7 +104,7 @@ window.onload = function () {
     loader.toggle(true);
     Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
     .then(dishes => {
-      dishes.forEach(model.addDishToMenu.bind(model));
+      dishes.forEach(model.addDishToMenu);
     }).then(()=> model.setTotalMenuPrice())
     //Populate the last search results
     .then( () => model.getAllDishes("main course", "pizza"))
