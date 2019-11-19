@@ -1,5 +1,5 @@
 # About 
-This is the solution for LAB 2, group 34
+This is the solution for LAB 3, group 34
 Members
 Magnus Fredrikson MAGFRED@KTH.SE
 Fredrik Öberg FOBE@KTH.SE  
