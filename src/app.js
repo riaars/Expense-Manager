@@ -121,8 +121,8 @@ window.onload = function () {
     loader.toggle(true);
     Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
     .then(dishes => {
-      dishes.forEach(model.addDishToMenu);
-    }).then(()=> model.setTotalMenuPrice())
+      dishes.forEach(model.addDishToMenu.bind(model));
+    })
     //Populate the last search results
     .then( () => model.getAllDishes("main course", "pizza"))
     .then(() => {   
@@ -132,8 +132,7 @@ window.onload = function () {
             overView: new OverviewView(container("overview"), model),
             searchView: new SearchView(container("search"), model),
             dishDetailsView: new DishDetailsView(container("details"),model),
-            printoutView: new PrintoutView(container("printout"),model),
-            myDinnerView: new MyDinnerView(container("mydinner"),model)
+            printoutView: new PrintoutView(container("printout"),model)
           }
           
           Object.keys(views).map(key => {
@@ -160,8 +159,7 @@ window.onload = function () {
             overView: new OverviewView(container("overview"), model),
             searchView: new SearchView(container("search"), model),
             dishDetailsView: new DishDetailsView(container("details"),model),
-            printoutView: new PrintoutView(container("printout"),model),
-            myDinnerView: new MyDinnerView(container("mydinner"),model)
+            printoutView: new PrintoutView(container("printout"),model)
           }
           
           Object.keys(views).map(key => {

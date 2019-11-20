@@ -10,7 +10,6 @@ constructor(container, model){
     this.model = model;
     this.container = container;
     this.printoutmydinner = undefined;
-    this.printoutheader= undefined;
     this.model.addObserver(["dishes"], this.dishPresenter.bind(this), this);
 }
 
@@ -23,9 +22,6 @@ constructor(container, model){
         `;
 
             this.container.innerHTML = innerHTML;
-
-            if(this.printoutheader === undefined)
-                    this.printoutheader = new HeaderView(this.container.querySelector("#printoutheader"));
 
             if(this.printoutmydinner === undefined)
                     this.printoutmydinner = new MyDinnerView(this.container.querySelector("#printoutmydinner"), this.model);

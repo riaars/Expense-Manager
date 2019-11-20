@@ -94,6 +94,10 @@ function recipeDish(state=[], action){
 
 class DinnerModel {
   constructor() {
+    //this is used to optimize which observer callbacks are called.
+    //if a certain listener is only interested in property x, it shouldn't be called when prop 7 is changed.
+    this.lastChangedStateProp = undefined;
+    
     this.localStorage = window.localStorage;
     this.subscribers = [];
     store.subscribe(this.notifyObservers.bind(this));
@@ -103,7 +107,7 @@ class DinnerModel {
       store.subscribe(this.saveStateToLocalStorage.bind(this));
     } else {
       store.dispatch(actions.setDishAction([]));
-      store.dispatch(actions.setNoGuestsAction(0));
+      this.setNumberOfGuests(0);
     }
   }
 
@@ -137,11 +141,13 @@ class DinnerModel {
   }
 
   //Notifies the subscribers with the state of their subscribed properties
+  //Only listener interested in the last change should be notified of the change.
   notifyObservers() {
     let state = store.getState();
     this.subscribers.forEach(function(sub) {
-      sub.func(...sub.subscribedProp.map((prop) => state[prop]));
-    })
+      if(!this.lastChangedStateProp || sub.subscribedProp.includes(this.lastChangedStateProp))
+        sub.func(...sub.subscribedProp.map((prop) => state[prop]));
+    }.bind(this))
   }
 
   
@@ -157,7 +163,9 @@ class DinnerModel {
     this.subscribers = this.subscribers.filter((elem) => elem.owner != observer)
   }
 
-  setTotalMenuPrice(){
+  
+  recalculateTotalMenuPrice(){
+    this.lastChangedStateProp = "prices";
     store.dispatch(actions.setTotalMenuPriceAction(this.getTotalMenuPrice()));
   }
 
@@ -165,8 +173,11 @@ class DinnerModel {
     return store.getState().dishSearchResults;
   }
 
+  
   setNumberOfGuests(num) {
+    this.lastChangedStateProp = "numberOfGuests";
     store.dispatch(actions.setNoGuestsAction(num));
+    this.recalculateTotalMenuPrice();
   }
 
   setRecipeDetailsDish(dish){
@@ -206,12 +217,15 @@ class DinnerModel {
 
   //Adds the passed dish to the menu. 
   addDishToMenu(dish) {
+    this.lastChangedStateProp = "dishes";
     store.dispatch(actions.addDishAction(dish));
   }
 
   //Removes dish with specified id from menu
   removeDishFromMenu(id) {
+    this.lastChangedStateProp = "dishes";
     store.dispatch(actions.removeDishAction(id));
+    this.recalculateTotalMenuPrice();
   }
 
   //Returns all dishes of specific type (i.e. "starter", "main dish" or "dessert").
@@ -230,6 +244,7 @@ class DinnerModel {
         {headers:{'X-Mashape-Key': API_KEY}})
         .then(response => response.json())
         .then(responseJson => {
+          this.lastChangedStateProp = "dishSearchResults";
           store.dispatch(actions.replaceLastSearchAction(responseJson.results));
           resolve(responseJson.results)})
         .catch((error) => {
@@ -244,7 +259,7 @@ class DinnerModel {
             resolve(undefined);
           }, 1)
       }
-    }) 
+    }.bind(this)) 
   }
 
   //Returns a dish of specific ID
