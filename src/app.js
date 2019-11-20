@@ -175,7 +175,6 @@ window.onload = function () {
             }
 
             window.location.hash = 'home';
-            loader.toggle(false);
         }, 10)
     }
     

@@ -4,6 +4,7 @@ class SidebarView {
       this.container = container;
       this.model = model;
       this.model.addObserver(["dishes", "numberOfGuests", "prices"], this.update.bind(this), this);  
+      this.model.addObserver(["userPrefs"], this.toggleSidebarCollapsed.bind(this), this);  
     }
     
     update(dishes, numGuests, prices) {
@@ -13,6 +14,13 @@ class SidebarView {
       this.container.getElementsByClassName("value-total-price")[0].innerHTML = (numGuests*prices).toFixed(2);      
     }
   
+    toggleSidebarCollapsed(userPrefs) {
+      let state = userPrefs.sidebarCollapsed;
+      state ? this.container.setAttribute("style", "height:2em") : (this.container.setAttribute("style", "height:100%"));
+      this.container.getElementsByClassName("collapse-button")[0].innerHTML = state ? "expand" : "collapse";
+      this.container.querySelector("#confirmorderbutton").style.display = !state || "none";
+    }
+
     getDishListAsJsx = (dishes , numGuests) => {
       return (
       dishes.map((dish) => (

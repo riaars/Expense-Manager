@@ -1,3 +1,7 @@
+:root {
+    --header-height: 105px;
+}
+
 *:not(h1):not(h1):not(h2):not(h3)  {
     margin:0px;
     padding:0px;
@@ -65,7 +69,7 @@ h1 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;    
-    height: 105px;
+    height: --header-height;
     min-width: 0;
     word-wrap: break-word;
     grid-area: header;
@@ -84,7 +88,6 @@ h1 {
 .sidebar { 
     border-top:solid black; 
     grid-area: sidebar; 
-    height: 100%;
     padding-left: 0px !important;
     padding-right:0px !important;
 }
@@ -93,6 +96,7 @@ h1 {
 .sidebar{
     border-right:solid black; 
     border-left:solid black;
+    height: 100%;
 }
 }
 
@@ -119,6 +123,7 @@ hr.horizontal-line {
     border-top:solid black; 
     grid-area: main;
     flex-grow: 1;   
+    padding: 0px !important;
 }
 
 
@@ -139,9 +144,12 @@ hr.horizontal-line {
     'main';
   grid-gap: 0px;
   width: 100vw;
-  height: calc(100vh - 105px);
+  height: calc(100vh - --header-height);
   border-style: none;
-  
+}
+
+grid-container-dish-details {
+    
 }
 
 @media (min-width: 1024px){
@@ -190,7 +198,7 @@ hr.horizontal-line {
     text-align:left; 
     overflow-y: scroll; 
     /*Use variable for dishsearch height*/
-    height: calc(100vh - 120px);
+    height: calc(100vh - var(--header-height));
 }
 
 .collapse-button {
@@ -228,7 +236,7 @@ hr.horizontal-line {
 .dish-search-results-container {
     overflow-y: scroll; 
     /*Use variables for dishsearch and header height*/
-    height: calc(100vh - 120px - 120px);
+    height: calc(100vh - 120px - var(--header-height));
 }
 
 .startBtn{
@@ -260,10 +268,3 @@ hr.horizontal-line {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
-
-
-
-
-
-
-

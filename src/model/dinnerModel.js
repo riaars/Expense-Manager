@@ -9,6 +9,7 @@ const SET_RECIPE_DETAILS_DISH = "SET_RECIPE_DETAILS_DISH"
 const DELETE_LAST_SEARCH = "DELETE_LAST_SEARCH" 
 const REPLACE_LAST_SEARCH = "REPLACE_LAST_SEARCH" 
 const SET_TOTAL_MENU_PRICE = "SET_TOTAL_MENU_PRICE"
+const SET_SIDEBAR_COLLAPSED = "SET_SIDEBAR_COLLAPSED"
 
 //Action creators.
 const actions = {
@@ -19,7 +20,8 @@ const actions = {
   setRecipeDetailsDishAction(dish) {return {type: SET_RECIPE_DETAILS_DISH, recipe: dish}},
   replaceLastSearchAction(searchResult) {return {type: REPLACE_LAST_SEARCH, result: searchResult}},
   deletelastSearch() {return {type: DELETE_LAST_SEARCH}},
-  setTotalMenuPriceAction(amount){return {type: SET_TOTAL_MENU_PRICE, totalPrice: amount}}
+  setTotalMenuPriceAction(amount){return {type: SET_TOTAL_MENU_PRICE, totalPrice: amount}},
+  setSidebarCollapsedAction(isCollapsed){return {type: SET_SIDEBAR_COLLAPSED, isCollapsed: isCollapsed}}
 }
 
 const store = createStore(reducer);
@@ -32,7 +34,8 @@ function reducer(state = {}, action) {
       numberOfGuests: numberOfGuests(state.numberOfGuests, action),
       dishSearchResults: lastSearchResult(state.dishSearchResults, action),
       prices: prices(state.prices, action),
-      recipe: recipeDish(state.recipe, action)
+      recipe: recipeDish(state.recipe, action),
+      userPrefs:  userPrefs(state.userprefs, action)
     };
 }
   
@@ -71,6 +74,14 @@ function dishes(state=[], action) {
   }
 }
 
+function userPrefs(state={}, action) {
+  switch(action.type) {
+    case SET_SIDEBAR_COLLAPSED: 
+      state.sidebarCollapsed = action.isCollapsed;
+      return state;
+    default: return state;
+  }
+}
 //Prices reducer
 function prices(state=[], action){
     switch(action.type){
@@ -197,6 +208,18 @@ class DinnerModel {
   //Returns the dishes that are on the menu for selected type
   getSelectedDishes(type) {
     return store.getState().dishes.filter(value => value.dishTypes.includes(type));
+  }
+
+  getUserPrefs(pref) {
+    let state = store.getState();
+    if(pref === undefined)
+      return state.userPrefs;
+    return state.userPrefs[pref];
+  }
+
+  setSidebarToggle(state) {
+    this.lastChangedStateProp = "userPrefs"
+    store.dispatch(actions.setSidebarCollapsedAction(state));
   }
 
   //Returns all the dishes on the menu.
