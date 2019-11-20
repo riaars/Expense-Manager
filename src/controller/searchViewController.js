@@ -78,7 +78,8 @@ class SearchViewController{
         let textQuery = this.view.container.querySelector("#dish-free-text-search").value;
         let dishType = this.view.container.querySelector("#dish-type-selector").value;
         loader.toggle(true);
-        this.model.getAllDishes(dishType, textQuery).then(() => {loader.toggle(false);})
+        this.model.getAllDishes(dishType, textQuery).then(() => {loader.toggle(false)});
+        addSmallDishListeners();
     }
 
     addSmallDishListeners(){

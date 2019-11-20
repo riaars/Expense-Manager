@@ -130,6 +130,7 @@ class DinnerModel {
           break;
         case "recipe":
           store.dispatch(actions.setRecipeDetailsDishAction(p(this.localStorage.getItem(key))));
+          break;
       }
     }
   }
@@ -219,6 +220,7 @@ class DinnerModel {
   addDishToMenu(dish) {
     this.lastChangedStateProp = "dishes";
     store.dispatch(actions.addDishAction(dish));
+    this.recalculateTotalMenuPrice();
   }
 
   //Removes dish with specified id from menu
