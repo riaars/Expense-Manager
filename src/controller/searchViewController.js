@@ -34,12 +34,13 @@ class SearchViewController{
 
     // Event listeners to the SidebarView functionalities.
     sidebarView(){
-        return this.view.sidebarView;
         this.view.container.querySelector("#confirmorderbutton")
         .addEventListener("click", this.confirmOrderListener, false);
         
         this.view.container.querySelector("#num-people-input")
         .addEventListener("change", this.numPeopleListener.bind(this), false);
+        
+        return this.view.sidebarView;
         /*
         //this.view.container.querySelector("#collapse-button")
         //.addEventListener("click", this.toggleCollapsed.bind(this), false);
