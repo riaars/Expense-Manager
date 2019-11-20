@@ -182,6 +182,7 @@ class DinnerModel {
   }
 
   setRecipeDetailsDish(dish){
+    this.lastChangedStateProp = "recipe";
     store.dispatch(actions.setRecipeDetailsDishAction(dish));
   }
 
