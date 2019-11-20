@@ -12,6 +12,7 @@ class SearchViewController{
         this.searchResultsView();
     }
 
+    // Event listeners to the SidebarView functionalities.
     sideBarView(){
         this.view.container.querySelector("#confirmorderbutton")
         .addEventListener("click", this.confirmOrderListener, false);
@@ -25,6 +26,7 @@ class SearchViewController{
         this.addRemoveDishEventListener();
     }
 
+    // Event listeners to the DishSearchView functionalities.
     dishSearchView(){
 
         this.view.container.querySelector("#dish-free-text-search")
@@ -37,12 +39,10 @@ class SearchViewController{
         .addEventListener("click", this.searchForDish.bind(this), false);
       }
 
+      // Event listeners to the SearchResultsView functionalities.
       searchResultsView(){
           this.addSmallDishListeners();
       }
-
-
-
 
     confirmOrderListener(){
         GSC('search', 'confirmorderbutton');
@@ -90,7 +90,9 @@ class SearchViewController{
 
     presentDetails(id){
         return function(){
-            console.log(id);
+            this.model.getDish(id).then(dish => {
+                this.model.setRecipeDetailsDish(dish)
+            });
             GSC('search', 'smallDishBtn');
         }
     }

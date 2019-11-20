@@ -88,7 +88,9 @@ const states = [
   {initialState: 'overview', condition: 'goBackBtn', nextState: 'search'},
   {initialState: 'printout', condition: 'goBackBtn', nextState: 'search'},
   {initialState: 'search', condition: 'confirmorderbutton', nextState: 'overview'},
-  {initialState: 'search', condition: 'smallDishBtn', nextState: 'details'}
+  {initialState: 'search', condition: 'smallDishBtn', nextState: 'details'},
+  {initialState: 'details', condition: 'gobackdetails', nextState: 'search'},
+  {initialState: 'details', condition: 'confirmorderbutton', nextState: 'overview'}
 ];
 
 // A General State Controller.
@@ -142,7 +144,8 @@ window.onload = function () {
               homeController: new HomeViewController(views["homeView"]),
               overviewController: new OverViewController(views["overView"]),
               printoutViewController: new PrintoutViewController(views["printoutView"]),
-              searchViewController: new SearchViewController(views["searchView"], model)
+              searchViewController: new SearchViewController(views["searchView"], model),
+              dishDetailsViewController: new DishDetailsViewController(views["dishDetailsView"], model)
             }
 
             window.location.hash = 'home';
@@ -167,7 +170,10 @@ window.onload = function () {
             
             var controllers ={
               homeController: new HomeViewController(views["homeView"]),
-              overviewController: new OverViewController(views["overView"])
+              overviewController: new OverViewController(views["overView"]),
+              printoutViewController: new PrintoutViewController(views["printoutView"]),
+              searchViewController: new SearchViewController(views["searchView"], model),
+              dishDetailsViewController: new DishDetailsViewController(views["dishDetailsView"], model)
             }
 
             window.location.hash = 'home';

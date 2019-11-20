@@ -3,7 +3,7 @@ class RecipeView {
     constructor (container, model) {
         this.container = container;
         this.model = model;
-        this.dish = undefined;
+        this.model.addObserver(["recipe", "numberOfGuests"], this.update.bind(this), this);
     }
 
     jsx = () => (
@@ -21,8 +21,7 @@ class RecipeView {
             pretium eget sapien quis, auctor semper sem.
           </div>
           <div className="startBtn" 
-            id="go-back-details" 
-            onclick={() => {window.location.hash = '#search';}}>
+            id="go-back-details">
                 Back to search
           </div>
           <div className="back-button"><h2>PREPARATION</h2></div>
@@ -31,8 +30,8 @@ class RecipeView {
         <div className="recipe-view-row-col">
           <div className="recipe-ingredients" style={{padding:"1em"}}>
             <div>
-              <span>Igredients for &nbsp;</span>
-              <span className="value-num-guests">{this.model.getNumberOfGuests()}</span>
+              <span>Ingredients for &nbsp;</span>
+              <span className="value-num-guests"></span>
               <span>&nbsp;people</span>
             </div>
             <div className="ingredients-inner" style={{padding:"1em"}}>
@@ -44,14 +43,7 @@ class RecipeView {
               flexDirection:"row",
               alignItems:"center",
               justifyContent: "space-between"}}>
-              <div className="startBtn" id="add-to-menu-button"
-              onclick={() =>{
-                this.model.getDish(this.dishId)
-                .then(dish => {
-                  this.model.addDishToMenu_(dish);
-                  window.location.hash = '#search';}
-                )
-              }}>
+              <div className="startBtn" id="add-to-menu-button">
                 Add to menu
               </div>
               <div>
@@ -69,12 +61,16 @@ class RecipeView {
         this.afterRender();
     }
 
-    afterRender() {
-        this.model.getDish(this.dishId).then( dish => {
-            this.dish = dish;
+    afterRender(){
+
+    }
+
+    update(dish, guests) {
+       
             //Append the image and title
             m.render(this.container.querySelector("#dish-title"), dish.title);
             m.render(this.container.querySelector("#dish-image"),<img src={dish.image} style={{width:"100%"}}/>)
+
             //Set the totalPrice
             this.container.querySelector("#recipe-final-price").innerHTML =(dish.pricePerServing*this.model.getNumberOfGuests()).toFixed(2);
 
@@ -99,6 +95,7 @@ class RecipeView {
               </tr>
             ))
             m.render(this.container.getElementsByClassName("ingredientslist-table")[0], ingredientContent);
-        })
+            m.render(this.container.getElementsByClassName("value-num-guests")[0], guests);
+        
     }
 }

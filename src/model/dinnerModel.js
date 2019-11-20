@@ -5,6 +5,7 @@ const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
 const ADD_DISH = "ADD_DISH"
 const REMOVE_DISH = "REMOVE_DISH"
 const SET_DISHES = "SET_DISHES" 
+const SET_RECIPE_DETAILS_DISH = "SET_RECIPE_DETAILS_DISH"
 const DELETE_LAST_SEARCH = "DELETE_LAST_SEARCH" 
 const REPLACE_LAST_SEARCH = "REPLACE_LAST_SEARCH" 
 const SET_TOTAL_MENU_PRICE = "SET_TOTAL_MENU_PRICE"
@@ -15,6 +16,7 @@ const actions = {
   addDishAction(dish) {return {type: ADD_DISH, dish: dish}},
   removeDishAction(id) {return {type: REMOVE_DISH, id: id}},
   setDishAction(dishes) {return {type: SET_DISHES, dishes: dishes}},
+  setRecipeDetailsDishAction(dish) {return {type: SET_RECIPE_DETAILS_DISH, recipe: dish}},
   replaceLastSearchAction(searchResult) {return {type: REPLACE_LAST_SEARCH, result: searchResult}},
   deletelastSearch() {return {type: DELETE_LAST_SEARCH}},
   setTotalMenuPriceAction(amount){return {type: SET_TOTAL_MENU_PRICE, totalPrice: amount}}
@@ -29,7 +31,8 @@ function reducer(state = {}, action) {
       dishes: dishes(state.dishes, action),
       numberOfGuests: numberOfGuests(state.numberOfGuests, action),
       dishSearchResults: lastSearchResult(state.dishSearchResults, action),
-      prices: prices(state.prices, action)
+      prices: prices(state.prices, action),
+      recipe: recipeDish(state.recipe, action)
     };
 }
   
@@ -78,6 +81,16 @@ function prices(state=[], action){
     }
 }
 
+//RecipeDish Reducer
+function recipeDish(state=[], action){
+    switch(action.type){
+      case SET_RECIPE_DETAILS_DISH:
+        return action.recipe;
+      default:
+        return state;
+      }
+}
+
 
 class DinnerModel {
   constructor() {
@@ -111,6 +124,8 @@ class DinnerModel {
         case "prices":
           store.dispatch(actions.setTotalMenuPriceAction(p(this.localStorage.getItem(key))));
           break;
+        case "recipe":
+          store.dispatch(actions.setRecipeDetailsDishAction(p(this.localStorage.getItem(key))));
       }
     }
   }
@@ -152,6 +167,14 @@ class DinnerModel {
 
   setNumberOfGuests(num) {
     store.dispatch(actions.setNoGuestsAction(num));
+  }
+
+  setRecipeDetailsDish(dish){
+    store.dispatch(actions.setRecipeDetailsDishAction(dish));
+  }
+
+  getRecipeDetailsDish(){
+    return store.getState().recipe;
   }
 
   getNumberOfGuests() {
