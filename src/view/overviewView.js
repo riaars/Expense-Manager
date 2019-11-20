@@ -43,7 +43,6 @@ class OverviewView {
     }
 
     afterRender() {
-      this.container.querySelector("#toPrintBtn").addEventListener("click", () =>{ window.location.hash = '#printout'});
       this.overviewMyDinner.render();
       this.update(this.model.getFullMenu(), this.model.getTotalMenuPrice());
     }

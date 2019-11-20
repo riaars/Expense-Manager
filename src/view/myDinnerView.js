@@ -2,7 +2,7 @@ class MyDinnerView{
     constructor(container, model){
         this.container = container;
         this.model = model;
-        this.model.addObserver(["numberOfGuests"], this.myDinner.bind(this), this);
+        this.model.addObserver(["numberOfGuests"], this.update.bind(this), this);
     }
 
     render(){
@@ -15,14 +15,13 @@ class MyDinnerView{
                         <div style="display: inline">
                             My dinner:&nbsp;
                         </div>
-                        <div id="numGuest" class="value-num-guests" style="display: inline">    
-                            1                     
+                        <div id="numGuest" class="value-num-guests" style="display: inline">                         
                         </div>   
                         <div id="people" style="display: inline">
                         </div>
                     </div> 
                     <div class="rightmydinner">
-                    <button class="startBtn" type="button"  id="mydinnergobackbtn" onclick="window.location.hash = '#search'">
+                    <button class="startBtn" type="button"  id="mydinnergobackbtn">
                           Go back and edit dinner
                     </button>        
                     </div>
@@ -34,9 +33,10 @@ class MyDinnerView{
     }
 
     afterRender(){
+        this.update(this.model.getNumberOfGuests());
     }
 
-    myDinner(guests){
+    update(guests){
         this.container.querySelector("#numGuest").innerHTML = guests;
   
         if(1 === guests)

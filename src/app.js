@@ -82,15 +82,19 @@ const show= function(screenName) {
       .forEach(containerName => container(containerName).style.display = "block");
 };
 
-const states = [{initialState: 'home', condition: 'startBtn', nextState: 'search'}];
+const states = [
+  {initialState: 'home', condition: 'startBtn', nextState: 'search'},
+  {initialState: 'overview', condition: 'toPrintBtn', nextState: 'printout'},
+  {initialState: 'overview', condition: 'goBackBtn', nextState: 'search'},
+  {initialState: 'printout', condition: 'goBackBtn', nextState: 'search'},
+  {initialState: 'search', condition: 'confirmorderbutton', nextState: 'overview'}
+];
 
 // A General State Controller.
 const GSC = function(initialState, condition){
   states.forEach(state => {
       if((state.initialState === initialState) && (state.condition === condition))     
           show(state.nextState);
-      else
-          show('notfound');
     });
 }
  
@@ -107,10 +111,7 @@ window.onload = function () {
   window.addEventListener("hashchange", hashHasChanged, false);
 
   //We instantiate our model
-  const model = new DinnerModel();
-
-  //We instantiate our controller
-  const controller = new RecipeViewController(model);
+  const model = new DinnerModel(); 
 
   //Make sure all promises resolve so model is populated
   if(!SHOULD_RESTORE_FROM_LOCALSTORAGE) {
@@ -137,7 +138,10 @@ window.onload = function () {
             });
             
             var controllers ={
-              homeController: new HomeViewController(views["homeView"])
+              homeController: new HomeViewController(views["homeView"]),
+              overviewController: new OverViewController(views["overView"]),
+              printoutViewController: new PrintoutViewController(views["printoutView"]),
+              searchViewController: new SearchViewController(views["searchView"], model)
             }
 
             window.location.hash = 'home';
@@ -161,7 +165,8 @@ window.onload = function () {
             });
             
             var controllers ={
-              homeController: new HomeViewController(views["homeView"])
+              homeController: new HomeViewController(views["homeView"]),
+              overviewController: new OverViewController(views["overView"])
             }
 
             window.location.hash = 'home';

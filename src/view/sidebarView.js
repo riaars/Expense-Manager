@@ -69,8 +69,9 @@ class SidebarView {
             
           </div>
         </div>
-        <div className="startBtn" id="confirmorderbutton"
-        onclick= {() => {window.location.hash = '#overview'}}>Confirm Order</div>
+        <div className="startBtn" id="confirmorderbutton">
+              Confirm Order
+        </div>
       </div>
     )}
 
