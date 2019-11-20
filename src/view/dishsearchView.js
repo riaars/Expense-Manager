@@ -1,9 +1,8 @@
 /* @jsx m*/
 class DishSearchView {
-    constructor(container, model , controller) {
+    constructor(container, model) {
       this.container = container;
       this.model = model;
-      this.controller = controller;
       this.sidebarView = undefined;
       this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
       this.dropdownOptions = [
@@ -31,8 +30,7 @@ class DishSearchView {
             <button id="search-for-dish-btn" 
               className="startBtn" 
               type="button"
-              style={{margin:"0 0em 0em 0", marginLeft:"25px"}}
-              onclick={this.searchForDish.bind(this)}>
+              style={{margin:"0 0em 0em 0", marginLeft:"25px"}}>
               Search
             </button>
           </div>
@@ -49,19 +47,6 @@ class DishSearchView {
       //Handle the changed state
     }
     
-    afterRender() {
-      //Listen for enter key
-        this.container.querySelector("#dish-free-text-search").addEventListener("keyup", function(event) {
-          if (event.keyCode === 13)
-          this.container.querySelector("#search-for-dish-btn").click();
-        }.bind(this));    
-    }
-
-    //This will be moved into a controller in lab3, it is only here for testing.
-    searchForDish() {
-        let textQuery = this.container.querySelector("#dish-free-text-search").value;
-        let dishType = this.container.querySelector("#dish-type-selector").value;
-        loader.toggle(true);
-        this.model.getAllDishes(dishType, textQuery).then(() => {loader.toggle(false);})
+    afterRender() { 
     }
 }

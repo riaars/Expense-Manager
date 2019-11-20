@@ -87,7 +87,8 @@ const states = [
   {initialState: 'overview', condition: 'toPrintBtn', nextState: 'printout'},
   {initialState: 'overview', condition: 'goBackBtn', nextState: 'search'},
   {initialState: 'printout', condition: 'goBackBtn', nextState: 'search'},
-  {initialState: 'search', condition: 'confirmorderbutton', nextState: 'overview'}
+  {initialState: 'search', condition: 'confirmorderbutton', nextState: 'overview'},
+  {initialState: 'search', condition: 'smallDishBtn', nextState: 'details'}
 ];
 
 // A General State Controller.

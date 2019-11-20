@@ -1,11 +1,8 @@
 /* @jsx m*/
 class SearchResultsView {
     constructor(container, model) {
-        //Subscribe to the model search results, will be replaced by a controller in lab3
         this.container = container;
         this.model = model;
-        this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
-        this.model.removeObserver(this);
         this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
     }
 
@@ -17,8 +14,7 @@ class SearchResultsView {
     getSearchResultsAsJsx = (searchResults) => (
     
         searchResults.map((result) => (
-            <div style={{width:"150px", height:"150px", margin:"1em", marginBottom:"3em"}}
-            onclick={() => {window.location.hash = 'details'}}>        
+            <div id={"small-dish-preview-" + result.id} style={{width:"150px", height:"150px", margin:"1em", marginBottom:"3em"}}>        
                 <div className="small-dish-preview-container" style={{border:"solid black", backgrounColor:"#dedede"}}>
                 <img className="small-dish-preview-image" style={{maxWidth:"100%", height:"150px"}} src={"https://spoonacular.com/recipeImages/" + result.imageUrls[0]}></img>
                 <div className="small-dish-preview-text" style={{whiteSpace:"nowrap", textOverflow:"ellipsis", overflow:"hidden"}}>
@@ -43,9 +39,6 @@ class SearchResultsView {
 
     render() {
         m.render(this.container, this.jsx());
-        /*let innerHTML = 
-        this.container.innerHTML = innerHTML;
-        */
         this.afterRender();
     }
 
@@ -55,5 +48,3 @@ class SearchResultsView {
             this.update(sr);
     }
 }
-
-// onclick={() => {this.controller.userclickedDish(RESULT.ID)}}   
