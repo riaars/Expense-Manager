@@ -58,14 +58,11 @@ class DishDetailsViewController{
     }
 
     toggleCollapsed() {
-        this.isCollapsed = !this.isCollapsed;
-        let sidebarContainer = this.view.container.getElementsByClassName("sidebarcontainer")[0];
-        this.isCollapsed ? (sidebarContainer.setAttribute("style", "height:1em")) :(sidebarContainer.setAttribute("style", "height:100%"));
-        this.view.container.getElementsByClassName("collapse-button")[0].innerHTML = this.isCollapsed ? "expand" : "collapse";
-        this.view.container.querySelector("#confirmorderbutton").style.display = !this.isCollapsed || "none";
+        this.model.setSidebarToggle(!this.model.getUserPrefs("sidebarCollapsed"));
       }
 
       addToMenuListener(){
             this.model.addDishToMenu(this.model.getRecipeDetailsDish());
+            GSC('details', 'gobackdetails');
       }
 }
