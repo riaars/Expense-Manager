@@ -97,7 +97,7 @@ const states = [
 const GSC = function(initialState, condition){
   states.forEach(state => {
       if((state.initialState === initialState) && (state.condition === condition))     
-          show(state.nextState);
+        window.location.hash = state.nextState;
     });
 }
  
