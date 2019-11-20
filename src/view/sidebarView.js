@@ -16,9 +16,10 @@ class SidebarView {
   
     toggleSidebarCollapsed(userPrefs) {
       let state = userPrefs.sidebarCollapsed;
-      state ? this.container.setAttribute("style", "height:2em") : (this.container.setAttribute("style", "height:100%"));
-      this.container.getElementsByClassName("collapse-button")[0].innerHTML = state ? "expand" : "collapse";
-      this.container.querySelector("#confirmorderbutton").style.display = !state || "none";
+      let sidebarContainer = this.container.getElementsByClassName("sidebarcontainer")[0];
+      state ? sidebarContainer.setAttribute("style", "height:0.6em") : (sidebarContainer.setAttribute("style", "height:100%"));
+      sidebarContainer.getElementsByClassName("collapse-button")[0].innerHTML = state ? "expand" : "collapse";
+      //sidebarContainer.querySelector("#confirmorderbutton").style.display = !state || "none";
     }
 
     getDishListAsJsx = (dishes , numGuests) => {

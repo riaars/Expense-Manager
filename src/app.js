@@ -1,6 +1,6 @@
 /* @jsx m*/
 //For testing
-const SHOULD_RESTORE_FROM_LOCALSTORAGE = false;
+const SHOULD_RESTORE_FROM_LOCALSTORAGE = true;
 
 
 //Robert said using a global function for the toggler was ok
