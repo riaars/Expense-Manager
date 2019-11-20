@@ -130,9 +130,9 @@ class DinnerModel {
   notifyObservers() {
     let state = store.getState();
     this.subscribers.forEach(function(sub) {
-      if(!this.lastChangedStateProp || sub.subscribedProp.contains(this.lastChangedStateProp))
+      if(!this.lastChangedStateProp || sub.subscribedProp.includes(this.lastChangedStateProp))
         sub.func(...sub.subscribedProp.map((prop) => state[prop]));
-    })
+    }.bind(this))
   }
 
   

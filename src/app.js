@@ -130,8 +130,7 @@ window.onload = function () {
             overView: new OverviewView(container("overview"), model),
             searchView: new SearchView(container("search"), model),
             dishDetailsView: new DishDetailsView(container("details"),model),
-            printoutView: new PrintoutView(container("printout"),model),
-            myDinnerView: new MyDinnerView(container("mydinner"),model)
+            printoutView: new PrintoutView(container("printout"),model)
           }
           
           Object.keys(views).map(key => {
@@ -157,8 +156,7 @@ window.onload = function () {
             overView: new OverviewView(container("overview"), model),
             searchView: new SearchView(container("search"), model),
             dishDetailsView: new DishDetailsView(container("details"),model),
-            printoutView: new PrintoutView(container("printout"),model),
-            myDinnerView: new MyDinnerView(container("mydinner"),model)
+            printoutView: new PrintoutView(container("printout"),model)
           }
           
           Object.keys(views).map(key => {
