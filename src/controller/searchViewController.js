@@ -36,14 +36,23 @@ class SearchViewController{
         
         this.view.container.querySelector("#num-people-input")
         .addEventListener("change", this.numPeopleListener.bind(this), false);
+
+
     }
 
     // Event listeners to the DishSearchView functionalities.
     dishSearchView(){
         this.view.container.querySelector("#dish-free-text-search")
         .addEventListener("keyup", function(event) {
+            //Enter pressed, always search
             if (event.keyCode === 13)
-                this.view.container.querySelector("#search-for-dish-btn").click();
+                this.searchForDish();
+            else {
+            //Search as you type
+            //console.log();
+            this.model.getAutocompleteResults(event.target.value, 4);
+
+            }
           }.bind(this)); 
 
         this.view.container.querySelector("#search-for-dish-btn")

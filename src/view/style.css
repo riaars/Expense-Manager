@@ -2,6 +2,10 @@
     --header-height: 105px;
 }
 
+input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
 *:not(h1):not(h1):not(h2):not(h3)  {
     margin:0px;
     padding:0px;

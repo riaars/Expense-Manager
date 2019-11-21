@@ -10,6 +10,7 @@ const DELETE_LAST_SEARCH = "DELETE_LAST_SEARCH"
 const REPLACE_LAST_SEARCH = "REPLACE_LAST_SEARCH" 
 const SET_TOTAL_MENU_PRICE = "SET_TOTAL_MENU_PRICE"
 const SET_SIDEBAR_COLLAPSED = "SET_SIDEBAR_COLLAPSED"
+const REPLACE_AUTO_COMPLETE = "REPLACE_AUTO_COMPLETE"
 
 //Action creators.
 const actions = {
@@ -19,6 +20,7 @@ const actions = {
   setDishAction(dishes) {return {type: SET_DISHES, dishes: dishes}},
   setRecipeDetailsDishAction(dish) {return {type: SET_RECIPE_DETAILS_DISH, recipe: dish}},
   replaceLastSearchAction(searchResult) {return {type: REPLACE_LAST_SEARCH, result: searchResult}},
+  replaceLastAutocompleteAction(autoCompleteResults) {return {type: REPLACE_AUTO_COMPLETE, result: autoCompleteResults}},
   deletelastSearch() {return {type: DELETE_LAST_SEARCH}},
   setTotalMenuPriceAction(amount){return {type: SET_TOTAL_MENU_PRICE, totalPrice: amount}},
   setSidebarCollapsedAction(isCollapsed){return {type: SET_SIDEBAR_COLLAPSED, isCollapsed: isCollapsed}}
@@ -33,6 +35,7 @@ function reducer(state = {}, action) {
       dishes: dishes(state.dishes, action),
       numberOfGuests: numberOfGuests(state.numberOfGuests, action),
       dishSearchResults: lastSearchResult(state.dishSearchResults, action),
+      autoCompleteResults: lastAutoCompleteResults(state.autoCompleteResults, action),
       prices: prices(state.prices, action),
       recipe: recipeDish(state.recipe, action),
       userPrefs:  userPrefs(state.userprefs, action)
@@ -59,6 +62,18 @@ function lastSearchResult(state = [], action) {
       return state;
   }
 }
+
+//autoComplete reducer
+function lastAutoCompleteResults(state = [], action) {
+  switch(action.type) {
+    case REPLACE_AUTO_COMPLETE: 
+      return action.result;
+    default: 
+      return state;
+  }
+}
+
+
 
 //Dishes reducer
 function dishes(state=[], action) {
@@ -249,6 +264,19 @@ class DinnerModel {
     this.lastChangedStateProp = "dishes";
     store.dispatch(actions.removeDishAction(id));
     this.recalculateTotalMenuPrice();
+  }
+
+  getAutocompleteResults(pattern, numSuggestions) {
+  //console.log(ENDPOINT + '/' + 'recipes' + '/' + 'autocomplete?number=' + numSuggestions + '&query=' + pattern);
+    return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'autocomplete?number=' + numSuggestions + '&query=' + pattern , 
+    {headers:{'X-Mashape-Key': API_KEY}})
+    .then(response => response.json())
+    .then(json => {
+      this.lastChangedStateProp = "autoCompleteResults";
+      store.dispatch(actions.replaceLastAutocompleteAction(json))
+      return json; 
+    })
+    .catch(console.error)
   }
 
   //Returns all dishes of specific type (i.e. "starter", "main dish" or "dessert").
