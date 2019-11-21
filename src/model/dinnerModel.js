@@ -113,13 +113,8 @@ class DinnerModel {
     this.subscribers = [];
     store.subscribe(this.notifyObservers.bind(this));
     //To make it simple, lets store the entire state in localstorage
-    if(SHOULD_RESTORE_FROM_LOCALSTORAGE) {
-      this.restoreStateFromDisk();
-      store.subscribe(this.saveStateToLocalStorage.bind(this));
-    } else {
-      store.dispatch(actions.setDishAction([]));
-      this.setNumberOfGuests(0);
-    }
+    this.restoreStateFromDisk();
+    store.subscribe(this.saveStateToLocalStorage.bind(this));
   }
 
   //Restore a saved state from the localstorage into the app state.

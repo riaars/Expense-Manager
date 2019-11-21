@@ -29,8 +29,6 @@ const screens = {
          search: ["header", "sidebar", "search"],
          overview: ["header", "overview"],
          details: ["header", "details"],
-         header: ["header"],
-         mydinner: ["mydinner"],
          printout:["header", "printout"],
          notfound:["notfound"]         
       // TODO: add more screens here!    
@@ -55,32 +53,9 @@ const routes = [{
   name:'DetailView'
 },
 {
-  path: 'header',
-  name: 'HeaderView'
-},
-{
   path:'printout',
   name:'PrintoutView'
-},
-{
-  path: 'mydinner',
-  name: 'MyDinnerView'
 }];
-
-
-// switching between screens
-const show= function(screenName) {
-    // hide all views first 
-    // optional FIXME: we could avoid hiding the containers that are part of the screen to be shown
-    // optional FIXME: finding the containers could be done automatically
-    // by looking at document.body.firstChild.children
-    ["header", "home", "overview", "search", "sidebar", 'details', 'printout', 'mydinner','notfound']
-      .forEach(containerName => container(containerName).style.display="none");
-    
-    // now we show all the Views used by the indicated screen
-    screens[screenName]
-      .forEach(containerName => container(containerName).style.display = "block");
-};
 
 const states = [
   {initialState: 'home', condition: 'startBtn', nextState: 'search'},
@@ -107,8 +82,6 @@ const hashHasChanged = function(){
 };
 
 window.onload = function () {
-  //make sure the hash changes after populating model, so home is always shown
-  window.location.hash = '';
 
   //Processes hashchange events. Event fires when a window's hash changes.
   window.addEventListener("hashchange", hashHasChanged, false);
@@ -116,17 +89,8 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel(); 
 
-  //Make sure all promises resolve so model is populated
-  if(!SHOULD_RESTORE_FROM_LOCALSTORAGE) {
-    loader.toggle(true);
-    Promise.all([model.getDish(522), model.getDish(512), model.getDish(720)]) 
-    .then(dishes => {
-      dishes.forEach(model.addDishToMenu.bind(model));
-    })
-    //Populate the last search results
-    .then( () => model.getAllDishes("main course", "pizza"))
-    .then(() => {   
-          var views = {
+    setTimeout(() => {      
+          const views = {
             headerView: new HeaderView(container("header")),
             homeView: new HomeView(container("home"), model),
             overView: new OverviewView(container("overview"), model),
@@ -139,34 +103,7 @@ window.onload = function () {
             views[key].render();
             });
             
-            var controllers ={
-              homeController: new HomeViewController(views["homeView"]),
-              overviewController: new OverViewController(views["overView"]),
-              printoutViewController: new PrintoutViewController(views["printoutView"]),
-              searchViewController: new SearchViewController(views["searchView"], model),
-              dishDetailsViewController: new DishDetailsViewController(views["dishDetailsView"], model)
-            }
-
-            window.location.hash = 'home';
-            loader.toggle(false);
-    })
-  } else { 
-    setTimeout(
-      () => {      
-          var views = {
-            headerView: new HeaderView(container("header")),
-            homeView: new HomeView(container("home"), model),
-            overView: new OverviewView(container("overview"), model),
-            searchView: new SearchView(container("search"), model),
-            dishDetailsView: new DishDetailsView(container("details"),model),
-            printoutView: new PrintoutView(container("printout"),model)
-          }
-          
-          Object.keys(views).map(key => {
-            views[key].render();
-            });
-            
-            var controllers ={
+            const controllers ={
               homeController: new HomeViewController(views["homeView"]),
               overviewController: new OverViewController(views["overView"]),
               printoutViewController: new PrintoutViewController(views["printoutView"]),
@@ -176,15 +113,6 @@ window.onload = function () {
 
             window.location.hash = 'home';
         }, 10)
-    }
-    
     //Router object which lets the user switch between views using hash in the browser.
     this.router = new Router(routes);
-  
-  /**
-   * IMPORTANT: app.js is the only place where you are allowed to use document.body
-   * In other Views you should limit your DOM searches to children of that View. For that, you must use querySelector()
-   * It is possible to implement Views using no DOM search at all, using DOM fields like element.firstChild, 
-   * element.nextSibling...
-   */
 };
