@@ -7,28 +7,39 @@ class SearchViewController{
     }
 
     addEventListeners(){
-        this.sideBarView();
+        this.sidebarView();
         this.dishSearchView();
-        this.searchResultsView();
+        this.view.sidebarView.registerEventListener(this);
+        this.view.searchResultsView.registerEventListener(this);
+    }
+
+    //A view tells us it has been interacted with
+    //controller is free to take apropriate action
+    handleEvent(evtType, evtData) {
+        switch(evtType) {
+            case "collapseButtonPressed":
+                this.model.setSidebarToggle(!this.model.getUserPrefs("sidebarCollapsed"));
+                break;
+            case "dishPreviewClicked":
+                this.presentDetails(evtData.id);
+                break;
+            case "dishRemovedButtonClicked":
+                this.model.removeDishFromMenu(evtData.id);
+            break;
+        }
     }
 
     // Event listeners to the SidebarView functionalities.
-    sideBarView(){
+    sidebarView(){
         this.view.container.querySelector("#confirmorderbutton")
         .addEventListener("click", this.confirmOrderListener, false);
-
+        
         this.view.container.querySelector("#num-people-input")
         .addEventListener("change", this.numPeopleListener.bind(this), false);
-
-        this.view.container.querySelector("#collapse-button")
-        .addEventListener("click", this.toggleCollapsed.bind(this), false);
-
-        this.addRemoveDishEventListener();
     }
 
     // Event listeners to the DishSearchView functionalities.
     dishSearchView(){
-
         this.view.container.querySelector("#dish-free-text-search")
         .addEventListener("keyup", function(event) {
             if (event.keyCode === 13)
@@ -39,11 +50,6 @@ class SearchViewController{
         .addEventListener("click", this.searchForDish.bind(this), false);
       }
 
-      // Event listeners to the SearchResultsView functionalities.
-      searchResultsView(){
-          this.addSmallDishListeners();
-      }
-
     confirmOrderListener(){
         GSC('search', 'confirmorderbutton');
     }
@@ -51,48 +57,20 @@ class SearchViewController{
     numPeopleListener(evt){
         this.model.setNumberOfGuests(evt.target.value);
     }
-
-    addRemoveDishEventListener(){
-        this.model.getFullMenu().map(dish => {
-            this.view.container.querySelector("#button-remove-dish-" + dish.id)
-            .addEventListener("click", this.removeDishListener(dish.id).bind(this), false);   
-        });
-    }
-
-    removeDishListener(id){
-        return function(){
-            this.model.removeDishFromMenu(id);
-            this.addRemoveDishEventListener();
-        }
-    }
-
-    toggleCollapsed() {
-        this.model.setSidebarToggle(!this.model.getUserPrefs("sidebarCollapsed"));
-    }
-
-      searchForDish() {
+    
+    searchForDish() {
         let textQuery = this.view.container.querySelector("#dish-free-text-search").value;
         let dishType = this.view.container.querySelector("#dish-type-selector").value;
         loader.toggle(true);
         this.model.getAllDishes(dishType, textQuery).then(() => {loader.toggle(false)});
-        addSmallDishListeners();
     }
-
-    addSmallDishListeners(){
-        this.model.getLastSearchResults().map(dish =>{
-            this.view.container.querySelector("#small-dish-preview-" + dish.id)
-            .addEventListener("click", this.presentDetails(dish.id).bind(this), false);
-        });
-    }
-
+    
     presentDetails(id){
-        return function(){
-            loader.toggle(true);
-            this.model.getDish(id).then(dish => {
-                loader.toggle(false);
-                this.model.setRecipeDetailsDish(dish);
-                GSC('search', 'smallDishBtn');
-            });
-        }
+        loader.toggle(true);
+        this.model.getDish(id).then(dish => {
+            loader.toggle(false);
+            this.model.setRecipeDetailsDish(dish);
+            GSC('search', 'smallDishBtn');
+        });
     }
 }

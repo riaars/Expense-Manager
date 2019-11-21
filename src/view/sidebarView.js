@@ -1,10 +1,11 @@
 /* @jsx m*/
-class SidebarView {
+class SidebarView extends eventEmitter {
     constructor(container, model) {
+      super();
       this.container = container;
       this.model = model;
       this.model.addObserver(["dishes", "numberOfGuests", "prices"], this.update.bind(this), this);  
-      this.model.addObserver(["userPrefs"], this.toggleSidebarCollapsed.bind(this), this);  
+      this.model.addObserver(["userPrefs"], this.sideBarStateUpdated.bind(this), this);  
     }
     
     update(dishes, numGuests, prices) {
@@ -13,13 +14,12 @@ class SidebarView {
       this.container.getElementsByClassName("value-num-guests")[0].value = numGuests;
       this.container.getElementsByClassName("value-total-price")[0].innerHTML = (numGuests*prices).toFixed(2);      
     }
-  
-    toggleSidebarCollapsed(userPrefs) {
+
+    sideBarStateUpdated(userPrefs) {
       let state = userPrefs.sidebarCollapsed;
       let sidebarContainer = this.container.getElementsByClassName("sidebarcontainer")[0];
       state ? sidebarContainer.setAttribute("style", "height:0.6em") : (sidebarContainer.setAttribute("style", "height:100%"));
       sidebarContainer.getElementsByClassName("collapse-button")[0].innerHTML = state ? "expand" : "collapse";
-      //sidebarContainer.querySelector("#confirmorderbutton").style.display = !state || "none";
     }
 
     getDishListAsJsx = (dishes , numGuests) => {
@@ -31,7 +31,8 @@ class SidebarView {
           </div>
           <div style={{paddingRight: "1em"}}>
             {Math.round(dish.pricePerServing*numGuests)}
-            <span className="button-remove-dish" id={"button-remove-dish-" + dish.id}> 
+            <span className="button-remove-dish" id={"button-remove-dish-" + dish.id} 
+            onclick={function() {this.emitEvent("dishRemovedButtonClicked", {id: dish.id})}.bind(this)}> 
                   X
             </span>
           </div>
@@ -85,5 +86,7 @@ class SidebarView {
 
     afterRender() {
       this.update(this.model.getFullMenu(), this.model.getNumberOfGuests(), this.model.getTotalMenuPrice());
+        this.container.querySelector("#collapse-button")
+        .addEventListener("click", () => {this.emitEvent("collapseButtonPressed")}, false);
     }
   }
