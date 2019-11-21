@@ -7,13 +7,10 @@ class SearchViewController{
     }
 
     addEventListeners(){
+        this.sidebarView();
         this.dishSearchView();
-        this.searchResultsView();
-        this.sidebarView().registerEventListener(this);
-        this.searchResultsView().registerEventListener(this);
-        /*
-        this.sideBarView();
-        */
+        this.view.sidebarView.registerEventListener(this);
+        this.view.searchResultsView.registerEventListener(this);
     }
 
     //A view tells us it has been interacted with
@@ -21,14 +18,14 @@ class SearchViewController{
     handleEvent(evtType, evtData) {
         switch(evtType) {
             case "collapseButtonPressed":
-                this.toggleCollapsed();
+                this.model.setSidebarToggle(!this.model.getUserPrefs("sidebarCollapsed"));
                 break;
             case "dishPreviewClicked":
                 this.presentDetails(evtData.id);
                 break;
             case "dishRemovedButtonClicked":
-                this.removeDish(evtData.id);
-                break;
+                this.model.removeDishFromMenu(evtData.id);
+            break;
         }
     }
 
@@ -39,19 +36,10 @@ class SearchViewController{
         
         this.view.container.querySelector("#num-people-input")
         .addEventListener("change", this.numPeopleListener.bind(this), false);
-        
-        return this.view.sidebarView;
-        /*
-        //this.view.container.querySelector("#collapse-button")
-        //.addEventListener("click", this.toggleCollapsed.bind(this), false);
-
-        this.addRemoveDishEventListener();
-        */
     }
 
     // Event listeners to the DishSearchView functionalities.
     dishSearchView(){
-
         this.view.container.querySelector("#dish-free-text-search")
         .addEventListener("keyup", function(event) {
             if (event.keyCode === 13)
@@ -62,28 +50,12 @@ class SearchViewController{
         .addEventListener("click", this.searchForDish.bind(this), false);
       }
 
-      // Event listeners to the SearchResultsView functionalities.
-      searchResultsView(){
-        return this.view.searchResultsView;  
-        this.addSmallDishListeners();
-      }
-
     confirmOrderListener(){
         GSC('search', 'confirmorderbutton');
     }
 
     numPeopleListener(evt){
         this.model.setNumberOfGuests(evt.target.value);
-    }
-
-    
-    removeDish(id){
-        this.model.removeDishFromMenu(id);
-        this.addRemoveDishEventListener();
-    }
-    
-    toggleCollapsed() {
-        this.model.setSidebarToggle(!this.model.getUserPrefs("sidebarCollapsed"));
     }
     
     searchForDish() {
@@ -101,13 +73,4 @@ class SearchViewController{
             GSC('search', 'smallDishBtn');
         });
     }
-
-    /*
-    addRemoveDishEventListener(){
-        this.model.getFullMenu().map(dish => {
-            this.view.container.querySelector("#button-remove-dish-" + dish.id)
-            .addEventListener("click", this.removeDishListener(dish.id).bind(this), false);   
-        });
-    }
-    */
 }
