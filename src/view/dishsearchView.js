@@ -13,7 +13,7 @@ class DishSearchView {
     }
     
     autocompleteAsJsx = (suggestions) => 
-      suggestions.map((suggestion) => (<option value={suggestion.title}/>));
+      suggestions.map((suggestion) => (<option value={suggestion.title}></option>));
 
     jsx = () => (
       <div id="dishsearchcontainer" style={{paddingLeft:"25px", paddingBottom:"20px"}}>

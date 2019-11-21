@@ -4,6 +4,8 @@ class SearchViewController{
         this.model = model;
         this.isCollapsed = false;
         this.addEventListeners();
+        this.autoCompleteTimeoutIndex = undefined; 
+        this.lastFreeTextVal = undefined;
     }
 
     addEventListeners(){
@@ -36,24 +38,36 @@ class SearchViewController{
         
         this.view.container.querySelector("#num-people-input")
         .addEventListener("change", this.numPeopleListener.bind(this), false);
-
-
     }
 
     // Event listeners to the DishSearchView functionalities.
     dishSearchView(){
         this.view.container.querySelector("#dish-free-text-search")
         .addEventListener("keyup", function(event) {
+            //Mouse clicks register as keyup with keyCode= undefined
+            //We dont want these to do anything
+            if(event.keyCode === undefined)
+                return;
+
+            this.lastFreeTextVal = event.target.value;
             //Enter pressed, always search
             if (event.keyCode === 13)
                 this.searchForDish();
             else {
-            //Search as you type
-            //console.log();
-            this.model.getAutocompleteResults(event.target.value, 4);
-
+            //get autocomplete as you type, with debounce
+            clearTimeout(this.autoCompleteTimeoutIndex);
+            this.autoCompleteTimeoutIndex = setTimeout(() => {
+                    this.model.getAutocompleteResults(event.target.value, 4);
+                }
+                , 500)
             }
           }.bind(this)); 
+
+          this.view.container.querySelector("#dish-free-text-search")
+        .addEventListener("change", function(event) { 
+            //Automatically perform search after user clicks a suggestion
+                this.searchForDish();
+            }.bind(this));
 
         this.view.container.querySelector("#search-for-dish-btn")
         .addEventListener("click", this.searchForDish.bind(this), false);
