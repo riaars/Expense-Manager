@@ -104,7 +104,7 @@ function recipeDish(state=[], action){
 
 
 class DinnerModel {
-  constructor() {
+  constructor(should_load_state_from_localStore) {
     //this is used to optimize which observer callbacks are called.
     //if a certain listener is only interested in property x, it shouldn't be called when prop 7 is changed.
     this.lastChangedStateProp = undefined;
@@ -113,8 +113,10 @@ class DinnerModel {
     this.subscribers = [];
     store.subscribe(this.notifyObservers.bind(this));
     //To make it simple, lets store the entire state in localstorage
-    this.restoreStateFromDisk();
-    store.subscribe(this.saveStateToLocalStorage.bind(this));
+    if(should_load_state_from_localStore) {
+      this.restoreStateFromDisk();
+      store.subscribe(this.saveStateToLocalStorage.bind(this));
+    }
   }
 
   //Restore a saved state from the localstorage into the app state.
@@ -237,6 +239,7 @@ class DinnerModel {
 
   //Adds the passed dish to the menu. 
   addDishToMenu(dish) {
+    console.log(dish)
     this.lastChangedStateProp = "dishes";
     store.dispatch(actions.addDishAction(dish));
     this.recalculateTotalMenuPrice();

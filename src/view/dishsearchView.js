@@ -3,8 +3,7 @@ class DishSearchView {
     constructor(container, model) {
       this.container = container;
       this.model = model;
-      this.sidebarView = undefined;
-      this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
+      this.sidebarView = undefined;      
       this.dropdownOptions = [
       {value:"", name:"Select A Type"},
       {value:"main course", name:"Main course"},
@@ -39,6 +38,7 @@ class DishSearchView {
     )
 
     render() {
+      this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
       m.render(this.container, this.jsx());
       this.afterRender();
     }

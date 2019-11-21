@@ -4,8 +4,6 @@ class SidebarView extends eventEmitter {
       super();
       this.container = container;
       this.model = model;
-      this.model.addObserver(["dishes", "numberOfGuests", "prices"], this.update.bind(this), this);  
-      this.model.addObserver(["userPrefs"], this.sideBarStateUpdated.bind(this), this);  
     }
     
     update(dishes, numGuests, prices) {
@@ -13,9 +11,11 @@ class SidebarView extends eventEmitter {
       this.container.getElementsByClassName("num-people-input")[0].value = numGuests;
       this.container.getElementsByClassName("value-num-guests")[0].value = numGuests;
       this.container.getElementsByClassName("value-total-price")[0].innerHTML = (numGuests*prices).toFixed(2);      
+      this.container.getElementsByClassName("value-num-guests").innerHTML = numGuests;
+      console.log(this.container.getElementsByClassName("value-num-guests").innerHTML);
     }
 
-    sideBarStateUpdated(userPrefs) {
+    onUserPrefsUpdated(userPrefs) {
       let state = userPrefs.sidebarCollapsed;
       let sidebarContainer = this.container.getElementsByClassName("sidebarcontainer")[0];
       state ? sidebarContainer.setAttribute("style", "height:0.6em") : (sidebarContainer.setAttribute("style", "height:100%"));
@@ -55,7 +55,7 @@ class SidebarView extends eventEmitter {
           style={{width: "2em"}} 
           className="num-people-input" id="num-people-input">
           </input>
-        <div className="value-num-guests" style={{display:"none"}}></div>       
+        <div className="value-num-guests" style={{display:"none"}}>{this.model.getNumberOfGuests()}</div>       
         </div>
         <div style={{  
           display: "flex", 
@@ -80,6 +80,8 @@ class SidebarView extends eventEmitter {
     )}
 
     render() {
+      this.model.addObserver(["dishes", "numberOfGuests", "prices"], this.update.bind(this), this);  
+      this.model.addObserver(["userPrefs"], this.onUserPrefsUpdated.bind(this), this);  
       m.render(this.container, this.jsx());
       this.afterRender();
     }

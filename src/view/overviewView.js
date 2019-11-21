@@ -4,13 +4,12 @@ class OverviewView {
         this.model = model;
         this.overviewMyDinner = undefined;
         this.overviewHeader = undefined;
-        this.model.addObserver(["dishes", "prices"], this.update.bind(this), this);
     }
 
     // An example of creating HTML procedurally. Think about the pros and cons of this approach.
     render() {
-
-      let innerHTML = `
+        this.model.addObserver(["dishes", "prices"], this.update.bind(this), this);
+        let innerHTML = `
             <div class="overviewmydinner" id="overviewmydinner">      
             </div>         
             <div class="overviewmain" id="overviewView">

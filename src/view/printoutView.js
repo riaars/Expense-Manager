@@ -35,7 +35,6 @@ constructor(container, model){
     }
 
     dishPresenter(dishes){
-
         this.container.querySelector("#printoutmain").innerHTML = "";
 
         dishes.map(dish => {

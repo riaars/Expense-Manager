@@ -14,7 +14,7 @@
       <div id="loader" class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-    <div class="container" id="page-content">
+    <div class="container" id="page-content" style="display:none">
  
     </div>
 
@@ -39,19 +39,25 @@
 
     
     <!-- The application JavaScript code -->
+    <script src="src/view/eventEmitter.js"></script>
     <script type="text/jsx" src="src/model/apiConfig.js"></script>
     <script src="src/model/dinnerModel.js"></script>
     <script type="text/jsx" src="src/view/homeView.js"></script>
     <script type="text/jsx" src="src/view/searchView.js"></script>
     <script src="src/view/overviewView.js"></script>
-    <script type="text/jsx" src="src/view/sidebarView.js"></script>
+    <!-- 
+     preset is set to react, but the render callback is still m(). The reason it is set to react
+     is that extending classes always crash with the default preset, (bug in babel). 
+     use inspect element on the page, then search for 'm(' to verify that the transpiled code is not calling react
+    -->
+    <script type="text/jsx" src="src/view/sidebarView.js"  data-presets="react"></script>
     <script type="text/jsx" src="src/view/dishsearchView.js"></script>
     <script src="src/view/myDinnerView.js"></script>
     <script type="text/jsx" src="src/view/headerView.js"></script>
     <script src="src/view/printoutView.js"></script>
     <script type="text/jsx" src="src/view/dishdetailsView.js"></script>
     <script type="text/jsx" src="src/view/recipeView.js"></script>
-    <script type="text/jsx" src="src/view/searchresultsView.js"></script>
+    <script type="text/jsx" src="src/view/searchresultsView.js"  data-presets="react"></script>
 
     <!-- <script src="src/model/dinnerModel.test.js"></script> type set to text/jsx -->
     <script src="src/app.test.js"></script>
