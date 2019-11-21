@@ -32,7 +32,7 @@ class SidebarView extends eventEmitter {
             {Math.round(dish.pricePerServing*numGuests)}
             <span className="button-remove-dish" id={"button-remove-dish-" + dish.id} 
             onclick={function() {this.emitEvent("dishRemovedButtonClicked", {id: dish.id})}.bind(this)}> 
-                  X
+            {" X"}
             </span>
           </div>
         </div>

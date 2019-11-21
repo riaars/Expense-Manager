@@ -66,6 +66,7 @@ class SearchViewController{
           this.view.container.querySelector("#dish-free-text-search")
         .addEventListener("change", function(event) { 
             //Automatically perform search after user clicks a suggestion
+            if(this.lastFreeTextVal != event.target.value)
                 this.searchForDish();
             }.bind(this));
 
