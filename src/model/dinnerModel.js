@@ -239,7 +239,6 @@ class DinnerModel {
 
   //Adds the passed dish to the menu. 
   addDishToMenu(dish) {
-    console.log(dish)
     this.lastChangedStateProp = "dishes";
     store.dispatch(actions.addDishAction(dish));
     this.recalculateTotalMenuPrice();

@@ -12,13 +12,12 @@ class SidebarView extends eventEmitter {
       this.container.getElementsByClassName("value-num-guests")[0].value = numGuests;
       this.container.getElementsByClassName("value-total-price")[0].innerHTML = (numGuests*prices).toFixed(2);      
       this.container.getElementsByClassName("value-num-guests").innerHTML = numGuests;
-      console.log(this.container.getElementsByClassName("value-num-guests").innerHTML);
     }
 
     onUserPrefsUpdated(userPrefs) {
       let state = userPrefs.sidebarCollapsed;
       let sidebarContainer = this.container.getElementsByClassName("sidebarcontainer")[0];
-      state ? sidebarContainer.setAttribute("style", "height:0.6em") : (sidebarContainer.setAttribute("style", "height:100%"));
+      sidebarContainer.setAttribute("style", state ? "height:0.6em" : "height:100%");
       sidebarContainer.getElementsByClassName("collapse-button")[0].innerHTML = state ? "expand" : "collapse";
     }
 

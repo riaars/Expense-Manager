@@ -82,12 +82,12 @@ const hashHasChanged = function(){
 };
 
 window.onload = function () {
-
+  window.location.hash = '';
   //Processes hashchange events. Event fires when a window's hash changes.
   window.addEventListener("hashchange", hashHasChanged, false);
 
   //We instantiate our model
-  const model = new DinnerModel(); 
+  const model = new DinnerModel(true); 
 
     setTimeout(() => {      
           const views = {
