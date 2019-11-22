@@ -8,9 +8,9 @@ class SidebarView extends eventEmitter {
     
     update(dishes, numGuests, prices) {
       m.render(this.container.querySelector("#dishlistcontainer"), this.getDishListAsJsx(dishes, numGuests));
-      this.container.getElementsByClassName("num-people-input")[0].value = numGuests;
+      this.container.querySelector("#num-people-input").value = numGuests;
       this.container.getElementsByClassName("value-num-guests")[0].value = numGuests;
-      this.container.getElementsByClassName("value-total-price")[0].innerHTML = (numGuests*prices).toFixed(2);      
+      this.container.getElementsByClassName("value-total-price")[0].innerHTML = (prices).toFixed(2);      
       this.container.getElementsByClassName("value-num-guests").innerHTML = numGuests;
     }
 
@@ -50,44 +50,43 @@ class SidebarView extends eventEmitter {
           </div>
         </div>
         <div style={{paddingLeft:"25px", display:"flex", flexDirection:"row", width: "50%"}}>
-          People&nbsp;<input type="number" 
-          style={{width: "2em"}} 
-          className="num-people-input" id="num-people-input">
-          </input>
-        <div className="value-num-guests" style={{display:"none"}}>{this.model.getNumberOfGuests()}</div>       
+          People&nbsp;
+          <input type="number" 
+            style={{width: "2em"}} 
+            id="num-people-input"/>
+          <div className="value-num-guests" style={{display:"none"}}>
+            {this.model.getNumberOfGuests()}
+          </div>       
         </div>
         <div style={{  
           display: "flex", 
           justifyContent: "space-between", 
           borderTop:"5px solid black",
           borderBottom:"5px solid black",  
-          backgroundColor: "#dedede" 
-        }}>
-            <div style={{paddingLeft:"25px"}}>Dish Name</div>
-            <div style={{paddingRight:"25px"}}>Cost</div>
+          backgroundColor: "#dedede"}}>
+          <div style={{paddingLeft:"25px"}}>Dish Name</div>
+          <div style={{paddingRight:"25px"}}>Cost</div>
         </div>
-        <div id="dishlistcontainer">
-        </div>
+        <div id="dishlistcontainer"/>
         <div style={{display: "flex", justifyContent: "flex-end", color:"darkred"}}>
-          <div>SEK:&nbsp;</div><div class="value-total-price" style="padding-right:25px;" >
-          </div>
+          <div>SEK:&nbsp;</div><div class="value-total-price" style="padding-right:25px;"/>
         </div>
         <div className="startBtn" id="confirmorderbutton">
-              Confirm Order
+          Confirm Order
         </div>
       </div>
     )}
 
     render() {
-      this.model.addObserver(["dishes", "numberOfGuests", "prices"], this.update.bind(this), this);  
-      this.model.addObserver(["userPrefs"], this.onUserPrefsUpdated.bind(this), this);  
       m.render(this.container, this.jsx());
       this.afterRender();
     }
 
     afterRender() {
+      this.model.addObserver(["dishes", "numberOfGuests", "prices"], this.update.bind(this), this);  
+      this.model.addObserver(["userPrefs"], this.onUserPrefsUpdated.bind(this), this);  
       this.update(this.model.getFullMenu(), this.model.getNumberOfGuests(), this.model.getTotalMenuPrice());
-        this.container.querySelector("#collapse-button")
-        .addEventListener("click", () => {this.emitEvent("collapseButtonPressed")}, false);
+      this.container.querySelector("#collapse-button")
+      .addEventListener("click", () => {this.emitEvent("collapseButtonPressed")}, false);
     }
   }

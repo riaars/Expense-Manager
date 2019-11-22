@@ -1,31 +1,28 @@
 //Let's the user change views through different given hash values.
-class Router{
-    
-    constructor(routes){
-        this.routes = routes;
+class Router {
+  constructor(routes) {
+    this.routes = routes;
+  }
+
+  //changes the viewed showed according the most resent hash value.
+  hashHasChanged(container) {
+
+    this.hideViews(container);
+
+    let uri = location.hash.slice(1);
+    var route = routes.filter(r => r.path === uri);
+
+    if(!route[0])
+      container("notfound").style.display = "block";
+    else {
+      screens[route[0].path]
+        .forEach(containerName => container(containerName).style.display = "block");
     }
+  }
 
-    //changes the viewed showed according the most resent hash value.
-    hashHasChanged(container){
-         
-        this.hideViews(container);
-
-        let uri = location.hash.slice(1);
-        var route = routes.filter(r => r.path === uri);
-    
-        if(!route[0])
-            container("notfound").style.display = "block";
-        else
-        {
-            screens[route[0].path]
-            .forEach(containerName => container(containerName).style.display = "block");
-        }
-
-    }
-
-    //hides the contents of the different views
-    hideViews(container){
-        ["header", "home", "overview", "search", "sidebar", "notfound", "details", "printout"]
-      .forEach(containerName => container(containerName).style.display="none");
-    }
+  //hides the contents of the different views
+  hideViews(container) {
+    ["header", "home", "overview", "search", "sidebar", "notfound", "details", "printout"]
+      .forEach(containerName => container(containerName).style.display = "none");
+  }
 }

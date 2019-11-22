@@ -11,7 +11,7 @@ class DishDetailsViewController{
         this.view.sidebarView.registerEventListener(this);
     }
 
-        //A view tells us it has been interacted with
+    //A view tells us it has been interacted with
     //controller is free to take apropriate action
     handleEvent(evtType, evtData) {
         switch(evtType) {
@@ -19,7 +19,7 @@ class DishDetailsViewController{
                 this.model.setSidebarToggle(!this.model.getUserPrefs("sidebarCollapsed"));
                 break;
             case "dishRemovedButtonClicked":
-                    this.model.removeDishFromMenu(evtData.id);
+                this.model.removeDishFromMenu(evtData.id);
                 break;
         }
     }

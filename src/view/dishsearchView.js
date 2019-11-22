@@ -21,13 +21,9 @@ class DishSearchView {
           Find a Dish
         </div>
         <div className="search-area">
-          <form>
           <input type="text"  list="autocomplete-suggestions" placeholder="Enter key words" id="dish-free-text-search" style={{width:"8.5em", marginRight:"25px"}}>
-          <datalist id="autocomplete-suggestions">
-          
-          </datalist>
+            <datalist id="autocomplete-suggestions"/>
           </input>
-          </form>
           <div style={{display:"flex", flexDirection:"row"}}>
             <select name="cars" id="dish-type-selector" style={{width:"8.5em", marginRight:"25px"}}>
               {

@@ -1,75 +1,55 @@
+/* @jsx m*/
 const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus 
               sagittis, quam vitae lobortis pharetra, arcu felis tempus nisl, a 
               rhoncus nisl nisl quis orci. Sed faucibus, sapien at lobortis placerat, 
               nisl velit feugiat nulla, vitae consectetur enim libero ut tortor. Proin 
               erat mauris, pretium eget sapien quis, auctor semper sem.`;
 
-class PrintoutView{
-
-constructor(container, model){
+class PrintoutView {
+  constructor(container, model) {
     this.model = model;
     this.container = container;
     this.printoutmydinner = undefined;
     this.model.addObserver(["dishes"], this.dishPresenter.bind(this), this);
-}
+  }
 
-    render(){
-        const innerHTML = `
-            <div class="printoutmydinner" id="printoutmydinner">
-            </div>
-            <div class="printoutmain" id="printoutmain">
-            </div>
-        `;
+  jsx = () => (
+    <div>
+      <div class="printoutmydinner" id="printoutmydinner" />
+      <div class="printoutmain" id="printoutmain" />
+    </div>
+  )
 
-            this.container.innerHTML = innerHTML;
+  render() {
+    m.render(this.container, this.jsx());
 
-            if(this.printoutmydinner === undefined)
-                    this.printoutmydinner = new MyDinnerView(this.container.querySelector("#printoutmydinner"), this.model);
+    if (this.printoutmydinner === undefined)
+      this.printoutmydinner = new MyDinnerView(this.container.querySelector("#printoutmydinner"), this.model);
+    
+      this.afterRender();
+  }
 
-            this.afterRender();
-    }
+  afterRender() {
+    this.printoutmydinner.render();
+    this.dishPresenter(this.model.getFullMenu());
+  }
 
-    afterRender(){
-        this.printoutmydinner.render();
-        this.dishPresenter(this.model.getFullMenu());
-    }
+  dishPresenter(dishes) {
+    let dishListJSX = dishes.map(dish => (
+      <div className="printdiv">
+        <img className="printpicdiv" src={dish.image} />
+        <div class="descdiv">
+          <h3>{dish.title}</h3>
+          <div>{text}</div>
+        </div>
+        <div className="prepdiv">
+          <h5>Preparation</h5>
+          <div>{text}
+          </div>
+        </div>
+      </div>))
 
-    dishPresenter(dishes){
-        this.container.querySelector("#printoutmain").innerHTML = "";
-
-        dishes.map(dish => {
-            let elem = document.createElement("div");
-            let pic = document.createElement("img");
-            let desc = document.createElement("div");
-            let prep = document.createElement("div");
-
-            elem.classList.add("printdiv");
-            pic.classList.add("printpicdiv");
-            desc.classList.add("descdiv");
-            prep.classList.add("prepdiv");
-
-            pic.setAttribute("src", dish.image);
-
-            desc.appendChild(document.createElement("h3"));
-            desc.firstChild.innerHTML = dish.title;
-            //desc.firstChild.setAttribute("class", "value-main-course-name");
-            desc.appendChild(document.createElement("div"));
-            desc.children[1].innerHTML = text;
-
-            prep.appendChild(document.createElement("h5"));
-            prep.firstChild.innerHTML = "Preparation";
-            prep.appendChild(document.createElement("div"));
-            prep.children[1].innerHTML = text;
-
-            elem.appendChild(pic);
-            elem.appendChild(desc);
-            elem.appendChild(prep);
-
-            return elem;
-        })
-        .forEach(element => {
-            this.container.querySelector("#printoutmain").appendChild(element);
-        });
-    }
+    m.render(this.container.querySelector("#printoutmain"), dishListJSX);
+  }
 
 }

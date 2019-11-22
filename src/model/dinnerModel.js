@@ -121,7 +121,7 @@ function recipeDish(state=[], action){
 class DinnerModel {
   constructor(should_load_state_from_localStore) {
     //this is used to optimize which observer callbacks are called.
-    //if a certain listener is only interested in property x, it shouldn't be called when prop 7 is changed.
+    //if a certain listener is only interested in property x, it shouldn't be called when prop y is changed.
     this.lastChangedStateProp = undefined;
     
     this.localStorage = window.localStorage;
@@ -158,6 +158,7 @@ class DinnerModel {
     }
   }
 
+  //Saves current app state to the localstorage
   saveStateToLocalStorage() {
     let state = store.getState();
     for(const key in state)
@@ -177,7 +178,7 @@ class DinnerModel {
   
   //A particular view wants to subscribe to a state property,
   //Instead of subscribing directly to the store, its added as a subscriber
-  //And on store update, is notified of the properties' new state.
+  //and on store update, is notified of the properties' new state.
   addObserver(properties, callback, owner) {
     this.subscribers.push({subscribedProp: properties, func: callback, owner: owner})
   }
@@ -187,7 +188,6 @@ class DinnerModel {
     this.subscribers = this.subscribers.filter((elem) => elem.owner != observer)
   }
 
-  
   recalculateTotalMenuPrice(){
     this.lastChangedStateProp = "prices";
     store.dispatch(actions.setTotalMenuPriceAction(this.getTotalMenuPrice()));
@@ -267,9 +267,8 @@ class DinnerModel {
   }
 
   getAutocompleteResults(pattern, numSuggestions) {
-  //console.log(ENDPOINT + '/' + 'recipes' + '/' + 'autocomplete?number=' + numSuggestions + '&query=' + pattern);
-    return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'autocomplete?number=' + numSuggestions + '&query=' + pattern , 
-    {headers:{'X-Mashape-Key': API_KEY}})
+    return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'autocomplete?number=' + numSuggestions + '&query=' + pattern,
+      {headers:{'X-Mashape-Key': API_KEY}})
     .then(response => response.json())
     .then(json => {
       this.lastChangedStateProp = "autoCompleteResults";
@@ -282,13 +281,7 @@ class DinnerModel {
   //Returns all dishes of specific type (i.e. "starter", "main dish" or "dessert").
   //query argument, text, if passed only returns dishes that contain the query in name or one of the ingredients.
   //if you don't pass any query, all the dishes will be returned
-  getAllDishes(type, query) {
-    if(!type)
-       type = '';
-
-    if(!query)
-       query = '';
-
+  getAllDishes(type = '', query = '') {
     return new Promise(function(resolve, reject) {
       try{
         return fetch(ENDPOINT + '/' + 'recipes' + '/' + 'search?type=' + type + '&query=' + query , 
@@ -300,12 +293,8 @@ class DinnerModel {
           resolve(responseJson.results)})
         .catch((error) => {
           console.error(error); 
-          //From the tests it seems no matter what, never reject()
           resolve(undefined)})
       }  catch(e) {
-          //this is not good, but it is here because otherwise, since the call throws immediately,
-          //the loader would be shown, then immediately removed, and the promise would resolve before
-          //the "loader is present" test was performed. Maybe it is me misunderstanding something.
           setTimeout(()=> {
             resolve(undefined);
           }, 1)
@@ -324,14 +313,8 @@ class DinnerModel {
           resolve(responseJson)})
         .catch((error) => {
           console.error(error);
-          //From the tests it seems no matter what, never reject()
           resolve(undefined)});
       }  catch(e) {
-        //console.log("Error in evualuation, not api call call");
-          //this is nnot good, but it is here because otherwise, since the call throws immediately,
-          //the loader would be shown, then immediately removed, and the promise would resolve before
-          //the "loader is present" test was performed. Maybe it is me misunderstanding something, 
-          //but it passes the tests :)
           setTimeout(()=> {
             resolve(undefined);
           }, 1)
