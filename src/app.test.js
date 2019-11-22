@@ -13,7 +13,7 @@ describe("DinnerPlanner App", () => {
     model = new DinnerModel();
     homeView = new HomeView(document.querySelector("#page-content"));
     searchView = new SearchView(document.querySelector("#page-content"), model);
-    overviewView = new OverviewView(document.querySelector("#page-content"), model);
+    overviewView = new OverviewView(document.querySelector("#page-content-overview"), model);
   });
 
   describe("Home View", () => {

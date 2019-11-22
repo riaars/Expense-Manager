@@ -11,7 +11,7 @@ class RecipeView {
       <div className="recipe-view-row-col">
         <h2><div id="dish-title">Dish Title</div></h2>
         <div id="dish-image"></div>
-        <div class="dish-description" style="text-align:justify;  font-size:80%;">
+        <div className="dish-description" style="text-align:justify;  font-size:80%;">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
           Vivamus sagittis, quam vitae lobortis pharetra, arcu felis 
           tempus nisl, a rhoncus nisl nisl quis orci. 

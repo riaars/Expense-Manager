@@ -15,12 +15,13 @@ class PrintoutView {
 
   jsx = () => (
     <div>
-      <div class="printoutmydinner" id="printoutmydinner" />
-      <div class="printoutmain" id="printoutmain" />
+      <div className="printoutmydinner" id="printoutmydinner" />
+      <div className="printoutmain" id="printoutmain" />
     </div>
   )
 
   render() {
+    console.log(this.jsx());
     m.render(this.container, this.jsx());
 
     if (this.printoutmydinner === undefined)
