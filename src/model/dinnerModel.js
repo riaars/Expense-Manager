@@ -1,4 +1,3 @@
-//static imports not allowed.
 const createStore = Redux.createStore;
 
 const SET_NUMBER_GUESTS = "SET_NUMBER_GUESTS"
@@ -28,7 +27,6 @@ const actions = {
 
 const store = createStore(reducer);
 
-
 //State reducer
 function reducer(state = {}, action) {
   return {
@@ -51,6 +49,7 @@ function numberOfGuests(state = 1, action) {
       return state;
   }
 }
+
 //Searches reducer
 function lastSearchResult(state = [], action) {
   switch(action.type) {
@@ -72,8 +71,6 @@ function lastAutoCompleteResults(state = [], action) {
       return state;
   }
 }
-
-
 
 //Dishes reducer
 function dishes(state=[], action) {
@@ -97,6 +94,7 @@ function userPrefs(state={}, action) {
     default: return state;
   }
 }
+
 //Prices reducer
 function prices(state=[], action){
     switch(action.type){
@@ -116,7 +114,6 @@ function recipeDish(state=[], action){
         return state;
       }
 }
-
 
 class DinnerModel {
   constructor(should_load_state_from_localStore) {
@@ -174,7 +171,6 @@ class DinnerModel {
         sub.func(...sub.subscribedProp.map((prop) => state[prop]));
     }.bind(this))
   }
-
   
   //A particular view wants to subscribe to a state property,
   //Instead of subscribing directly to the store, its added as a subscriber
@@ -197,7 +193,6 @@ class DinnerModel {
     return store.getState().dishSearchResults;
   }
 
-  
   setNumberOfGuests(num) {
     this.lastChangedStateProp = "numberOfGuests";
     store.dispatch(actions.setNoGuestsAction(num));
@@ -320,5 +315,5 @@ class DinnerModel {
           }, 1)
         }
     }) 
-}
+  }
 }

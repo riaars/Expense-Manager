@@ -24,12 +24,12 @@ class SidebarView extends eventEmitter {
     getDishListAsJsx = (dishes , numGuests) => {
       return (
       dishes.map((dish) => (
-        <div className="dishlistelement" style="display: flex; justify-content: space-between; font-size: 80%; padding-bottom: 10px;">
+        <div className="dishlistelement" style={{display: "flex", justifyContent: "space-between", fontSize: "80%", paddingBottom: "10px"}}>
           <div className="value-main-course-name" style={{paddingLeft:"2em"}}>
             {dish.title}
           </div>
           <div style={{paddingRight: "1em"}}>
-            {Math.round(dish.pricePerServing*numGuests)}
+            { Math.round(dish.pricePerServing*numGuests) }
             <span className="button-remove-dish" id={"button-remove-dish-" + dish.id} 
             onclick={function() {this.emitEvent("dishRemovedButtonClicked", {id: dish.id})}.bind(this)}> 
             {" X"}
@@ -64,8 +64,8 @@ class SidebarView extends eventEmitter {
           borderTop:"5px solid black",
           borderBottom:"5px solid black",  
           backgroundColor: "#dedede"}}>
-          <div style={{paddingLeft:"25px"}}>Dish Name</div>
-          <div style={{paddingRight:"25px"}}>Cost</div>
+          <div style={{ paddingLeft:"25px"  }}>Dish Name</div>
+          <div style={{ paddingRight:"25px" }}>Cost</div>
         </div>
         <div id="dishlistcontainer"/>
         <div style={{display: "flex", justifyContent: "flex-end", color:"darkred"}}>

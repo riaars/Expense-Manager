@@ -18,18 +18,10 @@ input::-webkit-calendar-picker-indicator {
 
 .container {
     /*App goes into "portrait" mode when small x, so the horizontal scrollbar should never be seen*/
-    overflow-x: hidden!important;
+    overflow-x: hidden !important;
 }
 
-h1 {
-    font-size: 40px;
-}
-
-@media (min-width: 1024px) {
-    * :not(h1):not(h2):not(h3) { 
-        font-size: 102%;
-      }
-}
+h1 { font-size: 40px; }
 
 @media (max-width: 450px) {
     * :not(h1):not(h2):not(h3) { 
@@ -42,13 +34,6 @@ h1 {
     display: flex; 
     justify-content: left;
     flex-direction: column;
-}
-
-@media (min-width: 1024px) {
-.search-area{
-    display: flex; 
-    flex-direction: row;
-}   
 }
 
 .sidebarcontainer {
@@ -64,7 +49,6 @@ h1 {
     background-color: #fff
 }
 
-
 .header{
     padding:0px;
     text-align: center;
@@ -79,14 +63,7 @@ h1 {
     grid-area: header;
     text-align: center;
     position: relative;
-    align-content: center;
-    
-}
-
-@media (max-width: 1024px){
-    .header{
-        font-size:40px;
-    }
+    align-content: center;   
 }
 
 .sidebar { 
@@ -96,14 +73,6 @@ h1 {
     padding-right:0px !important;
 }
 
-@media (min-width: 1024px){
-.sidebar{
-    border-right:solid black; 
-    border-left:solid black;
-    height: 100%;
-}
-}
-
 th {
     font-weight: normal;
 }
@@ -111,7 +80,6 @@ th {
 hr.horizontal-line {
         border-top: solid black;
 }
-
 
 .recipe-ingredients {
     background-color: #ffe698;
@@ -130,7 +98,6 @@ hr.horizontal-line {
     padding: 0px !important;
 }
 
-
 .button-remove-dish {
     color:darkred;
 }
@@ -139,9 +106,9 @@ hr.horizontal-line {
   background-color: #000001;
   display: grid;
   grid-template-rows: 
-  minmax(110px, 12%) 
-  auto 
-  auto;
+    minmax(110px, 12%) 
+    auto 
+    auto;
   grid-template-areas:
     'search'
     'sidebar'
@@ -150,31 +117,6 @@ hr.horizontal-line {
   width: 100vw;
   height: calc(100vh - --header-height);
   border-style: none;
-}
-
-grid-container-dish-details {
-    
-}
-
-@media (min-width: 1024px){
-.grid-container {
-    grid-template-rows: 
-    minmax(110px, 12%)
-    auto;
-    grid-template-columns: 
-    350px 
-    auto;
-    grid-template-areas:
-      'sidebar search'
-      'sidebar main';
-    overflow:hidden;
-}
-}
-
-@media (min-width: 1024px){
-.grid-container > div {
-    padding: 20px;
-} 
 }
 
 .grid-container > div {
@@ -208,21 +150,47 @@ grid-container-dish-details {
     display: block;
 }
 
-@media (min-width: 1024px) {
-    .collapse-button {
-        display:none;
-    }
-}
-
-
 .recipe-view-row-col {
     width:50%; 
     padding:1em;
 }
-@media (max-width: 1024px) {
-    .recipe-view-row-col {
-        width:100%;
+
+@media (min-width: 1024px) {
+    .collapse-button {
+        display:none;
     }
+
+    .grid-container > div {
+        padding: 20px;
+    }
+
+    .grid-container {
+        grid-template-rows: 
+        minmax(110px, 12%)
+        auto;
+        grid-template-columns: 
+        350px 
+        auto;
+        grid-template-areas:
+          'sidebar search'
+          'sidebar main';
+        overflow:hidden;
+    }
+
+    .sidebar{
+        border-right:solid black; 
+        border-left:solid black;
+        height: 100%;
+    }
+
+    .search-area{
+        display: flex; 
+        flex-direction: row;
+    }
+
+    * :not(h1):not(h2):not(h3) { 
+        font-size: 102%;
+      }
 }
 
 @media (max-width: 1024px) {
@@ -234,11 +202,18 @@ grid-container-dish-details {
         /*Use variable for dishsearch height*/
         height: calc(100vh - 250px);
     }
+
+    .recipe-view-row-col {
+        width:100%;
     }
+
+    .header {
+        font-size:40px;
+    }
+}
 
 .dish-search-results-container {
     overflow-y: scroll; 
-    /*Use variables for dishsearch and header height*/
     height: calc(100vh - 120px - var(--header-height));
 }
 
@@ -263,7 +238,6 @@ grid-container-dish-details {
     color:#000000;
     background-color:#FFFFFF;
 }
-
 
 .startBtn:active {
     background-color: #fdfdfd;

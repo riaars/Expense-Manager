@@ -61,6 +61,6 @@ class OverviewView {
         </div>))
       m.render(this.container.querySelector("#value-main-course-name"), dishOverviews)
     }
-    this.container.getElementsByClassName("value-total-price")[0].innerHTML = prices;
+    this.container.getElementsByClassName("value-total-price")[0].innerHTML = prices.toFixed(2);
   }
 }

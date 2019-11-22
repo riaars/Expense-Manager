@@ -4,26 +4,15 @@
     height: 100%;
 }
 
-/*
-#printoutheader{
-
-    grid-area: 1/1/span 1 /span 1;
-}
-*/
-
 #printoutmydinner{
-
     grid-area: 2/1/span 1/span 1;
 }
 
 .printoutmain{
     display: grid;
     grid-area: 3/1/span 1/span 1;
-
-    
     border-style: solid;
 }
-
 
 .printdiv{
     display: grid;
@@ -51,7 +40,6 @@
 }
     
 @media (max-width: 1024px){ 
-
     .printdiv{
         display: grid;
         grid-template-rows: 0.5fr 1fr;
@@ -82,5 +70,4 @@
         padding-top: 20%;
         padding-right: 10%;
     }
-
 }
