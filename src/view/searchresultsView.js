@@ -37,14 +37,14 @@ class SearchResultsView extends eventEmitter {
   )
 
   render() {
-    this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
     m.render(this.container, this.jsx());
     this.afterRender();
   }
-
+  
   afterRender() {
     let sr = this.model.getLastSearchResults();
     if (sr)
       this.update(sr);
+    this.model.addObserver(["dishSearchResults"], this.update.bind(this), this);
   }
 }

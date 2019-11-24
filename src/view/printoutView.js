@@ -10,36 +10,35 @@ class PrintoutView {
     this.model = model;
     this.container = container;
     this.printoutmydinner = undefined;
-    this.model.addObserver(["dishes"], this.dishPresenter.bind(this), this);
   }
-
+  
   jsx = () => (
     <div>
       <div className="printoutmydinner" id="printoutmydinner" />
       <div className="printoutmain" id="printoutmain" />
     </div>
   )
-
+  
   render() {
-    console.log(this.jsx());
     m.render(this.container, this.jsx());
-
-    if (this.printoutmydinner === undefined)
-      this.printoutmydinner = new MyDinnerView(this.container.querySelector("#printoutmydinner"), this.model);
     
-      this.afterRender();
+    if (this.printoutmydinner === undefined)
+    this.printoutmydinner = new MyDinnerView(this.container.querySelector("#printoutmydinner"), this.model);
+    
+    this.afterRender();
   }
-
+  
   afterRender() {
     this.printoutmydinner.render();
     this.dishPresenter(this.model.getFullMenu());
+    this.model.addObserver(["dishes"], this.dishPresenter.bind(this), this);
   }
 
   dishPresenter(dishes) {
     let dishListJSX = dishes.map(dish => (
       <div className="printdiv">
         <img className="printpicdiv" src={dish.image} />
-        <div class="descdiv">
+        <div className="descdiv">
           <h3>{dish.title}</h3>
           <div>{text}</div>
         </div>
