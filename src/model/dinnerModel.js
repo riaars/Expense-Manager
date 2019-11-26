@@ -96,7 +96,7 @@ function userPrefs(state={}, action) {
 }
 
 //Prices reducer
-function prices(state=[], action){
+function prices(state= 0, action){
     switch(action.type){
       case SET_TOTAL_MENU_PRICE:
         return action.totalPrice;
