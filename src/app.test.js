@@ -1,19 +1,22 @@
-/* @jsx m*/
 var assert = chai.assert;
 var expect = chai.expect;
 
+GSC = () => {};
 
 describe("DinnerPlanner App", () => {
   let model = null;
   let homeView = null;
   let searchView = null;
   let overviewView = null;
+  let detailsView = null;
+  let detailsViewController = null;
 
   beforeEach(() => {
     model = new DinnerModel();
     homeView = new HomeView(document.querySelector("#page-content"));
     searchView = new SearchView(document.querySelector("#page-content"), model);
     overviewView = new OverviewView(document.querySelector("#page-content-overview"), model);
+    detailsView = new DishDetailsView(document.querySelector("#container-details"), model);
   });
 
   describe("Home View", () => {
@@ -126,4 +129,38 @@ describe("DinnerPlanner App", () => {
       }
     });
   });
+  
+
+  describe("Details page", () => {
+    beforeEach(async () => {
+      let dish = await model.getDish(559251);
+      model.setRecipeDetailsDish(dish);
+      detailsView.render();
+      detailsViewController = new DishDetailsViewController(detailsView, model)
+    });
+
+    it("updates the model on interaction", (done) => {
+      const addToMenuButton = document.getElementById("add-to-menu-button");
+      expect(addToMenuButton).to.not.be.a("null");
+      addToMenuButton.click();
+      model.getDish(559251)
+      .then((dish) => {
+        expect(model.getFullMenu().length).to.equal(1);
+        expect(model.getFullMenu()[0].id).to.equal(559251);
+        expect(model.getFullMenu()[0].title).to.equal(dish.title)
+        done();
+      })
+      }).timeout(5000);
+
+    it("displays the changes after interaction", () => {
+      const addToMenuButton = document.getElementById("add-to-menu-button");
+      expect(addToMenuButton).to.not.be.a("null");
+      addToMenuButton.click();
+      const dishlistelem = document.getElementsByClassName("value-main-course-name"); 
+      for (let d of dishlistelem) {
+        expect(d).to.not.be.a("null");
+        expect(d.innerHTML).to.equal("Breakfast Pizza");
+      } 
+    });
+  })
 });

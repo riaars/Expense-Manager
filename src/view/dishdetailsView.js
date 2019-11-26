@@ -11,8 +11,8 @@ class DishDetailsView {
     jsx = () => (
       <div className="grid-container" style={{gridTemplateRows:"0 auto"}}>
         <div className="sidebar" id="sbv">sidebar</div>
-        <div class="main" id="recipecontainer"><h1></h1></div>
-        <div style="display:none" id="dishSearchView"></div>
+        <div className="main" id="recipecontainer"><h1></h1></div>
+        <div style={{display:"none", id:"dishSearchView"}}></div>
       </div>
     ) 
 
